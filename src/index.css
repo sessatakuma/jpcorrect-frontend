@@ -21,7 +21,8 @@ html {
 }
 
 :root {
-    --color-primary: #d8d1d1;
-    --color-secondary: #9e4145;
-    --color-accent: #619e83;
+    --clr-primary-light: hsl(0, 8%, 88%);
+    --clr-primary: #d8d1d1;
+    --clr-secondary: #9e4145;
+    --clr-accent: #619e83;
 }

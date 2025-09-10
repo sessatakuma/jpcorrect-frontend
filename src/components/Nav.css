@@ -5,8 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
+    background-color: var(--clr-primary);
+    color: var(--clr-secondary);
     position: fixed;
     top: 0;
     left: 0;
@@ -37,8 +37,8 @@
     gap: 1rem;
 
     & button {
-        background-color: var(--color-secondary);
-        color: var(--color-primary);
+        background-color: var(--clr-secondary);
+        color: var(--clr-primary);
         border: none;
         width: 4vh;
         height: 4vh;
@@ -50,7 +50,7 @@
         transition: background-color .2s ease;
 
         &:hover {
-            background-color: color-mix(in hsl, var(--color-secondary), #000 5%);
+            background-color: color-mix(in hsl, var(--clr-secondary), #000 5%);
         }
     }
 }
