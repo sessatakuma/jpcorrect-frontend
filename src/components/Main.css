@@ -20,9 +20,9 @@ main {
     display: grid !important;
     grid-template:
         'display transcript' 2fr
-        'timestamps hint' 1fr
+        'display hint' 1fr
         / 3fr 2fr;
-    gap: 2rem;
+    gap: 1rem 2rem;
     height: 92.5vh;
     height: 92.5dvh;
         margin-top: 7.5vh;
