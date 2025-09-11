@@ -32,7 +32,7 @@ export default function Transcript() {
             <div className="header">文字起こし</div>
             {list.map((t, i) => (
                 <div className='caption' key={i}>
-                    <figure className="icon"></figure>
+                    <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
                     <p class='text'>{t.text}</p>
                 </div>
             ))}

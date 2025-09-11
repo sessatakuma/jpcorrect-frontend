@@ -22,7 +22,7 @@ main {
         'display transcript' 2fr
         'display hint' 1fr
         / 3fr 2fr;
-    gap: 1rem 2rem;
+    gap: .5rem 1.5rem;
     height: 92.5vh;
     height: 92.5dvh;
         margin-top: 7.5vh;

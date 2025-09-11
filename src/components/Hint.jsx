@@ -6,6 +6,13 @@ export default function Hint() {
     return (
         <section className='hint'>
             <div className="header">AI添削</div>
+            <p className="response">AI response</p>
+            <div className="input-area">
+                <p className="input" contentEditable></p>
+                <button className="send">
+                    <i className="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
         </section>
     );
 }

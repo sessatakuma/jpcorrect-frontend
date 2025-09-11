@@ -23,7 +23,8 @@ html {
 }
 
 :root {
-    --clr-primary-light: hsl(0, 8%, 88%);
+    --clr-primary-100: #d8d1d140;
+    --clr-primary-200: #d8d1d1cc;
     --clr-primary: #d8d1d1;
     --clr-secondary: #9e4145;
     --clr-accent: #619e83;
