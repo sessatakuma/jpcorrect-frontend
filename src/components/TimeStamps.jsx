@@ -5,7 +5,7 @@ import 'components/TimeStamps.css';
 export default function TimeStamps() {
     return (
         <section className='timestamps'>
-            timestamps
+            <div className="header">問題箇所タイムスタンプ</div>
         </section>
     );
 }

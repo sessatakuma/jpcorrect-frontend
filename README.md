@@ -1,4 +1,4 @@
-# jpcorrect-front
+# jpcorrect-frontend
 This repository contains the front-end for the jpcorrect system, a Japanese language correction platform.
 
 ## Getting Started
