@@ -1,11 +1,14 @@
 .hint {
+    --padding: 1rem;
+    --input-height: 4rem;
     width: 100%;
     height: 100%;
     grid-area: hint;
-    overflow: auto;
-    background: var(--clr-primary);
+    background: var(--clr-primary-200);
     border-radius: 1rem;
     color: var(--clr-secondary);  
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 .hint .header {
@@ -16,4 +19,48 @@
     display: grid;
     place-items: center;
     background-color: var(--clr-primary);
+    border-radius: 1rem 1rem 0 0;
+}
+
+.hint .response {
+    padding: var(--padding);
+    line-height: 1.5rem;
+    margin: 0;
+}
+
+.hint .input-area {
+    margin: 0 1rem 1rem 1rem;
+    min-height: var(--input-height, 4rem);
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--clr-primary);
+    color: var(--clr-secondary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hint .input {
+    all: unset;
+    width: 100%;
+    height: auto;
+    max-height: 3rem;
+    overflow-y: auto;
+    margin: 0;
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+.hint .send {
+    --size: 3rem;
+    cursor: pointer;
+    color: var(--clr-primary);
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--clr-accent);
 }

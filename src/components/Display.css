@@ -12,9 +12,10 @@
 .display .video {
     height: 100%;
     border-radius: 1rem;
+    /* border: 1px solid var(--clr-primaㄌry); */
     display: grid;
     grid-template-rows: 1fr auto auto;
-    background: var(--clr-primary);
+    background: var(--clr-primary-200);
 }
 
 .video .youtube {
@@ -69,8 +70,7 @@
     align-items: center;
     gap: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 4px solid var(--clr-secondary);
-    border-radius: 0 0 1rem 1rem;;
+    border-radius: 0 0 1rem 1rem;
 }
 
 .video .control button {
@@ -105,12 +105,11 @@
 .display .info {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    color: var(--clr-primary);
-    gap: .75rem;
+    gap: .5rem;
 }
 
 .info .video-info {
+    color: var(--clr-primary);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -123,16 +122,17 @@
 }
 
 .info .participant-info {
+    color: var(--clr-primary);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
 .participant-info .group {
-    background: #fff3;
     padding: 1rem;
-    border: 1px solid var(--clr-primary);
-    border-radius: 1rem;;
+    border: 1px solid var(--clr-primary-200);
+    border-radius: 1rem;
+    background: var(--clr-primary-100);
 }
 
 .group .title {
