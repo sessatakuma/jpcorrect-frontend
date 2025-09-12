@@ -62,7 +62,7 @@ export default function Display() {
                 </div>
                 <div className="participant-info">
                     {[1, 2].map((_, index) => (
-                        <div className="group">
+                        <div className="group" key={index}>
                             <h3 className="title">グループ{index + 1}</h3>
                             <ul className="participants">
                                 {

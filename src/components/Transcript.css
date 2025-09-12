@@ -1,6 +1,7 @@
 .transcript {
     width: 100%;
     height: 100%;
+    position: relative;
     grid-area: transcript;
     background: var(--clr-primary-light);
     overflow-y: auto;
@@ -37,6 +38,9 @@
     &:hover {
         background: var(--clr-primary);
     }
+    &.expanded {
+        background: var(--clr-primary);
+    }
 }
 
 .transcript .icon {
@@ -52,4 +56,8 @@
     height: min-content;
     word-break: normal;     
     overflow-wrap: break-word;
+}
+
+.transcript .filler {
+    background: var(--clr-primary-200);
 }

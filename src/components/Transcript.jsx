@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import 'components/Transcript.css';
 
 export default function Transcript() {
@@ -27,15 +27,42 @@ export default function Transcript() {
         .filter(line => line.length > 0) // remove empty lines
         .map(line => ({ name: 'Sui', text: line }));
 
+    const expand = (i) => {
+        const container = document.querySelector('.transcript');
+        const el = document.getElementsByClassName('caption')[i];
+        const header = container.querySelector('.header');
+        const headerHeight = header ? header.offsetHeight : 0;
+
+        container.scrollTo({
+            top: el.offsetTop - headerHeight, // align caption under header
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+            el.classList.add('expanded');
+        }, 200);
+    };
+
+    const [containerHeight, setContainerHeight] = React.useState(0);
+
+    useEffect(() => {
+        // Scroll to top when component mounts
+        const container = document.querySelector('.transcript');
+        const el = document.getElementsByClassName('caption')[list.length - 1];
+        const header = container.querySelector('.header');
+        setContainerHeight(container.offsetHeight - el.offsetHeight - header.offsetHeight);
+    }, []);
+    
     return (
         <section className='transcript'>
             <div className="header">文字起こし</div>
             {list.map((t, i) => (
-                <div className='caption' key={i}>
+                <div className='caption' key={i} onClick={() => {expand(i);}}>
                     <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
                     <p class='text'>{t.text}</p>
                 </div>
             ))}
+            <div className="filler" style={{"height": containerHeight + 'px'}}></div>
         </section>
     )
 }
