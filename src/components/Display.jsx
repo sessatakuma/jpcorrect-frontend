@@ -69,7 +69,7 @@ export default function Display() {
                                     Array.from({ length: 8 }, (_, i) => i + 1).map((_, _index) => (
                                         <li className="participant" key={index * 8 + _index}>
                                             <img className="icon" src="https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj" alt="Author Avatar"/>
-                                            <span className="name">星街すいせい {index * 8 + _index + 1}</span>
+                                            <span className="name">すい {index * 8 + _index + 1}</span>
                                         </li>
                                     ))
                                 }

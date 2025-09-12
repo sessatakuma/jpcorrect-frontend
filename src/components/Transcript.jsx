@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import 'components/Transcript.css';
 
 export default function Transcript() {
@@ -28,36 +28,38 @@ export default function Transcript() {
         .map(line => ({ name: 'Sui', text: line }));
 
     const expand = (i) => {
-        const container = document.querySelector('.transcript');
-        const el = document.getElementsByClassName('caption')[i];
-        const header = container.querySelector('.header');
-        const headerHeight = header ? header.offsetHeight : 0;
-
-        container.scrollTo({
-            top: el.offsetTop - headerHeight, // align caption under header
+        containerRef.current.scrollTo({
+            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight, // align caption under header
             behavior: 'smooth'
         });
-
-        setTimeout(() => {
-            el.classList.add('expanded');
-        }, 200);
+        setExpanded(i);
     };
 
+    const [expanded, setExpanded] = React.useState(-1);
     const [containerHeight, setContainerHeight] = React.useState(0);
 
+    const containerRef = useRef(null);
+    const headerRef = useRef(null);
+    const captionRefs = useRef([]);
+
     useEffect(() => {
-        // Scroll to top when component mounts
-        const container = document.querySelector('.transcript');
-        const el = document.getElementsByClassName('caption')[list.length - 1];
-        const header = container.querySelector('.header');
-        setContainerHeight(container.offsetHeight - el.offsetHeight - header.offsetHeight);
+        setContainerHeight(
+            containerRef.current.offsetHeight 
+            - captionRefs.current[list.length - 1].offsetHeight 
+            - headerRef.current.offsetHeight
+        );
     }, []);
     
     return (
-        <section className='transcript'>
-            <div className="header">文字起こし</div>
+        <section className='transcript' ref={containerRef} onScroll={() => setExpanded(-1)}>
+            <div className="header" ref={headerRef}>文字起こし</div>
             {list.map((t, i) => (
-                <div className='caption' key={i} onClick={() => {expand(i);}}>
+                <div 
+                    className={`caption ${i === expanded ? 'expanded' : ''}`}
+                    key={i} 
+                    onClick={() => {expand(i);}}
+                    ref={el => captionRefs.current[i] = el}
+                >
                     <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
                     <p class='text'>{t.text}</p>
                 </div>
