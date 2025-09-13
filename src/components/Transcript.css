@@ -1,8 +1,16 @@
+.transcript-container {
+    width: 100%;
+    height: 10%;
+    position: relative;
+    display: grid;
+    gap: .5rem;
+    grid-template-rows: 2fr 1fr;
+}
+
 .transcript {
     width: 100%;
     height: 100%;
     position: relative;
-    grid-area: transcript;
     background: var(--clr-primary-light);
     overflow-y: auto;
     display: grid;
