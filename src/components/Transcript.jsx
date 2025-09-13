@@ -29,6 +29,7 @@ export default function Transcript() {
 
     const [expanded, setExpanded] = useState(-1);
     const [containerHeight, setContainerHeight] = useState(0);
+    const [fillerHeight, setFillerHeight] = useState(0);
     const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
 
     const containerRef = useRef(null);
@@ -37,7 +38,8 @@ export default function Transcript() {
     const animationRefs = useRef([]);
 
     useEffect(() => {
-        setContainerHeight(
+        setContainerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight);
+        setFillerHeight(
             containerRef.current.offsetHeight 
             - captionRefs.current[list.length - 1].offsetHeight 
             - headerRef.current.offsetHeight
@@ -119,20 +121,22 @@ export default function Transcript() {
                 onTouchMove={lockAll}
             >
             <div className="header" ref={headerRef}>文字起こし</div>
-            {list.map((t, i) => (
-                <div 
-                    className={`caption ${i === expanded ? 'expanded' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`}
-                    key={i} 
-                    onMouseDown={() => {handleUnlockStart(i);}}
-                    onMouseUp={() => {handleUnlockEnd(i);}}
-                    ref={el => captionRefs.current[i] = el}
-                    style={{"--progress": unlockProgress[i] + '%'}}
-                >
-                    <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
-                    <p className='text'>{t.text}</p>
+            {list.map((t, i) => 
+                <div className="caption-container" key={i} style={{height: (i === expanded ? containerHeight : 'auto')}}>
+                    <div 
+                        className={`caption ${i === expanded ? 'expanded' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`}
+                        onMouseDown={() => {handleUnlockStart(i);}}
+                        onMouseUp={() => {handleUnlockEnd(i);}}
+                        ref={el => captionRefs.current[i] = el}
+                        style={{"--progress": unlockProgress[i] + '%'}}
+                    >
+                        <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
+                        <p className='text'>{t.text}</p>
+                    </div>
+                    <p className="note" contentEditable style={{height: (i === expanded ? 'auto' : 0), padding: (i === expanded ? '1rem' : 0)}}></p>
                 </div>
-            ))}
-            <div className="filler" style={{"height": containerHeight + 'px'}}></div>
+            )}
+            <div className="filler" style={{"height": fillerHeight + 'px'}}></div>
         </section>
     )
 }
