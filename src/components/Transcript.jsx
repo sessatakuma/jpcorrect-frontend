@@ -133,7 +133,7 @@ export default function Transcript({currentTime, setCurrentTime}) {
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
                         >
-                            <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
+                            <img className="icon" src='images/icon.png'/>
                             <p className='text'>{caption.text}</p>
                         </div>
                         <p className="note" contentEditable></p>

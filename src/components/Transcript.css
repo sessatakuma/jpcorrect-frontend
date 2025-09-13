@@ -111,7 +111,8 @@
 }
 
 .transcript .icon {
-    background-color: grey;
+    background-color: var(--clr-primary);
+    border: 1px solid var(--clr-secondary);
     border-radius: 50%;
     width: 2rem;
     aspect-ratio: 1 / 1;

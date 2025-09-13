@@ -8,13 +8,6 @@ export default function Display({currentTime, setCurrentTime}) {
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    useEffect(() => {
-        if (playerRef.current) {
-            const state = playerRef.current.getPlayerState();
-            setIsPlaying(state === window.YT.PlayerState.PLAYING);
-        }   
-    }, [playerRef.current]);
-
     const onReady = e => {
         playerRef.current = e.target;
         setDuration(playerRef.current.getDuration());
@@ -92,6 +85,8 @@ export default function Display({currentTime, setCurrentTime}) {
                     videoId="W6_V19cf9hg" 
                     opts={opts} 
                     onReady={onReady} 
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
                 />
                 <div className="timeline">
                     <span className="time-left">{formatTime(currentTime)}</span>
