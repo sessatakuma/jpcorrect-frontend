@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import 'components/Transcript.css';
 
 export default function Transcript() {
@@ -27,20 +27,14 @@ export default function Transcript() {
         .filter(line => line.length > 0) // remove empty lines
         .map(line => ({ name: 'Sui', text: line }));
 
-    const expand = (i) => {
-        containerRef.current.scrollTo({
-            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight, // align caption under header
-            behavior: 'smooth'
-        });
-        setExpanded(i);
-    };
-
-    const [expanded, setExpanded] = React.useState(-1);
-    const [containerHeight, setContainerHeight] = React.useState(0);
+    const [expanded, setExpanded] = useState(-1);
+    const [containerHeight, setContainerHeight] = useState(0);
+    const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
 
     const containerRef = useRef(null);
     const headerRef = useRef(null);
     const captionRefs = useRef([]);
+    const animationRefs = useRef([]);
 
     useEffect(() => {
         setContainerHeight(
@@ -49,19 +43,93 @@ export default function Transcript() {
             - headerRef.current.offsetHeight
         );
     }, []);
-    
+
+    useEffect(() => {
+        // Expand caption when unlockProgress reaches 100
+        unlockProgress.forEach((progress, i) => {
+            if (progress === 100 && expanded !== i) {
+                containerRef.current.scrollTo({
+                    top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
+                    behavior: 'smooth'
+                });
+                setExpanded(i);
+            }
+        });
+    }, [unlockProgress, expanded]);
+
+    // Easing helpers
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const handleUnlockStart = (i) => {
+        if (unlockProgress[i] === 100) return; // already unlocked
+
+        if (animationRefs.current[i]) {
+            clearInterval(animationRefs.current[i]);
+        }
+
+        lockAll();
+
+        const startTime = Date.now();
+        const duration = 800; // 0.8 seconds
+        animationRefs.current[i] = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            let linear = Math.min(elapsed / duration, 1);   // 0 → 1
+            let eased = easeOutCubic(linear);               // apply easing
+            let progress = eased * 100;
+
+            setUnlockProgress((prev) => {
+                const newProgress = [...prev];
+                newProgress[i] = progress;
+                return newProgress;
+            });
+
+            if (linear >= 1) {
+                clearInterval(animationRefs.current[i]);
+                animationRefs.current[i] = null;
+            }
+        }, 16); // ~60fps
+    };
+
+    const handleUnlockEnd = (i) => {
+        if (unlockProgress[i] >= 95) {
+            setUnlockProgress((prev) => {
+                const newProgress = [...prev];
+                newProgress[i] = 100;
+                return newProgress;
+            });
+            return;
+        }
+        lockAll();
+        if (animationRefs.current[i]) {
+            clearInterval(animationRefs.current[i]);
+            animationRefs.current[i] = null;
+        }
+    };
+
+    const lockAll = () => {
+        setUnlockProgress(Array(list.length).fill(0));
+        setExpanded(-1);
+    }
+
     return (
-        <section className='transcript' ref={containerRef} onScroll={() => setExpanded(-1)}>
+        <section
+                className="transcript"
+                ref={containerRef}
+                onWheel={lockAll}
+                onTouchMove={lockAll}
+            >
             <div className="header" ref={headerRef}>文字起こし</div>
             {list.map((t, i) => (
                 <div 
-                    className={`caption ${i === expanded ? 'expanded' : ''}`}
+                    className={`caption ${i === expanded ? 'expanded' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`}
                     key={i} 
-                    onClick={() => {expand(i);}}
+                    onMouseDown={() => {handleUnlockStart(i);}}
+                    onMouseUp={() => {handleUnlockEnd(i);}}
                     ref={el => captionRefs.current[i] = el}
+                    style={{"--progress": unlockProgress[i] + '%'}}
                 >
                     <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
-                    <p class='text'>{t.text}</p>
+                    <p className='text'>{t.text}</p>
                 </div>
             ))}
             <div className="filler" style={{"height": containerHeight + 'px'}}></div>
