@@ -115,7 +115,7 @@ export default function Transcript() {
     }
 
     return (
-        <section className="transcript-container">
+        <section className={"transcript-container" + (expanded !== -1 ? ' expanded' : '')}>
             <section
                     className="transcript"
                     ref={containerRef}
@@ -135,10 +135,10 @@ export default function Transcript() {
                             <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
                             <p className='text'>{t.text}</p>
                         </div>
-                        <p className="note" contentEditable style={{height: (i === expanded ? 'auto' : 0), padding: (i === expanded ? '1rem' : 0)}}></p>
+                        <p className="note" contentEditable></p>
                     </div>
                 )}
-                <div className="filler" style={{"height": fillerHeight + 'px'}}></div>
+                <div className="filler" style={{height: fillerHeight}}></div>
             </section>
             <Hint />
         </section>

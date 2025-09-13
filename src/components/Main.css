@@ -18,8 +18,8 @@ html {
 
 main {
     display: grid !important;
-    grid-template-columns: 3fr 2fr;
     gap: 2rem;
+    grid-template-columns: 1fr 1fr;
     height: 92.5vh;
     height: 92.5dvh;
     margin-top: 7.5vh;
