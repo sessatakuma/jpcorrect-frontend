@@ -49,15 +49,13 @@ export default function Transcript({currentTime, setCurrentTime}) {
                 break;
         }
         setCurrentCaption(captionIndex);
-        let tooHigh = captionRefs.current[captionIndex].offsetTop < containerRef.current.scrollTop + headerRef.current.offsetHeight;
-        let tooLow = captionRefs.current[captionIndex].offsetTop + captionRefs.current[captionIndex].offsetHeight > containerRef.current.scrollTop + containerRef.current.offsetHeight;
-        if (tooHigh || tooLow) { 
-            if (expanded !== -1) return; // don't auto-scroll if a caption is expanded
-            containerRef.current.scrollTo({
-                top: captionRefs.current[captionIndex].offsetTop - headerRef.current.offsetHeight,
-                behavior: 'smooth'
-            });
-        }
+        // let tooHigh = captionRefs.current[captionIndex].offsetTop < containerRef.current.scrollTop + headerRef.current.offsetHeight;
+        // let tooLow = captionRefs.current[captionIndex].offsetTop + captionRefs.current[captionIndex].offsetHeight > containerRef.current.scrollTop + containerRef.current.offsetHeight;
+        if (expanded !== -1) return; // don't auto-scroll if a caption is expanded
+        containerRef.current.scrollTo({
+            top: captionRefs.current[captionIndex].offsetTop - headerRef.current.offsetHeight,
+            behavior: 'smooth'
+        });
     }, [currentTime]);
 
     // Easing helpers
