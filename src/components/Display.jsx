@@ -4,9 +4,21 @@ import 'components/Display.css';
 import VideoInfo from "components/VideoInfo";
 
 export default function Display({currentTime, setCurrentTime}) {
-    const playerRef = useRef(null);
+    const videoID = 'W6_V19cf9hg';
+    const youtubeOpts = {
+        playerVars: {
+            controls: 0,
+            autoplay: 0,
+        },
+    };
+
+    const timestamps = [50, 150, 200, 325];
+
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+
+    const playerRef = useRef(null);
+    const progressRef = useRef(null);
 
     const onReady = e => {
         playerRef.current = e.target;
@@ -31,12 +43,19 @@ export default function Display({currentTime, setCurrentTime}) {
         if (!playerRef.current)
             return;
 
-        const prevTime = list.find(time => time < currentTime);
-        if(prevTime !== undefined){
-            playerRef.current.seekTo(prevTime, true);
-            setCurrentTime(prevTime);
-        }else{
-            playerRef.current.seekTo(0,true);
+        let prevTimestamp = -1;
+        for (let i = 0; i < timestamps.length; i++) {
+            if (currentTime > timestamps[i]) 
+                prevTimestamp = i;
+            else 
+                break;
+        }
+        if (prevTimestamp !== -1) {
+            playerRef.current.seekTo(timestamps[prevTimestamp], true);
+            setCurrentTime(timestamps[prevTimestamp]);
+        }
+        else {
+            playerRef.current.seekTo(0, true);
             setCurrentTime(0);
         }
     };
@@ -45,13 +64,44 @@ export default function Display({currentTime, setCurrentTime}) {
         if (!playerRef.current)
             return;
 
-        const nextTime = list.find(time => time > currentTime);
-        if(nextTime !== undefined){
+        const nextTime = timestamps.find(time => time > currentTime);
+        if (nextTime !== undefined) {
             playerRef.current.seekTo(nextTime, true);
             setCurrentTime(nextTime);
         }
-
+        else {
+            playerRef.current.seekTo(duration, true);
+            setCurrentTime(duration);
+        }
     };
+
+    const changeTime = e => {
+        if (!playerRef.current)
+            return;
+
+        const progressContainer = progressRef.current;
+        if (!progressContainer || !duration) return;
+
+        const rect = progressContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        let percent = x / rect.width;
+        percent = Math.max(0, Math.min(1, percent));
+        const newTime = percent * duration;
+        playerRef.current.seekTo(newTime, true);
+        setCurrentTime(newTime);
+    }
+
+    const startChangingTime = () => {
+        window.addEventListener("mousemove", changeTime);
+        window.addEventListener("mouseup", finishChangingTime);
+        playerRef.current.pauseVideo();
+    }
+
+    const finishChangingTime = () => {
+        window.removeEventListener("mousemove", changeTime);
+        window.removeEventListener("mouseup", finishChangingTime);
+        playerRef.current.playVideo();
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -68,22 +118,13 @@ export default function Display({currentTime, setCurrentTime}) {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
-    const opts = {
-        playerVars: {
-            controls: 0,
-            autoplay: 0,
-        },
-    };
-
-    const list = [50, 200];
-
     return (
         <section className="display">
             <div className="video">
                 <YouTube 
                     className="youtube"
-                    videoId="W6_V19cf9hg" 
-                    opts={opts} 
+                    videoId={videoID} 
+                    opts={youtubeOpts} 
                     onReady={onReady} 
                     onPlay={() => setIsPlaying(true)}
                     onPause={() => setIsPlaying(false)}
@@ -91,8 +132,18 @@ export default function Display({currentTime, setCurrentTime}) {
                 <div className="timeline">
                     <span className="time-left">{formatTime(currentTime)}</span>
                     <div className="progress-container">
-                        <div className="progress"></div>
-                        {list.map((time, i) => 
+                        <div 
+                            className="progress" 
+                            onClick={changeTime}
+                            onMouseDown={startChangingTime}
+                            ref={progressRef}
+                        >
+                            <div 
+                                className="progress-indicator"
+                                style={{"--progress": `${(currentTime / duration) * 100}%` }}
+                            ></div>
+                        </div>
+                        {timestamps.map((time, i) => 
                             <div 
                                 className="dot" 
                                 key={i} 
@@ -116,7 +167,7 @@ export default function Display({currentTime, setCurrentTime}) {
                         <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'}`}></i>
                     </button>
                     <button className="next" onClick={goNext}>
-                    <i className="fa-solid fa-forward-step"></i>
+                        <i className="fa-solid fa-forward-step"></i>
                     </button>
                 </div>
             </div>
