@@ -1,11 +1,10 @@
 .display {
     width: 100%;
     height: 100%;
-    grid-area: display;
     color: var(--clr-secondary);  
     border-radius: 1rem;
     display: grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 67% 33%;
     gap: .5rem;
 }
 
