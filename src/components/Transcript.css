@@ -1,6 +1,7 @@
 .transcript {
     width: 100%;
     height: 100%;
+    position: relative;
     grid-area: transcript;
     background: var(--clr-primary-light);
     overflow-y: auto;
@@ -22,6 +23,12 @@
     display: grid;
     place-items: center;
     background-color: var(--clr-primary);
+    z-index: 2;
+}
+
+.transcript .caption-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 .transcript .caption {
@@ -31,12 +38,28 @@
     gap: 1rem;
     grid-template-columns: auto 1fr;
     cursor: pointer;
+    position: relative;
+    z-index: 0;
     & * {
         margin: 0;
     }
     &:hover {
+        /* background: var(--clr-primary); */
+    }
+    &.expanded {
         background: var(--clr-primary);
     }
+}
+
+.caption::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--progress, 0);
+    background: var(--clr-primary);
+    z-index: -1;
 }
 
 .transcript .icon {
@@ -52,4 +75,20 @@
     height: min-content;
     word-break: normal;     
     overflow-wrap: break-word;
+}
+
+.transcript .filler {
+    background: var(--clr-primary-200);
+}
+
+.transcript .note {
+    all: unset;
+    box-sizing: border-box;
+    background: var(--clr-primary-200);
+    position: relative;
+    z-index: 0;
+    height: auto;
+    width: 100%;
+    transition: .2s;
+    margin: 0;
 }
