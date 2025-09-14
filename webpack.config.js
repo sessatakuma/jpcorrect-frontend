@@ -13,6 +13,8 @@ module.exports = {
     extensions: ['.js', '.jsx'], 
     alias: {
       components: path.resolve(srcPath, 'components'),
+      utilities: path.resolve(srcPath, 'utilities'),
+      data: path.resolve(srcPath, 'data'),
     },
   },
 

@@ -31,19 +31,51 @@
     padding: 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
 }
 
-.video .progress {
+.timeline .time-left,
+.timeline .time-right {
+    font-size: .75rem;
+    color: var(--clr-secondary);
+    text-align: center;
+    padding: 0 .5rem;
+}
+
+.timeline .progress-container {
     position: relative;
     width: 100%;
     height: 4px;
-    background: var(--clr-secondary);
-    border-radius: 2px;
 }
 
-.timeline .dot {
+.progress-container .progress {
+    width: 100%;
+    height: 100%;
+    background: var(--clr-primary);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.progress-container .progress-indicator{
+    background-color: var(--clr-secondary);
+    width: var(--progress);
+    height: 100%;
+    border-radius: 2px;
+    float: left;
+}
+
+.progress:hover .progress-indicator::after {
+    content: '';
+    background-color: var(--clr-secondary);
+    width: .5rem;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    left: var(--progress);
+}
+
+.progress-container .dot {
     position: absolute;
     top: 50%;
     width: .75rem;
@@ -54,20 +86,12 @@
     cursor: pointer;
 }
 
-.timeline .dot:nth-child(1) {
-    left: 20%;
-}
-
-.timeline .dot:nth-child(2) {
-    left: 40%;
-}
-
 .video .control {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: .75rem;
     padding-bottom: 1rem;
     border-radius: 0 0 1rem 1rem;
 }
@@ -94,9 +118,16 @@
     display: grid;
     place-items: center;
     font-size: 1.2rem;
+    transition: .1s;
     & i {
         color: var(--clr-accent);
         width: 1rem;
         aspect-ratio: 1 / 1;
     }    
+    &:hover {
+        scale: 1.1;
+    }
+    &.play-pause i {
+        translate: 1px;
+    }
 }

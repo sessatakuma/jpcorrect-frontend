@@ -1,37 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import 'components/Transcript.css';
 import Hint from 'components/Hint';
+import getCaptionData from "../utilities/getCaptionData";
 
-export default function Transcript() {
-    const rawText = `
-空っぽのサイレン
-乾いた施錠音(せじょうおと)
-ガラガラスケーター 
-賑わえ三点リーダ
-どんな言葉にも ちゃんと 
-綻びがあった
-もう 何も言わずに
-遊ぼう(遊ぼう)
-
-どうでもいい朝に 慣れ過ぎて 傘は持ってない 借りてた未来 返しきれず かわしきれずからがら まちゆく余所者
-
-ねえ ねえ 独りだ 肩触れたのは メイビー、レイニー 君はとうにいないんだね かなしくはないよ 嬉しくもないよ メイビー、レイニー よく晴れた鈍色に 減点式の舗装路を染める レイニー、レイニー こんな間違えたんだね 塗りつぶしてゆくパノラマ レイニー、レイニー 君は何点だったの
-
-バイバイ バイバイ 
-よく晴れた鈍色のしょうご
-    `;
-
-    // split by line breaks and trim
-    const list = rawText
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => line.length > 0) // remove empty lines
-        .map(line => ({ name: 'Sui', text: line }));
-
-    const [expanded, setExpanded] = useState(-1);
+export default function Transcript({currentTime, setCurrentTime}) {
+    const list = getCaptionData();
+    
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
+
+    const [expanded, setExpanded] = useState(-1);
     const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
+    const [currentCaption, setCurrentCaption] = useState(0);
 
     const containerRef = useRef(null);
     const headerRef = useRef(null);
@@ -59,6 +39,24 @@ export default function Transcript() {
             }
         });
     }, [unlockProgress, expanded]);
+
+    useEffect(() => {
+        let captionIndex = -1;
+        for (let i = 0; i < list.length; i++) {
+            if (currentTime >= list[i].time) 
+                captionIndex = i;
+            else 
+                break;
+        }
+        setCurrentCaption(captionIndex);
+        // let tooHigh = captionRefs.current[captionIndex].offsetTop < containerRef.current.scrollTop + headerRef.current.offsetHeight;
+        // let tooLow = captionRefs.current[captionIndex].offsetTop + captionRefs.current[captionIndex].offsetHeight > containerRef.current.scrollTop + containerRef.current.offsetHeight;
+        if (expanded !== -1) return; // don't auto-scroll if a caption is expanded
+        containerRef.current.scrollTo({
+            top: captionRefs.current[captionIndex].offsetTop - headerRef.current.offsetHeight,
+            behavior: 'smooth'
+        });
+    }, [currentTime]);
 
     // Easing helpers
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
@@ -123,17 +121,20 @@ export default function Transcript() {
                     onTouchMove={lockAll}
                 >
                 <div className="header" ref={headerRef}>文字起こし</div>
-                {list.map((t, i) => 
+                {list.map((caption, i) => 
                     <div className="caption-container" key={i} style={{height: (i === expanded ? containerHeight : 'auto')}}>
                         <div 
-                            className={`caption ${i === expanded ? 'expanded' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`}
+                            className={`
+                                caption ${i === expanded ? 'expanded' : ''} 
+                                ${unlockProgress[i] === 100 ? 'unlocked' : ''}
+                                ${i === currentCaption ? 'current' : ''}`}
                             onMouseDown={() => {handleUnlockStart(i);}}
                             onMouseUp={() => {handleUnlockEnd(i);}}
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
                         >
-                            <img className="icon" src='https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj'/>
-                            <p className='text'>{t.text}</p>
+                            <img className="icon" src='images/icon.png'/>
+                            <p className='text'>{caption.text}</p>
                         </div>
                         <p className="note" contentEditable></p>
                     </div>

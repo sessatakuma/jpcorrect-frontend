@@ -29,6 +29,7 @@
 }
 
 .transcript .header {
+    font-weight: bold;
     position: sticky;
     top: 0;
     height: 2rem;
@@ -57,27 +58,34 @@
     & * {
         margin: 0;
     }
-    &:hover {
-        /* background: var(--clr-primary); */
+    &.current {
+        background-color: var(--clr-primary);
     }
     &.expanded {
         background: var(--clr-primary);
+        &::after {
+            opacity: 0;
+        }
+        font-weight: 400;
     }
 }
 
-.caption::before {
+.caption::after {
     content: "";
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    height: 100%;
+    height: .5rem;
     width: var(--progress, 0);
-    background: var(--clr-primary);
-    z-index: -1;
+    background: var(--clr-accent);
+    z-index: 0;
+    opacity: 1;
+    transition: opacity .2s;
 }
 
 .transcript .icon {
-    background-color: grey;
+    background-color: var(--clr-primary);
+    border: 1px solid var(--clr-secondary);
     border-radius: 50%;
     width: 2rem;
     aspect-ratio: 1 / 1;

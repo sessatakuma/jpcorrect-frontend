@@ -18,7 +18,7 @@ html {
 
 main {
     display: grid !important;
-    gap: 2rem;
+    gap: 1.5rem;
     grid-template-columns: 1fr 1fr;
     height: 92.5vh;
     height: 92.5dvh;
