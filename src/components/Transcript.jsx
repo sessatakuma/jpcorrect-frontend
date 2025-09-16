@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import 'components/Transcript.css';
 import Hint from 'components/Hint';
 import getCaptionData from "../utilities/getCaptionData";
 
-export default function Transcript({currentTime, setCurrentTime}) {
+export default function Transcript({playerRef, currentTime}) {
     const list = getCaptionData();
     
     const [containerHeight, setContainerHeight] = useState(0);
@@ -28,19 +28,6 @@ export default function Transcript({currentTime, setCurrentTime}) {
     }, []);
 
     useEffect(() => {
-        // Expand caption when unlockProgress reaches 100
-        unlockProgress.forEach((progress, i) => {
-            if (progress === 100 && expanded !== i) {
-                containerRef.current.scrollTo({
-                    top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
-                    behavior: 'smooth'
-                });
-                setExpanded(i);
-            }
-        });
-    }, [unlockProgress, expanded]);
-
-    useEffect(() => {
         let captionIndex = -1;
         for (let i = 0; i < list.length; i++) {
             if (currentTime >= list[i].time) 
@@ -49,14 +36,29 @@ export default function Transcript({currentTime, setCurrentTime}) {
                 break;
         }
         setCurrentCaption(captionIndex);
-        // let tooHigh = captionRefs.current[captionIndex].offsetTop < containerRef.current.scrollTop + headerRef.current.offsetHeight;
-        // let tooLow = captionRefs.current[captionIndex].offsetTop + captionRefs.current[captionIndex].offsetHeight > containerRef.current.scrollTop + containerRef.current.offsetHeight;
-        if (expanded !== -1) return; // don't auto-scroll if a caption is expanded
-        containerRef.current.scrollTo({
-            top: captionRefs.current[captionIndex].offsetTop - headerRef.current.offsetHeight,
-            behavior: 'smooth'
-        });
+
+        if (expanded === -1)
+            scrollToCaption(captionIndex);
     }, [currentTime]);
+
+    const scrollToCaption = i => {
+        if (!containerRef.current || !captionRefs.current[i]) return;
+        containerRef.current.scrollTo({
+            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
+            behavior: 'smooth'
+        }
+    )};
+
+    useEffect(() => {
+        unlockProgress.forEach((progress, i) => {
+            if (progress === 100 && expanded !== i) {
+                scrollToCaption(i);
+                setExpanded(i);
+            }
+        });
+    }, [unlockProgress, expanded]);
+
+    const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
 
     // Easing helpers
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
@@ -94,16 +96,20 @@ export default function Transcript({currentTime, setCurrentTime}) {
     };
 
     const handleUnlockEnd = (e, i) => {
-        if (e.button !== 2) return;
-        if (unlockProgress[i] >= 95) {
+        if (e.button !== 2) return; // 右鍵解鎖
+
+        if (unlockProgress[i] >= 95) { // 快解鎖就放開也解鎖
             setUnlockProgress((prev) => {
                 const newProgress = [...prev];
                 newProgress[i] = 100;
                 return newProgress;
             });
+            scrollToCaption(i);
+            setExpanded(i);
             return;
         }
-        lockAll();
+
+        lockAll(); // 不然就鎖回去
         if (animationRefs.current[i]) {
             clearInterval(animationRefs.current[i]);
             animationRefs.current[i] = null;
@@ -131,8 +137,8 @@ export default function Transcript({currentTime, setCurrentTime}) {
                                 caption ${i === expanded ? 'expanded' : ''} 
                                 ${unlockProgress[i] === 100 ? 'unlocked' : ''}
                                 ${i === currentCaption ? 'current' : ''}`}
-                            onClick={() => setTimeout(() => setCurrentTime(caption.time), 100)}
-                            onContextMenu={e => {handleUnlockStart(e, i);}}
+                            onClick={() => setTime(caption.time)}
+                            onContextMenu={e => handleUnlockStart(e, i)}
                             onMouseUp={e => handleUnlockEnd(e, i)}
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
