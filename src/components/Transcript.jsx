@@ -61,7 +61,9 @@ export default function Transcript({currentTime, setCurrentTime}) {
     // Easing helpers
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
-    const handleUnlockStart = (i) => {
+    const handleUnlockStart = (e, i) => {
+        e.preventDefault();
+
         if (unlockProgress[i] === 100) return; // already unlocked
 
         if (animationRefs.current[i]) {
@@ -91,7 +93,8 @@ export default function Transcript({currentTime, setCurrentTime}) {
         }, 16); // ~60fps
     };
 
-    const handleUnlockEnd = (i) => {
+    const handleUnlockEnd = (e, i) => {
+        if (e.button !== 2) return;
         if (unlockProgress[i] >= 95) {
             setUnlockProgress((prev) => {
                 const newProgress = [...prev];
@@ -128,8 +131,9 @@ export default function Transcript({currentTime, setCurrentTime}) {
                                 caption ${i === expanded ? 'expanded' : ''} 
                                 ${unlockProgress[i] === 100 ? 'unlocked' : ''}
                                 ${i === currentCaption ? 'current' : ''}`}
-                            onMouseDown={() => {handleUnlockStart(i);}}
-                            onMouseUp={() => {handleUnlockEnd(i);}}
+                            onClick={() => setTimeout(() => setCurrentTime(caption.time), 100)}
+                            onContextMenu={e => {handleUnlockStart(e, i);}}
+                            onMouseUp={e => handleUnlockEnd(e, i)}
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
                         >
