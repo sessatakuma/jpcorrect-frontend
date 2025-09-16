@@ -3,7 +3,7 @@ import YouTube from "react-youtube";
 import 'components/Display.css';
 import VideoInfo from "components/VideoInfo";
 
-export default function Display({currentTime, setCurrentTime}) {
+export default function Display({playerRef, currentTime, setCurrentTime}) {
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
         playerVars: {
@@ -17,7 +17,6 @@ export default function Display({currentTime, setCurrentTime}) {
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const playerRef = useRef(null);
     const progressRef = useRef(null);
 
     const onReady = e => {
@@ -39,6 +38,8 @@ export default function Display({currentTime, setCurrentTime}) {
         }   
     };
     
+    const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
+
     const goPrevious = () => {
         if (!playerRef.current)
             return;
@@ -50,29 +51,15 @@ export default function Display({currentTime, setCurrentTime}) {
             else 
                 break;
         }
-        if (prevTimestamp !== -1) {
-            playerRef.current.seekTo(timestamps[prevTimestamp], true);
-            setCurrentTime(timestamps[prevTimestamp]);
-        }
-        else {
-            playerRef.current.seekTo(0, true);
-            setCurrentTime(0);
-        }
+        setTime((prevTimestamp !== -1) ? timestamps[prevTimestamp] : 0);
     };
-
+    
     const goNext = () => {
         if (!playerRef.current)
             return;
-
+        
         const nextTime = timestamps.find(time => time > currentTime);
-        if (nextTime !== undefined) {
-            playerRef.current.seekTo(nextTime, true);
-            setCurrentTime(nextTime);
-        }
-        else {
-            playerRef.current.seekTo(duration, true);
-            setCurrentTime(duration);
-        }
+        setTime((nextTime !== undefined) ? nextTime : duration);
     };
 
     const changeTime = e => {
@@ -87,8 +74,7 @@ export default function Display({currentTime, setCurrentTime}) {
         let percent = x / rect.width;
         percent = Math.max(0, Math.min(1, percent));
         const newTime = percent * duration;
-        playerRef.current.seekTo(newTime, true);
-        setCurrentTime(newTime);
+        setTime(newTime);
     }
 
     const startChangingTime = () => {
@@ -102,15 +88,6 @@ export default function Display({currentTime, setCurrentTime}) {
         window.removeEventListener("mouseup", finishChangingTime);
         playerRef.current.playVideo();
     }
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (playerRef.current && playerRef.current.getCurrentTime) {
-                setCurrentTime(playerRef.current.getCurrentTime());
-            }
-        }, 500); 
-        return () => clearInterval(interval);
-    }, []);
 
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -148,12 +125,7 @@ export default function Display({currentTime, setCurrentTime}) {
                                 className="dot" 
                                 key={i} 
                                 style={{"left": time / duration * 100 + '%'}}
-                                onClick={() => {
-                                    if (playerRef.current) {
-                                        playerRef.current.seekTo(time, true);
-                                        setCurrentTime(time);
-                                    }
-                                }}
+                                onClick={() => setTime(time)}
                             />
                         )}
                     </div>
