@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
-import 'components/Transcript.css';
+import React, { useState, useEffect, useRef } from "react";
 import Hint from 'components/Hint';
-import getCaptionData from "../utilities/getCaptionData";
+import 'components/Transcript.css';
+import getCaptionData from "utilities/getCaptionData";
 
 export default function Transcript({playerRef, currentTime}) {
     const list = getCaptionData();
     
     const [containerHeight, setContainerHeight] = useState(0);
+    const [noteHeights, setNoteheights] = useState([]);
     const [fillerHeight, setFillerHeight] = useState(0);
 
     const [expanded, setExpanded] = useState(-1);
@@ -16,16 +17,19 @@ export default function Transcript({playerRef, currentTime}) {
     const containerRef = useRef(null);
     const headerRef = useRef(null);
     const captionRefs = useRef([]);
+    const noteRefs = useRef([]);
     const animationRefs = useRef([]);
 
     useEffect(() => {
-        setContainerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight);
-        setFillerHeight(
-            containerRef.current.offsetHeight 
-            - captionRefs.current[list.length - 1].offsetHeight 
-            - headerRef.current.offsetHeight
-        );
+        const height = containerRef.current.offsetHeight - headerRef.current.offsetHeight;
+        setContainerHeight(height);
+        setFillerHeight(height - captionRefs.current[list.length - 1].offsetHeight);
     }, []);
+    
+    useEffect(() => {
+        const height = containerRef.current.offsetHeight - headerRef.current.offsetHeight;
+        setNoteheights(captionRefs.current.map(caption => {height - caption.offsetHeight}))
+    }, [expanded]);
 
     useEffect(() => {
         let captionIndex = -1;
@@ -41,14 +45,6 @@ export default function Transcript({playerRef, currentTime}) {
             scrollToCaption(captionIndex);
     }, [currentTime]);
 
-    const scrollToCaption = i => {
-        if (!containerRef.current || !captionRefs.current[i]) return;
-        containerRef.current.scrollTo({
-            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
-            behavior: 'smooth'
-        }
-    )};
-
     useEffect(() => {
         unlockProgress.forEach((progress, i) => {
             if (progress === 100 && expanded !== i) {
@@ -58,9 +54,16 @@ export default function Transcript({playerRef, currentTime}) {
         });
     }, [unlockProgress, expanded]);
 
+    const scrollToCaption = i => {
+        if (!containerRef.current || !captionRefs.current[i]) return;
+        containerRef.current.scrollTo({
+            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
+            behavior: 'smooth'
+        }
+    )};
+
     const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
 
-    // Easing helpers
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
     const handleUnlockStart = (e, i) => {
@@ -68,19 +71,18 @@ export default function Transcript({playerRef, currentTime}) {
 
         if (unlockProgress[i] === 100) return; // already unlocked
 
-        if (animationRefs.current[i]) {
+        if (animationRefs.current[i])
             clearInterval(animationRefs.current[i]);
-        }
 
         lockAll();
 
         const startTime = Date.now();
-        const duration = 800; // 0.8 seconds
+        const duration = 600; // 0.6 seconds
         animationRefs.current[i] = setInterval(() => {
             const elapsed = Date.now() - startTime;
             let linear = Math.min(elapsed / duration, 1);   // 0 → 1
             let eased = easeOutCubic(linear);               // apply easing
-            let progress = eased * 100;
+            let progress = Math.round(eased * 100 * 100) / 100;
 
             setUnlockProgress((prev) => {
                 const newProgress = [...prev];
@@ -121,32 +123,47 @@ export default function Transcript({playerRef, currentTime}) {
         setExpanded(-1);
     }
 
+    const getClasses = i => 
+        `${i === expanded ? 'expanded' : ''} ${i === currentCaption ? 'current' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`
+
     return (
-        <section className={"transcript-container" + (expanded !== -1 ? ' expanded' : '')}>
+        <section className="transcript-container">
             <section
-                    className="transcript"
-                    ref={containerRef}
-                    onWheel={lockAll}
-                    onTouchMove={lockAll}
-                >
-                <div className="header" ref={headerRef}>文字起こし</div>
+                className="transcript"
+                ref={containerRef}
+                // onWheel={lockAll}
+                // onTouchMove={lockAll}
+            >
+                <h3 ref={headerRef}>文字起こし</h3>
                 {list.map((caption, i) => 
-                    <div className="caption-container" key={i} style={{height: (i === expanded ? containerHeight : 'auto')}}>
+                    <div 
+                        className="caption-container" 
+                        key={i} 
+                        style={{"--container-height": containerHeight + 'px'}}>
                         <div 
-                            className={`
-                                caption ${i === expanded ? 'expanded' : ''} 
-                                ${unlockProgress[i] === 100 ? 'unlocked' : ''}
-                                ${i === currentCaption ? 'current' : ''}`}
+                            className={`caption ${getClasses(i)}`}
+                            ref={el => captionRefs.current[i] = el}
+                            style={{"--progress": unlockProgress[i] + '%'}}
                             onClick={() => setTime(caption.time)}
                             onContextMenu={e => handleUnlockStart(e, i)}
                             onMouseUp={e => handleUnlockEnd(e, i)}
-                            ref={el => captionRefs.current[i] = el}
-                            style={{"--progress": unlockProgress[i] + '%'}}
                         >
                             <img className="icon" src='images/icon.png'/>
-                            <p className='text'>{caption.text}</p>
+                            <p className='text'>
+                                {caption.text}
+                            </p>
                         </div>
-                        <p className="note" contentEditable></p>
+                        <p 
+                            className="note" 
+                            ref={el => noteRefs.current[i] = el}
+                            style={{"--note-height": noteHeights[i] + 'px'}}
+                            contentEditable
+                        >
+                            {/* <div className="mistake-hint">
+                                <h4 className="type">別に問題ない</h4>
+                                <p>何しとんねん</p>
+                            </div> */}
+                        </p>
                     </div>
                 )}
                 <div className="filler" style={{height: fillerHeight}}></div>
