@@ -143,10 +143,16 @@ export default function Transcript({playerRef, currentTime}) {
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
                         >
+                            
                             <img className="icon" src='images/icon.png'/>
                             <p className='text'>{caption.text}</p>
-                        </div>
-                        <p className="note" contentEditable></p>
+                            <i 
+                                className="fa-solid fa-angle-double-up collapse-arrow" 
+                                onClick={lockAll}
+                                style={{display: expanded === i ? 'block' : 'none'}}
+                            ></i> 
+                        </div>                                                                
+                        <p className="note" contentEditable></p>                        
                     </div>
                 )}
                 <div className="filler" style={{height: fillerHeight}}></div>
