@@ -6,8 +6,7 @@ import getCaptionData from "utilities/getCaptionData";
 export default function Transcript({playerRef, currentTime}) {
     const list = getCaptionData();
     
-    const [containerHeight, setContainerHeight] = useState(0);
-    const [noteHeights, setNoteheights] = useState([]);
+    const [containerHeight, setContainerHeight] = useState(1000);
     const [fillerHeight, setFillerHeight] = useState(0);
 
     const [expanded, setExpanded] = useState(-1);
@@ -17,18 +16,14 @@ export default function Transcript({playerRef, currentTime}) {
     const containerRef = useRef(null);
     const headerRef = useRef(null);
     const captionRefs = useRef([]);
-    const noteRefs = useRef([]);
     const animationRefs = useRef([]);
 
     useEffect(() => {
-        const height = containerRef.current.offsetHeight - headerRef.current.offsetHeight;
-        setContainerHeight(height);
-        setFillerHeight(height - captionRefs.current[list.length - 1].offsetHeight);
+        setFillerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight - captionRefs.current[list.length - 1].offsetHeight);
     }, []);
     
     useEffect(() => {
-        const height = containerRef.current.offsetHeight - headerRef.current.offsetHeight;
-        setNoteheights(captionRefs.current.map(caption => {height - caption.offsetHeight}))
+        setContainerHeight(Math.min(containerHeight, containerRef.current.offsetHeight - headerRef.current.offsetHeight));
     }, [expanded]);
 
     useEffect(() => {
@@ -131,8 +126,8 @@ export default function Transcript({playerRef, currentTime}) {
             <section
                 className="transcript"
                 ref={containerRef}
-                // onWheel={lockAll}
-                // onTouchMove={lockAll}
+                onWheel={lockAll}
+                onTouchMove={lockAll}
             >
                 <h3 ref={headerRef}>文字起こし</h3>
                 {list.map((caption, i) => 
@@ -153,17 +148,17 @@ export default function Transcript({playerRef, currentTime}) {
                                 {caption.text}
                             </p>
                         </div>
-                        <p 
-                            className="note" 
-                            ref={el => noteRefs.current[i] = el}
-                            style={{"--note-height": noteHeights[i] + 'px'}}
-                            contentEditable
-                        >
+                        {i === expanded && 
+                            <button className="close-note" onClick={lockAll}>
+                                <i className="fa-solid fa-angle-up"></i> 
+                            </button>}                                                    
+                        <p className="note" contentEditable></p>  
+                                                
                             {/* <div className="mistake-hint">
                                 <h4 className="type">別に問題ない</h4>
                                 <p>何しとんねん</p>
                             </div> */}
-                        </p>
+  
                     </div>
                 )}
                 <div className="filler" style={{height: fillerHeight}}></div>
