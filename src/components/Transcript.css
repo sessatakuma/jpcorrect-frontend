@@ -44,7 +44,7 @@
 .transcript .caption-container {
     position: relative;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto min-content 1fr;
 }
 
 .transcript .caption {
@@ -117,12 +117,18 @@
     margin: 0;
 }
 
-.caption.expanded + .note {
+.caption-container:has(.caption.expanded) .note {
     height: auto;
     padding: 1rem; 
 }
 
-.transcript .collapse-arrow {
+.caption-container .close-note {
+    font-size: 1.2rem;
+    color: var(--clr-secondary);
+    background: var(--clr-primary-200);
+}
+
+/* .transcript .collapse-arrow {
     position: absolute;
     display: block;
     left: 50%; 
@@ -138,4 +144,4 @@
 
 .transcript .collapse-arrow:hover {
     transform: translateY(-2px);
-}
+} */

@@ -9,7 +9,7 @@ export default function Transcript({playerRef, currentTime}) {
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
 
-    const [expanded, setExpanded] = useState(-1);
+    const [expanded, setExpanded] = useState(0);
     const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
     const [currentCaption, setCurrentCaption] = useState(0);
 
@@ -126,8 +126,8 @@ export default function Transcript({playerRef, currentTime}) {
             <section
                     className="transcript"
                     ref={containerRef}
-                    onWheel={lockAll}
-                    onTouchMove={lockAll}
+                    // onWheel={lockAll}
+                    // onTouchMove={lockAll}
                 >
                 <div className="header" ref={headerRef}>文字起こし</div>
                 {list.map((caption, i) => 
@@ -143,15 +143,13 @@ export default function Transcript({playerRef, currentTime}) {
                             ref={el => captionRefs.current[i] = el}
                             style={{"--progress": unlockProgress[i] + '%'}}
                         >
-                            
                             <img className="icon" src='images/icon.png'/>
                             <p className='text'>{caption.text}</p>
-                            <i 
-                                className="fa-solid fa-angle-double-up collapse-arrow" 
-                                onClick={lockAll}
-                                style={{display: expanded === i ? 'block' : 'none'}}
-                            ></i> 
-                        </div>                                                                
+                        </div>  
+                        {i === expanded && 
+                            <button className="close-note" onClick={lockAll}>
+                                <i className="fa-solid fa-angle-up"></i> 
+                            </button>}                                                    
                         <p className="note" contentEditable></p>                        
                     </div>
                 )}
