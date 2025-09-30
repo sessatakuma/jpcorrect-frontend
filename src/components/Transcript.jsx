@@ -9,7 +9,7 @@ export default function Transcript({playerRef, currentTime}) {
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
 
-    const [expanded, setExpanded] = useState(0);
+    const [expanded, setExpanded] = useState(-1);
     const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
     const [currentCaption, setCurrentCaption] = useState(0);
 
@@ -126,8 +126,8 @@ export default function Transcript({playerRef, currentTime}) {
             <section
                     className="transcript"
                     ref={containerRef}
-                    // onWheel={lockAll}
-                    // onTouchMove={lockAll}
+                    onWheel={lockAll}
+                    onTouchMove={lockAll}
                 >
                 <div className="header" ref={headerRef}>文字起こし</div>
                 {list.map((caption, i) => 
