@@ -50,6 +50,7 @@
 }
 
 .transcript .caption-container {
+    position: relative;
     display: grid;
     grid-template-rows: min-content min-content auto;
     &:has(.expanded) {
@@ -117,7 +118,9 @@
 .transcript .note {
     all: unset;
     box-sizing: border-box;
-    background: var(--clr-primary-200);
+    
+  background: var(--clr-primary-200);
+
     height: 0;
     padding: 0;
     width: 100%;
@@ -149,5 +152,4 @@
     place-items: center;
     
     background: gray;
-    
 } */

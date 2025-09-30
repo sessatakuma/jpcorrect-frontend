@@ -153,12 +153,10 @@ export default function Transcript({playerRef, currentTime}) {
                                 <i className="fa-solid fa-angle-up"></i> 
                             </button>}                                                    
                         <p className="note" contentEditable></p>  
-                                                
-                            {/* <div className="mistake-hint">
-                                <h4 className="type">別に問題ない</h4>
-                                <p>何しとんねん</p>
-                            </div> */}
-  
+                        {/* <div className="mistake-hint">
+                            <h4 className="type">Type</h4>
+                            <p>description</p>
+                        </div> */}
                     </div>
                 )}
                 <div className="filler" style={{height: fillerHeight}}></div>
