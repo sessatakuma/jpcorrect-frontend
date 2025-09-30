@@ -145,8 +145,12 @@ export default function Transcript({playerRef, currentTime}) {
                         >
                             <img className="icon" src='images/icon.png'/>
                             <p className='text'>{caption.text}</p>
-                        </div>
-                        <p className="note" contentEditable></p>
+                        </div>  
+                        {i === expanded && 
+                            <button className="close-note" onClick={lockAll}>
+                                <i className="fa-solid fa-angle-up"></i> 
+                            </button>}                                                    
+                        <p className="note" contentEditable></p>                        
                     </div>
                 )}
                 <div className="filler" style={{height: fillerHeight}}></div>
