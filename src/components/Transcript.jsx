@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Hint from 'components/Hint';
 import 'components/Transcript.css';
-import getCaptionData from "../utilities/getCaptionData.js";
+import getCaptionData from "utilities/getCaptionData.js";
 
 export default function Transcript({playerRef, currentTime}) {
     // array of {time, text, feedbacks}
