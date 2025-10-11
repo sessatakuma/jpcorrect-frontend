@@ -1,7 +1,9 @@
 const data = require('data/transformed_transcript.json');
 
 export default function getCaptionData() {
-    if(!data || !data.segments) return[];
+    if(!data) {
+        return[];
+    }
     return data.transcripts
         .map(transcript => ({
             time: transcript.start,

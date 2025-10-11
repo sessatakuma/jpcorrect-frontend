@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Hint from 'components/Hint';
 import 'components/Transcript.css';
-import getCaptionData from "utilities/getCaptionData";
+import getCaptionData from "../utilities/getCaptionData.js";
 
 export default function Transcript({playerRef, currentTime}) {
-    const captions = getCaptionData(); 
     // array of {time, text, feedbacks}
     // feedbacks: array of {type, highlight_part, comment}
     // type: vocab, grammar, voice or advance
+    const captions = getCaptionData(); 
 
     const [containerHeight, setContainerHeight] = useState(1000);
     const [fillerHeight, setFillerHeight] = useState(0);
@@ -21,11 +21,11 @@ export default function Transcript({playerRef, currentTime}) {
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setFillerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight - captionRefs.current[captions.length - 1].offsetHeight);
     }, []);
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         setContainerHeight(Math.min(containerHeight, containerRef.current.offsetHeight - headerRef.current.offsetHeight));
     }, [expanded]);
 
