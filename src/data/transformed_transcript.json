@@ -1,0 +1,793 @@
+{
+    "date": "2024-06-02",
+    "practice_type": "A",
+    "duration": 349.0299987792969,
+    "transcripts": [
+        {
+            "id": 0,
+            "start": 0.0,
+            "end": 15.0,
+            "text": "今日は先週の報告を続けて、ループと呼ばれる遊び方について紹介したいと思います。",
+            "speaker_id": "宇昕_id",
+            "feedbacks": [
+                0,
+                1,
+                2
+            ],
+            "feedback_ids": [
+                0,
+                1,
+                2
+            ]
+        },
+        {
+            "id": 1,
+            "start": 15.0,
+            "end": 20.0,
+            "text": "先週紹介したのはこのゲームの本来の遊び方ですが、",
+            "speaker_id": "宇昕_id",
+            "feedbacks": [
+                3,
+                4
+            ],
+            "feedback_ids": [
+                3,
+                4
+            ]
+        },
+        {
+            "id": 2,
+            "start": 20.0,
+            "end": 31.0,
+            "text": "ループは本当に強すぎて、本来の遊び方を使うと2000位以降にしかなりません。",
+            "speaker_id": "宇昕_id",
+            "feedbacks": [
+                5,
+                6,
+                7,
+                8,
+                9
+            ],
+            "feedback_ids": [
+                5
+            ]
+        },
+        {
+            "id": 3,
+            "start": 31.0,
+            "end": 35.0,
+            "text": "じゃあ、ループとは一体何ですか?",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 4,
+            "start": 35.0,
+            "end": 44.0,
+            "text": "縄帯を表す、順番で特定のカードを繰り返し使用する遊び方です。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                6,
+                7,
+                8
+            ]
+        },
+        {
+            "id": 5,
+            "start": 44.0,
+            "end": 50.0,
+            "text": "例えば、6へ巡る、5へ巡る、というループで使います。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                9
+            ]
+        },
+        {
+            "id": 6,
+            "start": 50.0,
+            "end": 54.0,
+            "text": "そのため、少ないカードを持ちます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 7,
+            "start": 54.0,
+            "end": 63.0,
+            "text": "手札の表現が8枚なので、一般的には9枚のカードを持っていきます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                10
+            ]
+        },
+        {
+            "id": 8,
+            "start": 64.0,
+            "end": 74.0,
+            "text": "しかし、転生に時があるため、APの自然回復速度が低下します。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                12,
+                13
+            ]
+        },
+        {
+            "id": 9,
+            "start": 75.0,
+            "end": 93.0,
+            "text": "実際、最初はこの回復速度は高ではなかったのですが、ループが強すぎたので、方式はこの点で制限をかけるしかありませんでした。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                15,
+                16
+            ]
+        },
+        {
+            "id": 10,
+            "start": 94.0,
+            "end": 101.0,
+            "text": "それでも、今はループのスコアは本来の遊び方よりも高いです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 11,
+            "start": 104.0,
+            "end": 114.0,
+            "text": "APの回復速度のため、カードを選ぶ際には、ギルの強さよりAPが大事です。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 12,
+            "start": 117.0,
+            "end": 124.0,
+            "text": "じゃあ、これ、この本来の遊び方と今のループではどこが違いますか?",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                20
+            ]
+        },
+        {
+            "id": 13,
+            "start": 124.0,
+            "end": 134.0,
+            "text": "最も明確に見えるのは、右側のループは全てのカードが配置されていないことです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                21
+            ]
+        },
+        {
+            "id": 14,
+            "start": 137.0,
+            "end": 146.0,
+            "text": "次に、カードの数値はゲーム中での使用回数を示しています。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                22,
+                23
+            ]
+        },
+        {
+            "id": 15,
+            "start": 147.0,
+            "end": 160.0,
+            "text": "ループでは、カードの使用回数が100点のカードに集中していますが、本来の遊び方は全てのカードの使用回数がほぼ同じです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                25,
+                26,
+                27
+            ]
+        },
+        {
+            "id": 16,
+            "start": 161.0,
+            "end": 165.0,
+            "text": "例えば、これは大体10くらいの使用回数。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 17,
+            "start": 166.0,
+            "end": 174.0,
+            "text": "でも、これは186回、これは1万2回だけです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 18,
+            "start": 176.0,
+            "end": 188.0,
+            "text": "この状況を引き起こしている主な原因は、2枚のカードであり、まず最初はこのディープネス工程です。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 19,
+            "start": 189.0,
+            "end": 201.0,
+            "text": "このカードの特性は、ドローした時にAPが1回復し、そしてこのスキルの必要なAPも1です。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 20,
+            "start": 202.0,
+            "end": 207.0,
+            "text": "つまり、このカードはAPを拒否することがないです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 21,
+            "start": 208.0,
+            "end": 215.0,
+            "text": "このカードを使うことで、ボーナスを簡単に積み上げることができます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                32,
+                33
+            ]
+        },
+        {
+            "id": 22,
+            "start": 216.0,
+            "end": 220.0,
+            "text": "次は、このナツルリです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 23,
+            "start": 221.0,
+            "end": 230.0,
+            "text": "このカードの特性は、手札の上限を3枚増やし、8枚に加数することです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 24,
+            "start": 231.0,
+            "end": 245.0,
+            "text": "それで、8枚のカードを持ちの上、常にさっきのこのディープネス物理を手札に持っていることができます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                37
+            ]
+        },
+        {
+            "id": 25,
+            "start": 246.0,
+            "end": 254.0,
+            "text": "でも、さっきも言った、このループはAPの自然回復ショフトがメーカーしています。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 26,
+            "start": 255.0,
+            "end": 267.0,
+            "text": "そのため、APを調節増やすことができるカードをいくつか持ちだけで、この問題を簡単に解決できます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                39,
+                40
+            ]
+        },
+        {
+            "id": 27,
+            "start": 268.0,
+            "end": 289.0,
+            "text": "例えば、このカードは、使用時にAPを10回復し、そして、このカードはセクション変わる時にAPを7回復し。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                41,
+                42,
+                43
+            ]
+        },
+        {
+            "id": 28,
+            "start": 290.0,
+            "end": 294.0,
+            "text": "説明だけでは理解しにくいかもしれません。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 29,
+            "start": 294.0,
+            "end": 298.0,
+            "text": "以下のこの動画を2つ見てみましょう。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 30,
+            "start": 299.0,
+            "end": 301.0,
+            "text": "まずは、本来の遊び方です。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 31,
+            "start": 308.0,
+            "end": 315.0,
+            "text": "この遊び方は、APを回復するを待ちつける必要があります。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 32,
+            "start": 316.0,
+            "end": 319.0,
+            "text": "そして、これはループです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 33,
+            "start": 320.0,
+            "end": 329.0,
+            "text": "ループでは、心配する問題がないです。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": [
+                47
+            ]
+        },
+        {
+            "id": 34,
+            "start": 337.0,
+            "end": 342.0,
+            "text": "では、本の発表はここまでです。ありがとうございます。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        },
+        {
+            "id": 35,
+            "start": 349.0,
+            "end": 354.0,
+            "text": "ご視聴ありがとうございました。",
+            "speaker_id": "宇昕_id",
+            "feedback_ids": []
+        }
+    ],
+    "feedbacks": [
+        {
+            "id": 0,
+            "start": 7.5,
+            "end": 8.5,
+            "type": "vocab",
+            "highlight_part": "報告",
+            "comment": "這裡是發表，不應該使用報告這個詞",
+            "modify": "$REPLACE 報告 発表"
+        },
+        {
+            "id": 1,
+            "start": 10.5,
+            "end": 11.5,
+            "type": "voice",
+            "highlight_part": "ループ",
+            "comment": "ループ的ル發音不夠長，後面都有同樣問題",
+            "modify": null
+        },
+        {
+            "id": 2,
+            "start": 10.5,
+            "end": 11.5,
+            "type": "voice",
+            "highlight_part": "呼ばれる",
+            "comment": "「呼ばれる」誤唸成2號音",
+            "modify": null
+        },
+        {
+            "id": 3,
+            "start": 17.5,
+            "end": 18.5,
+            "type": "advance",
+            "highlight_part": "本来",
+            "comment": "用「本来」感覺比較硬，可以改用「もともと」會更自然",
+            "modify": "$REPLACE 本来 もともと"
+        },
+        {
+            "id": 4,
+            "start": 18.0,
+            "end": 19.0,
+            "type": "vocab",
+            "highlight_part": "遊び方",
+            "comment": "確認對方是否聽懂「遊び方」的意思",
+            "modify": null
+        },
+        {
+            "id": 5,
+            "start": 28.0,
+            "end": 28.5,
+            "type": "grammar",
+            "highlight_part": "2000位以降にしかなりません",
+            "comment": "「使用する」應為0號音",
+            "modify": null
+        },
+        {
+            "id": 6,
+            "start": 41.5,
+            "end": 42.5,
+            "type": "voice",
+            "highlight_part": "使用する",
+            "comment": "「使用する」應為0號音",
+            "modify": null
+        },
+        {
+            "id": 7,
+            "start": 42.5,
+            "end": 43.5,
+            "type": "voice",
+            "highlight_part": "繰り返し",
+            "comment": "「繰り返し」作副詞使用時要念0號音",
+            "modify": null
+        },
+        {
+            "id": 8,
+            "start": 42.5,
+            "end": 43.5,
+            "type": "voice",
+            "highlight_part": "使用する",
+            "comment": "誤唸成1號音，應唸0號音",
+            "modify": null
+        },
+        {
+            "id": 9,
+            "start": 48.5,
+            "end": 49.5,
+            "type": "voice",
+            "highlight_part": "ループ",
+            "comment": "「ループ」中的「い」發音誤唸成「え」",
+            "modify": null
+        },
+        {
+            "id": 10,
+            "start": 59.5,
+            "end": 60.5,
+            "type": "voice",
+            "highlight_part": null,
+            "comment": "發音太弱，氣勢不足，聽起來像「ぱ」",
+            "modify": null
+        },
+        {
+            "id": 11,
+            "start": 62.5,
+            "end": 63.5,
+            "type": "advance",
+            "highlight_part": "一般的には",
+            "comment": "句構上「カードを九枚持ってゲームを始めます」更清楚表達意思",
+            "modify": null
+        },
+        {
+            "id": 12,
+            "start": 65.5,
+            "end": 66.5,
+            "type": "advance",
+            "highlight_part": "編成に空きがある",
+            "comment": "「編成に空きがある」不太自然，可改為「編成の上限のカード数を使っていないので」",
+            "modify": "$REPLACE 編成に空きがある 編成の上限のカード数を使っていないので"
+        },
+        {
+            "id": 13,
+            "start": 72.5,
+            "end": 73.5,
+            "type": "voice",
+            "highlight_part": "速度",
+            "comment": "「速度」音調應為1號音",
+            "modify": null
+        },
+        {
+            "id": 14,
+            "start": 73.5,
+            "end": 74.5,
+            "type": "voice",
+            "highlight_part": "ていかする",
+            "comment": "誤唸成1號音",
+            "modify": null
+        },
+        {
+            "id": 15,
+            "start": 76.5,
+            "end": 77.5,
+            "type": "voice",
+            "highlight_part": "さいしょは",
+            "comment": "誤唸成3號音",
+            "modify": null
+        },
+        {
+            "id": 16,
+            "start": 80.5,
+            "end": 81.5,
+            "type": "voice",
+            "highlight_part": "かいふくそくど",
+            "comment": "「回復速度」中的「そ」誤唸成1號音",
+            "modify": null
+        },
+        {
+            "id": 17,
+            "start": 93.5,
+            "end": 94.5,
+            "type": "advance",
+            "highlight_part": "しかありませんでした",
+            "comment": "「しかありませんでした」在此語境怪異，應改用「やむなく…」或「余儀なくされる」",
+            "modify": "$REPLACE しかありませんでした やむなく…かけました"
+        },
+        {
+            "id": 18,
+            "start": 100.5,
+            "end": 101.5,
+            "type": "advance",
+            "highlight_part": "今は",
+            "comment": "用「今でも」比「今は」更能表達現在也持續的狀態",
+            "modify": "$REPLACE 今は 今でも"
+        },
+        {
+            "id": 19,
+            "start": 100.5,
+            "end": 101.5,
+            "type": "grammar",
+            "highlight_part": "本来の遊び方よりも",
+            "comment": "比較對象需要加形式名詞「の」",
+            "modify": "$REPLACE 本来の遊び方よりも 本来の遊び方のよりも"
+        },
+        {
+            "id": 20,
+            "start": 122.5,
+            "end": 123.5,
+            "type": "voice",
+            "highlight_part": "数値",
+            "comment": "「す」發音不夠長",
+            "modify": null
+        },
+        {
+            "id": 21,
+            "start": 132.5,
+            "end": 133.5,
+            "type": "voice",
+            "highlight_part": "使用回数",
+            "comment": "發音長短不清晰，聽起來像「し**い**りょうかいすう」",
+            "modify": null
+        },
+        {
+            "id": 22,
+            "start": 140.5,
+            "end": 141.5,
+            "type": "voice",
+            "highlight_part": "集中",
+            "comment": "誤唸成「じゅうきゅう」，正確應為「集中」",
+            "modify": null
+        },
+        {
+            "id": 23,
+            "start": 140.5,
+            "end": 141.5,
+            "type": "grammar",
+            "highlight_part": "集中する",
+            "comment": "應使用助詞「を集中する」",
+            "modify": "$REPLACE 集中する を集中する"
+        },
+        {
+            "id": 24,
+            "start": 145.5,
+            "end": 146.5,
+            "type": "voice",
+            "highlight_part": "十回",
+            "comment": "回數應讀作「じゅっかい」",
+            "modify": null
+        },
+        {
+            "id": 25,
+            "start": 153.5,
+            "end": 154.5,
+            "type": "grammar",
+            "highlight_part": "けど",
+            "comment": "口語「けど」前需要「だ」，應為「だ けど」",
+            "modify": "$REPLACE けど だけど"
+        },
+        {
+            "id": 26,
+            "start": 157.5,
+            "end": 158.5,
+            "type": "voice",
+            "highlight_part": "引き起こしている",
+            "comment": "「ひきおこして」誤唸成3號音",
+            "modify": null
+        },
+        {
+            "id": 27,
+            "start": 157.5,
+            "end": 158.5,
+            "type": "advance",
+            "highlight_part": "であり",
+            "comment": "使用「であり」造成語序怪異，建議改為「この二枚のカードです」",
+            "modify": "$REPLACE であり この二枚のカードです"
+        },
+        {
+            "id": 28,
+            "start": 187.5,
+            "end": 188.5,
+            "type": "voice",
+            "highlight_part": "ドロー",
+            "comment": "「ドロー」誤唸成「どろ」",
+            "modify": null
+        },
+        {
+            "id": 29,
+            "start": 187.5,
+            "end": 188.5,
+            "type": "voice",
+            "highlight_part": "回復し",
+            "comment": "誤唸成4號音",
+            "modify": null
+        },
+        {
+            "id": 30,
+            "start": 201.5,
+            "end": 202.5,
+            "type": "advance",
+            "highlight_part": "必要なAPも一です",
+            "comment": "語句缺少動詞，應加上「使うと」來表達",
+            "modify": "$REPLACE 必要なAPも一です このスキルを使うと必要なAPも一です"
+        },
+        {
+            "id": 31,
+            "start": 206.5,
+            "end": 207.5,
+            "type": "voice",
+            "highlight_part": "消費",
+            "comment": "「しょうひ」誤唸成「きょうひ」",
+            "modify": null
+        },
+        {
+            "id": 32,
+            "start": 209.5,
+            "end": 210.5,
+            "type": "voice",
+            "highlight_part": "こと",
+            "comment": "「こと」誤唸成0號音",
+            "modify": null
+        },
+        {
+            "id": 33,
+            "start": 213.5,
+            "end": 214.5,
+            "type": "voice",
+            "highlight_part": "積み上げる",
+            "comment": "「つみあげる」誤唸成3號音",
+            "modify": null
+        },
+        {
+            "id": 34,
+            "start": 230.5,
+            "end": 231.5,
+            "type": "voice",
+            "highlight_part": "増やす",
+            "comment": "應唸成2號音",
+            "modify": null
+        },
+        {
+            "id": 35,
+            "start": 230.5,
+            "end": 231.5,
+            "type": "voice",
+            "highlight_part": "八枚",
+            "comment": "「はちまい」誤唸成0號音",
+            "modify": null
+        },
+        {
+            "id": 36,
+            "start": 230.5,
+            "end": 231.5,
+            "type": "advance",
+            "highlight_part": "なる",
+            "comment": "前後混用了他動詞與自動詞，建議補上主語改寫成「上限が八枚に達します」",
+            "modify": "$REPLACE なる 上限が八枚に達します"
+        },
+        {
+            "id": 37,
+            "start": 239.5,
+            "end": 240.5,
+            "type": "voice",
+            "highlight_part": "つねに",
+            "comment": "「つねに」誤唸成0號音",
+            "modify": null
+        },
+        {
+            "id": 38,
+            "start": 244.5,
+            "end": 245.5,
+            "type": "advance",
+            "highlight_part": "手札に持っている",
+            "comment": "建議使用「手札として」會更自然",
+            "modify": "$REPLACE 手札に持っている 手札として持っている"
+        },
+        {
+            "id": 39,
+            "start": 261.5,
+            "end": 262.5,
+            "type": "voice",
+            "highlight_part": "直接",
+            "comment": "「直接」應清楚唸出「ちょくせつ」的く",
+            "modify": null
+        },
+        {
+            "id": 40,
+            "start": 261.5,
+            "end": 262.5,
+            "type": "advance",
+            "highlight_part": "だけで",
+            "comment": "「だけで」語意偏向『光是～就～』，應改為「さえあれば」",
+            "modify": "$REPLACE だけで さえあれば"
+        },
+        {
+            "id": 41,
+            "start": 277.5,
+            "end": 278.5,
+            "type": "advance",
+            "highlight_part": "使用する時に",
+            "comment": "「しゅうとき」應為「使用する時に」",
+            "modify": "$REPLACE しゅうとき 使用する時に"
+        },
+        {
+            "id": 42,
+            "start": 277.5,
+            "end": 278.5,
+            "type": "voice",
+            "highlight_part": "五回復",
+            "comment": "「ごかいふく」中的五應短促發音，不要拉長",
+            "modify": null
+        },
+        {
+            "id": 43,
+            "start": 287.5,
+            "end": 288.5,
+            "type": "voice",
+            "highlight_part": "変わる",
+            "comment": "「変わる」誤唸成1號音",
+            "modify": null
+        },
+        {
+            "id": 44,
+            "start": 289.5,
+            "end": 290.5,
+            "type": "voice",
+            "highlight_part": "回復し",
+            "comment": "「かいふくし」誤唸成1號音",
+            "modify": null
+        },
+        {
+            "id": 45,
+            "start": 297.5,
+            "end": 298.5,
+            "type": "voice",
+            "highlight_part": "どうが",
+            "comment": "「動画」應唸0號音",
+            "modify": null
+        },
+        {
+            "id": 46,
+            "start": 297.5,
+            "end": 298.5,
+            "type": "advance",
+            "highlight_part": "以下",
+            "comment": "「以下」語氣太硬，可改為「こちらの動画を見ましょう」",
+            "modify": "$REPLACE 以下 こちらの動画を見ましょう"
+        },
+        {
+            "id": 47,
+            "start": 324.5,
+            "end": 325.5,
+            "type": "advance",
+            "highlight_part": "心配する必要がないです",
+            "comment": "最後結語自然，表達不用擔心AP的問題",
+            "modify": null
+        }
+    ]
+}

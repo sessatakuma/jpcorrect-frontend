@@ -1,16 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Hint from 'components/Hint';
 import 'components/Transcript.css';
-import getCaptionData from "utilities/getCaptionData";
+import getCaptionData from "../utilities/getCaptionData.js";
 
 export default function Transcript({playerRef, currentTime}) {
-    const list = getCaptionData();
-    
+    // array of {time, text, feedbacks}
+    // feedbacks: array of {type, highlight_part, comment}
+    // type: vocab, grammar, voice or advance
+    const captions = getCaptionData(); 
+
     const [containerHeight, setContainerHeight] = useState(1000);
     const [fillerHeight, setFillerHeight] = useState(0);
 
     const [expanded, setExpanded] = useState(-1);
-    const [unlockProgress, setUnlockProgress] = useState(Array(list.length).fill(0));
+    const [unlockProgress, setUnlockProgress] = useState(Array(captions.length).fill(0));
     const [currentCaption, setCurrentCaption] = useState(0);
 
     const containerRef = useRef(null);
@@ -18,18 +21,18 @@ export default function Transcript({playerRef, currentTime}) {
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
 
-    useEffect(() => {
-        setFillerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight - captionRefs.current[list.length - 1].offsetHeight);
+    useLayoutEffect(() => {
+        setFillerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight - captionRefs.current[captions.length - 1].offsetHeight);
     }, []);
     
-    useEffect(() => {
+    useLayoutEffect(() => {
         setContainerHeight(Math.min(containerHeight, containerRef.current.offsetHeight - headerRef.current.offsetHeight));
     }, [expanded]);
 
     useEffect(() => {
         let captionIndex = -1;
-        for (let i = 0; i < list.length; i++) {
-            if (currentTime >= list[i].time) 
+        for (let i = 0; i < captions.length; i++) {
+            if (currentTime >= captions[i].time) 
                 captionIndex = i;
             else 
                 break;
@@ -114,7 +117,7 @@ export default function Transcript({playerRef, currentTime}) {
     };
 
     const lockAll = () => {
-        setUnlockProgress(Array(list.length).fill(0));
+        setUnlockProgress(Array(captions.length).fill(0));
         setExpanded(-1);
     }
 
@@ -130,7 +133,7 @@ export default function Transcript({playerRef, currentTime}) {
                 onTouchMove={lockAll}
             >
                 <h3 ref={headerRef}>文字起こし</h3>
-                {list.map((caption, i) => 
+                {captions.map((caption, i) => 
                     <div 
                         className="caption-container" 
                         key={i} 
