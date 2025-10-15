@@ -5,7 +5,7 @@
     /* height: 100%; */
     background: var(--clr-primary-200);
     border-radius: 1rem;
-    color: var(--clr-secondary);  
+    color: var(--clr-secondary);
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
@@ -62,7 +62,7 @@
     place-items: center;
     border-radius: 50%;
     background: var(--clr-accent);
-    transition: .1s;
+    transition: 0.1s;
     &:hover {
         scale: 1.1;
     }
