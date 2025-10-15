@@ -37,6 +37,11 @@ export default function Transcript({playerRef, currentTime}) {
             else 
                 break;
         }
+
+        if (captionIndex === currentCaption) {
+            return;
+        
+        }
         setCurrentCaption(captionIndex);
 
         if (expanded === -1)
