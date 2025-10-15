@@ -29,7 +29,7 @@ export default function Transcript({playerRef, currentTime}) {
         setContainerHeight(Math.min(containerHeight, containerRef.current.offsetHeight - headerRef.current.offsetHeight));
     }, [expanded]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let captionIndex = -1;
         for (let i = 0; i < captions.length; i++) {
             if (currentTime >= captions[i].time) 
@@ -43,12 +43,12 @@ export default function Transcript({playerRef, currentTime}) {
         
         }
         setCurrentCaption(captionIndex);
-
-        if (expanded === -1)
+        if (expanded === -1) {
             scrollToCaption(captionIndex);
+        }
     }, [currentTime]);
-
-    useEffect(() => {
+    
+    useLayoutEffect(() => {
         unlockProgress.forEach((progress, i) => {
             if (progress === 100 && expanded !== i) {
                 scrollToCaption(i);
@@ -56,14 +56,20 @@ export default function Transcript({playerRef, currentTime}) {
             }
         });
     }, [unlockProgress, expanded]);
-
+    
     const scrollToCaption = i => {
-        if (!containerRef.current || !captionRefs.current[i]) return;
-        containerRef.current.scrollTo({
-            top: captionRefs.current[i].offsetTop - headerRef.current.offsetHeight,
-            behavior: 'smooth'
+        if (!containerRef.current || !captionRefs.current[i]) {
+            console.warn("caption not found");
+        } else {
+            const rect = captionRefs.current[i].getBoundingClientRect();
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const top = rect.top - containerRect.top + containerRef.current.scrollTop - headerRef.current.offsetHeight;
+            containerRef.current.scrollTo({
+                top: top,
+                behavior: 'smooth'
+            })
         }
-    )};
+    };
 
     const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
 
