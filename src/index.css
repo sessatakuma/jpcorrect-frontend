@@ -29,4 +29,8 @@ html {
     --clr-primary: #d8d1d1;
     --clr-secondary: #9e4145;
     --clr-accent: #619e83;
+    --clr-vocab: #1982c4;
+    --clr-grammar: #86ab21;
+    --clr-voice: #e0a500;
+    --clr-advance: #6a4c93;
 }

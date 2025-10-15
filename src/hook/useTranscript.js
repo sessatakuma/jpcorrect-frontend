@@ -46,12 +46,15 @@ export default function getCaptionData() {
                 segments.push({
                     text: transcript.text.slice(lastIdx, h.start),
                     highlight: false,
+                    feedback: null,
                 });
             }
+            // Find the feedback matching this highlight
+            const matchingFeedback = feedbacks.find((fb) => fb.id === h.feedbackId);
             segments.push({
                 text: transcript.text.slice(h.start, h.end),
                 highlight: true,
-                feedbackId: h.feedbackId,
+                feedback: matchingFeedback ?? null,
             });
             lastIdx = h.end;
         }
@@ -59,13 +62,13 @@ export default function getCaptionData() {
             segments.push({
                 text: transcript.text.slice(lastIdx),
                 highlight: false,
+                feedback: null,
             });
         }
 
         return {
             time: transcript.start,
             textSegments: segments,
-            feedbacks: feedbacks,
         };
     });
 }

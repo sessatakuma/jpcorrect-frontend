@@ -1,19 +1,17 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import Hint from './Hint';
 import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
 
 export default function Transcript({ playerRef, currentTime }) {
-    // array of {time, text, feedbacks}
-    // feedbacks: array of {type, highlight_part, comment}
-    // type: vocab, grammar, voice or advance
     const captions = useTranscript();
-    console.log(captions);
-    const [containerHeight, setContainerHeight] = useState(1000);
+    const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
 
     const [expanded, setExpanded] = useState(-1);
+    const [feedbackShown, setfeedbackShown] = useState(-1);
     const [unlockProgress, setUnlockProgress] = useState(Array(captions.length).fill(0));
+    // TODO: change to single array [<unlockingIndex>, <progress>]
     const [currentCaption, setCurrentCaption] = useState(0);
 
     const containerRef = useRef(null);
@@ -21,24 +19,31 @@ export default function Transcript({ playerRef, currentTime }) {
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
 
+    const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
+
     useLayoutEffect(() => {
         setFillerHeight(
             containerRef.current.offsetHeight -
                 headerRef.current.offsetHeight -
                 captionRefs.current[captions.length - 1].offsetHeight,
         );
+        setContainerHeight((h) => {
+            return Math.min(
+                containerHeight,
+                containerRef.current.offsetHeight - headerRef.current.offsetHeight,
+            );
+        });
     }, []);
 
     useLayoutEffect(() => {
-        setContainerHeight(
-            Math.min(
-                containerHeight,
-                containerRef.current.offsetHeight - headerRef.current.offsetHeight,
-            ),
-        );
+        console.log('setting container height');
+        setTimeout(() => {
+            console.log('set container height');
+            setContainerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight);
+        }, 250);
     }, [expanded]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         let captionIndex = -1;
         for (let i = 0; i < captions.length; i++) {
             if (currentTime >= captions[i].time) {
@@ -59,7 +64,7 @@ export default function Transcript({ playerRef, currentTime }) {
         }
     }, [currentTime]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         unlockProgress.forEach((progress, i) => {
             if (progress === 100 && expanded !== i) {
                 scrollToCaption(i);
@@ -145,12 +150,11 @@ export default function Transcript({ playerRef, currentTime }) {
     const lockAll = () => {
         setUnlockProgress(Array(captions.length).fill(0));
         setExpanded(-1);
+        setfeedbackShown(-1);
     };
 
     const getClasses = (i) =>
-        `${i === expanded ? 'expanded' : ''} ${i === currentCaption ? 'current' : ''} ${
-            unlockProgress[i] === 100 ? 'unlocked' : ''
-        }`;
+        `${i === expanded ? 'expanded' : ''} ${i === currentCaption ? 'current' : ''}`;
 
     return (
         <section className='transcript-container'>
@@ -171,31 +175,54 @@ export default function Transcript({ playerRef, currentTime }) {
                             className={`caption ${getClasses(i)}`}
                             ref={(el) => (captionRefs.current[i] = el)}
                             style={{ '--progress': unlockProgress[i] + '%' }}
-                            onClick={() => setTime(caption.time)}
+                            onClick={() => i !== expanded && setTime(caption.time)}
                             onContextMenu={(e) => handleUnlockStart(e, i)}
                             onMouseUp={(e) => handleUnlockEnd(e, i)}
                         >
                             <img className='icon' src='images/icon.png' />
                             <p className='text'>
-                                {caption.textSegments.map((textSegment) =>
-                                    textSegment.highlight && i === expanded ? (
-                                        <strong>{textSegment.text}</strong>
-                                    ) : (
-                                        <span>{textSegment.text}</span>
-                                    ),
-                                )}
+                                {caption.textSegments.map((textSegment, j) => (
+                                    <span
+                                        className={
+                                            i === expanded && textSegment.highlight
+                                                ? 'highlight ' + textSegment.feedback.type
+                                                : ''
+                                        }
+                                        key={j}
+                                        onClick={(e) => {
+                                            if (!textSegment.highlight) {
+                                                return;
+                                            }
+                                            e.stopPropagation;
+                                            setfeedbackShown(j);
+                                        }}
+                                    >
+                                        {textSegment.text}
+                                    </span>
+                                ))}
                             </p>
                         </div>
+                        {(() => {
+                            let feedback = caption.textSegments[feedbackShown]?.feedback;
+                            return (
+                                <div
+                                    className={
+                                        'feedback ' +
+                                        feedback?.type +
+                                        (feedbackShown !== -1 && feedback ? ' shown' : '')
+                                    }
+                                >
+                                    <h4>{feedback && typeMap[feedback.type] + 'の問題'}</h4>
+                                    <p>{feedback?.comment}</p>
+                                </div>
+                            );
+                        })()}
                         {i === expanded && (
                             <button className='close-note' onClick={lockAll}>
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
                         <p className='note' contentEditable></p>
-                        {/* <div className="mistake-hint">
-                            <h4 className="type">Type</h4>
-                            <p>description</p>
-                        </div> */}
                     </div>
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
