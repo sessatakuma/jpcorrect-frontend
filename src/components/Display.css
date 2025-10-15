@@ -58,7 +58,6 @@
 .progress-container .progress-indicator{
     background-color: var(--clr-secondary);
     width: var(--progress);
-    
     height: 100%;
     border-radius: 2px;
     float: left;
