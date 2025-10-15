@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import Hint from 'components/Hint';
-import 'components/Transcript.css';
-import getCaptionData from 'utilities/getCaptionData.js';
+import React, { useState, useRef, useLayoutEffect } from 'react';
+import Hint from './Hint';
+import './Transcript.css';
+import useTranscript from '../hook/useTranscript.js';
 
 export default function Transcript({ playerRef, currentTime }) {
     // array of {time, text, feedbacks}
     // feedbacks: array of {type, highlight_part, comment}
     // type: vocab, grammar, voice or advance
-    const captions = getCaptionData();
-
+    const captions = useTranscript();
+    console.log(captions);
     const [containerHeight, setContainerHeight] = useState(1000);
     const [fillerHeight, setFillerHeight] = useState(0);
 
@@ -86,7 +86,7 @@ export default function Transcript({ playerRef, currentTime }) {
         }
     };
 
-    const setTime = (time) => layerRef.current && playerRef.current.seekTo(time, true);
+    const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
 
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -176,7 +176,15 @@ export default function Transcript({ playerRef, currentTime }) {
                             onMouseUp={(e) => handleUnlockEnd(e, i)}
                         >
                             <img className='icon' src='images/icon.png' />
-                            <p className='text'>{caption.text}</p>
+                            <p className='text'>
+                                {caption.textSegments.map((textSegment) =>
+                                    textSegment.highlight && i === expanded ? (
+                                        <strong>{textSegment.text}</strong>
+                                    ) : (
+                                        <span>{textSegment.text}</span>
+                                    ),
+                                )}
+                            </p>
                         </div>
                         {i === expanded && (
                             <button className='close-note' onClick={lockAll}>
