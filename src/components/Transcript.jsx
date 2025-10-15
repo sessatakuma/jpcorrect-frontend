@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Hint from 'components/Hint';
 import 'components/Transcript.css';
-import getCaptionData from "utilities/getCaptionData.js";
+import getCaptionData from 'utilities/getCaptionData.js';
 
-export default function Transcript({playerRef, currentTime}) {
+export default function Transcript({ playerRef, currentTime }) {
     // array of {time, text, feedbacks}
     // feedbacks: array of {type, highlight_part, comment}
     // type: vocab, grammar, voice or advance
-    const captions = getCaptionData(); 
+    const captions = getCaptionData();
 
     const [containerHeight, setContainerHeight] = useState(1000);
     const [fillerHeight, setFillerHeight] = useState(0);
@@ -22,32 +22,43 @@ export default function Transcript({playerRef, currentTime}) {
     const animationRefs = useRef([]);
 
     useLayoutEffect(() => {
-        setFillerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight - captionRefs.current[captions.length - 1].offsetHeight);
+        setFillerHeight(
+            containerRef.current.offsetHeight -
+                headerRef.current.offsetHeight -
+                captionRefs.current[captions.length - 1].offsetHeight,
+        );
     }, []);
-    
+
     useLayoutEffect(() => {
-        setContainerHeight(Math.min(containerHeight, containerRef.current.offsetHeight - headerRef.current.offsetHeight));
+        setContainerHeight(
+            Math.min(
+                containerHeight,
+                containerRef.current.offsetHeight - headerRef.current.offsetHeight,
+            ),
+        );
     }, [expanded]);
 
     useLayoutEffect(() => {
         let captionIndex = -1;
         for (let i = 0; i < captions.length; i++) {
-            if (currentTime >= captions[i].time) 
+            if (currentTime >= captions[i].time) {
                 captionIndex = i;
-            else 
+            } else {
                 break;
+            }
         }
 
         if (captionIndex === currentCaption) {
             return;
-        
         }
+
         setCurrentCaption(captionIndex);
+
         if (expanded === -1) {
             scrollToCaption(captionIndex);
         }
     }, [currentTime]);
-    
+
     useLayoutEffect(() => {
         unlockProgress.forEach((progress, i) => {
             if (progress === 100 && expanded !== i) {
@@ -56,22 +67,26 @@ export default function Transcript({playerRef, currentTime}) {
             }
         });
     }, [unlockProgress, expanded]);
-    
-    const scrollToCaption = i => {
+
+    const scrollToCaption = (i) => {
         if (!containerRef.current || !captionRefs.current[i]) {
-            console.warn("caption not found");
+            console.warn('caption not found');
         } else {
             const rect = captionRefs.current[i].getBoundingClientRect();
             const containerRect = containerRef.current.getBoundingClientRect();
-            const top = rect.top - containerRect.top + containerRef.current.scrollTop - headerRef.current.offsetHeight;
+            const top =
+                rect.top -
+                containerRect.top +
+                containerRef.current.scrollTop -
+                headerRef.current.offsetHeight;
             containerRef.current.scrollTo({
                 top: top,
-                behavior: 'smooth'
-            })
+                behavior: 'smooth',
+            });
         }
     };
 
-    const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
+    const setTime = (time) => layerRef.current && playerRef.current.seekTo(time, true);
 
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -80,8 +95,7 @@ export default function Transcript({playerRef, currentTime}) {
 
         if (unlockProgress[i] === 100) return; // already unlocked
 
-        if (animationRefs.current[i])
-            clearInterval(animationRefs.current[i]);
+        if (animationRefs.current[i]) clearInterval(animationRefs.current[i]);
 
         lockAll();
 
@@ -89,8 +103,8 @@ export default function Transcript({playerRef, currentTime}) {
         const duration = 600; // 0.6 seconds
         animationRefs.current[i] = setInterval(() => {
             const elapsed = Date.now() - startTime;
-            let linear = Math.min(elapsed / duration, 1);   // 0 → 1
-            let eased = easeOutCubic(linear);               // apply easing
+            let linear = Math.min(elapsed / duration, 1); // 0 → 1
+            let eased = easeOutCubic(linear); // apply easing
             let progress = Math.round(eased * 100 * 100) / 100;
 
             setUnlockProgress((prev) => {
@@ -109,7 +123,8 @@ export default function Transcript({playerRef, currentTime}) {
     const handleUnlockEnd = (e, i) => {
         if (e.button !== 2) return; // 右鍵解鎖
 
-        if (unlockProgress[i] >= 95) { // 快解鎖就放開也解鎖
+        if (unlockProgress[i] >= 95) {
+            // 快解鎖就放開也解鎖
             setUnlockProgress((prev) => {
                 const newProgress = [...prev];
                 newProgress[i] = 100;
@@ -130,52 +145,54 @@ export default function Transcript({playerRef, currentTime}) {
     const lockAll = () => {
         setUnlockProgress(Array(captions.length).fill(0));
         setExpanded(-1);
-    }
+    };
 
-    const getClasses = i => 
-        `${i === expanded ? 'expanded' : ''} ${i === currentCaption ? 'current' : ''} ${unlockProgress[i] === 100 ? 'unlocked' : ''}`
+    const getClasses = (i) =>
+        `${i === expanded ? 'expanded' : ''} ${i === currentCaption ? 'current' : ''} ${
+            unlockProgress[i] === 100 ? 'unlocked' : ''
+        }`;
 
     return (
-        <section className="transcript-container">
+        <section className='transcript-container'>
             <section
-                className="transcript"
+                className='transcript'
                 ref={containerRef}
                 onWheel={lockAll}
                 onTouchMove={lockAll}
             >
                 <h3 ref={headerRef}>文字起こし</h3>
-                {captions.map((caption, i) => 
-                    <div 
-                        className="caption-container" 
-                        key={i} 
-                        style={{"--container-height": containerHeight + 'px'}}>
-                        <div 
+                {captions.map((caption, i) => (
+                    <div
+                        className='caption-container'
+                        key={i}
+                        style={{ '--container-height': containerHeight + 'px' }}
+                    >
+                        <div
                             className={`caption ${getClasses(i)}`}
-                            ref={el => captionRefs.current[i] = el}
-                            style={{"--progress": unlockProgress[i] + '%'}}
+                            ref={(el) => (captionRefs.current[i] = el)}
+                            style={{ '--progress': unlockProgress[i] + '%' }}
                             onClick={() => setTime(caption.time)}
-                            onContextMenu={e => handleUnlockStart(e, i)}
-                            onMouseUp={e => handleUnlockEnd(e, i)}
+                            onContextMenu={(e) => handleUnlockStart(e, i)}
+                            onMouseUp={(e) => handleUnlockEnd(e, i)}
                         >
-                            <img className="icon" src='images/icon.png'/>
-                            <p className='text'>
-                                {caption.text}
-                            </p>
+                            <img className='icon' src='images/icon.png' />
+                            <p className='text'>{caption.text}</p>
                         </div>
-                        {i === expanded && 
-                            <button className="close-note" onClick={lockAll}>
-                                <i className="fa-solid fa-angle-up"></i> 
-                            </button>}                                                    
-                        <p className="note" contentEditable></p>  
+                        {i === expanded && (
+                            <button className='close-note' onClick={lockAll}>
+                                <i className='fa-solid fa-angle-up'></i>
+                            </button>
+                        )}
+                        <p className='note' contentEditable></p>
                         {/* <div className="mistake-hint">
                             <h4 className="type">Type</h4>
                             <p>description</p>
                         </div> */}
                     </div>
-                )}
-                <div className="filler" style={{height: fillerHeight}}></div>
+                ))}
+                <div className='filler' style={{ height: fillerHeight }}></div>
             </section>
             <Hint />
         </section>
-    )
+    );
 }

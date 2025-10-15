@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
-import YouTube from "react-youtube";
+import React, { useRef, useState, useEffect } from 'react';
+import YouTube from 'react-youtube';
 import 'components/Display.css';
-import VideoInfo from "components/VideoInfo";
+import VideoInfo from 'components/VideoInfo';
 
-export default function Display({playerRef, currentTime, setCurrentTime}) {
+export default function Display({ playerRef, currentTime, setCurrentTime }) {
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
         playerVars: {
@@ -19,7 +19,7 @@ export default function Display({playerRef, currentTime, setCurrentTime}) {
 
     const progressRef = useRef(null);
 
-    const onReady = e => {
+    const onReady = (e) => {
         playerRef.current = e.target;
         setDuration(playerRef.current.getDuration());
     };
@@ -30,41 +30,35 @@ export default function Display({playerRef, currentTime, setCurrentTime}) {
             if (state === window.YT.PlayerState.PLAYING) {
                 playerRef.current.pauseVideo();
                 setIsPlaying(false);
-            }
-            else {
+            } else {
                 playerRef.current.playVideo();
                 setIsPlaying(true);
             }
-        }   
+        }
     };
-    
-    const setTime = time => playerRef.current && playerRef.current.seekTo(time, true);
+
+    const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
 
     const goPrevious = () => {
-        if (!playerRef.current)
-            return;
+        if (!playerRef.current) return;
 
         let prevTimestamp = -1;
         for (let i = 0; i < timestamps.length; i++) {
-            if (currentTime > timestamps[i]) 
-                prevTimestamp = i;
-            else 
-                break;
+            if (currentTime > timestamps[i]) prevTimestamp = i;
+            else break;
         }
-        setTime((prevTimestamp !== -1) ? timestamps[prevTimestamp] : 0);
-    };
-    
-    const goNext = () => {
-        if (!playerRef.current)
-            return;
-        
-        const nextTime = timestamps.find(time => time > currentTime);
-        setTime((nextTime !== undefined) ? nextTime : duration);
+        setTime(prevTimestamp !== -1 ? timestamps[prevTimestamp] : 0);
     };
 
-    const changeTime = e => {
-        if (!playerRef.current)
-            return;
+    const goNext = () => {
+        if (!playerRef.current) return;
+
+        const nextTime = timestamps.find((time) => time > currentTime);
+        setTime(nextTime !== undefined ? nextTime : duration);
+    };
+
+    const changeTime = (e) => {
+        if (!playerRef.current) return;
 
         const progressContainer = progressRef.current;
         if (!progressContainer || !duration) return;
@@ -75,19 +69,19 @@ export default function Display({playerRef, currentTime, setCurrentTime}) {
         percent = Math.max(0, Math.min(1, percent));
         const newTime = percent * duration;
         setTime(newTime);
-    }
+    };
 
     const startChangingTime = () => {
-        window.addEventListener("mousemove", changeTime);
-        window.addEventListener("mouseup", finishChangingTime);
+        window.addEventListener('mousemove', changeTime);
+        window.addEventListener('mouseup', finishChangingTime);
         playerRef.current.pauseVideo();
-    }
+    };
 
     const finishChangingTime = () => {
-        window.removeEventListener("mousemove", changeTime);
-        window.removeEventListener("mouseup", finishChangingTime);
+        window.removeEventListener('mousemove', changeTime);
+        window.removeEventListener('mouseup', finishChangingTime);
         playerRef.current.playVideo();
-    }
+    };
 
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
@@ -96,54 +90,56 @@ export default function Display({playerRef, currentTime, setCurrentTime}) {
     };
 
     return (
-        <section className="display">
-            <div className="video">
-                <YouTube 
-                    className="youtube"
-                    videoId={videoID} 
-                    opts={youtubeOpts} 
-                    onReady={onReady} 
+        <section className='display'>
+            <div className='video'>
+                <YouTube
+                    className='youtube'
+                    videoId={videoID}
+                    opts={youtubeOpts}
+                    onReady={onReady}
                     onPlay={() => setIsPlaying(true)}
                     onPause={() => setIsPlaying(false)}
                 />
-                <div className="timeline">
-                    <span className="time-left">{formatTime(currentTime)}</span>
-                    <div className="progress-container">
-                        <div 
-                            className="progress" 
+                <div className='timeline'>
+                    <span className='time-left'>{formatTime(currentTime)}</span>
+                    <div className='progress-container'>
+                        <div
+                            className='progress'
                             onClick={changeTime}
                             onMouseDown={startChangingTime}
                             ref={progressRef}
                         >
-                            <div 
-                                className="progress-indicator"
-                                style={{"--progress": `${(currentTime / duration) * 100}%` }}
+                            <div
+                                className='progress-indicator'
+                                style={{
+                                    '--progress': `${(currentTime / duration) * 100}%`,
+                                }}
                             ></div>
                         </div>
-                        {timestamps.map((time, i) => 
-                            <div 
-                                className="dot" 
-                                key={i} 
-                                style={{"left": time / duration * 100 + '%'}}
+                        {timestamps.map((time, i) => (
+                            <div
+                                className='dot'
+                                key={i}
+                                style={{ left: (time / duration) * 100 + '%' }}
                                 onClick={() => setTime(time)}
                             />
-                        )}
+                        ))}
                     </div>
-                    <span className="time-right">{formatTime(duration)}</span>
+                    <span className='time-right'>{formatTime(duration)}</span>
                 </div>
-                <div className="control">
-                    <button className="previous" onClick={goPrevious}>
-                        <i className="fa-solid fa-backward-step"></i>
+                <div className='control'>
+                    <button className='previous' onClick={goPrevious}>
+                        <i className='fa-solid fa-backward-step'></i>
                     </button>
-                    <button className="play-pause" onClick={handlePlayPause}>
+                    <button className='play-pause' onClick={handlePlayPause}>
                         <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'}`}></i>
                     </button>
-                    <button className="next" onClick={goNext}>
-                        <i className="fa-solid fa-forward-step"></i>
+                    <button className='next' onClick={goNext}>
+                        <i className='fa-solid fa-forward-step'></i>
                     </button>
                 </div>
             </div>
             <VideoInfo />
         </section>
-  );
+    );
 }
