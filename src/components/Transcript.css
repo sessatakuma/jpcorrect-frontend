@@ -142,12 +142,17 @@
     box-sizing: border-box;
     
     background: var(--clr-primary-200);
+<<<<<<< HEAD
 
+=======
+    z-index: 0;
+>>>>>>> ff871d2 (feat: delete chinese and dark button)
     height: 0;
     padding: 0;
     width: 100%;
     transition: .2s;
     margin: 0;
+<<<<<<< HEAD
     
     .caption-container:has(.caption.expanded) & {
         height: auto;
@@ -156,6 +161,13 @@
             height: 4rem;
         } */
     }
+=======
+}
+
+.caption-container:has(.caption.expanded) .note {
+    height: auto;
+    padding: 5rem; 
+>>>>>>> ff871d2 (feat: delete chinese and dark button)
 }
 
 .caption-container .close-note {

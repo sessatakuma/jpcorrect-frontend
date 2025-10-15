@@ -32,7 +32,7 @@
     }
 }
 
-.nav .nav-buttons {
+/* .nav .nav-buttons {
     display: flex;
     gap: 1rem;
 
@@ -53,4 +53,4 @@
             background-color: color-mix(in hsl, var(--clr-secondary), #000 5%);
         }
     }
-}
+} */
