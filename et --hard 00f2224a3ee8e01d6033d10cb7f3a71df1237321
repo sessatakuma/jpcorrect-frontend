@@ -1,0 +1,336 @@
+[33mcommit 00f2224a3ee8e01d6033d10cb7f3a71df1237321[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: minto <chrischris911226@gmail.com>
+Date:   Thu Oct 16 12:39:40 2025 +0800
+
+    chore: delete chinese and dark brtton
+
+[33mcommit bc6cf0b60d0c219473ae660e740e4c7fc8b6aa34[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Wed Oct 15 22:37:22 2025 +0800
+
+    Merge feat: implement feedback UI in unlocked caption (#18)
+    
+    * chore: migrate transcript.json data
+    
+    * perf: make getCaptionData into a hook
+    
+    * feat: show highlighted parts when unlocked
+    
+    * feat: show feedback when highlight clicked
+
+[33mcommit 36548113e54e13a230162b7b06bf3b6c52f5fea7[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Wed Oct 15 16:18:10 2025 +0800
+
+    style: add prettier as formatter (#15)
+
+[33mcommit 92c4ee7882804340a41fb5872d4b91799a78836b[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Wed Oct 15 14:33:13 2025 +0800
+
+    fix: fix scrollToCaption failing issue (#14)
+
+[33mcommit 64adcf681cc90fd5e989c045afb562f1ad74a763[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Oct 11 22:57:29 2025 +0800
+
+    style: change import format in Transcript (#13)
+
+[33mcommit 6d0ff0ff5ee141d943e00999121f166e7d0c485f[m
+Merge: 56a852c 8314e3d
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Oct 11 22:50:06 2025 +0800
+
+    Merge pull request #12 from sessatakuma/feat-add-PR-template
+    
+    feat: add pull_request_template.md
+
+[33mcommit 8314e3d9688911063bb4ebb8a11a0a035e453e95[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Oct 11 22:48:47 2025 +0800
+
+    Create pull_request_template.md
+
+[33mcommit 56a852c6328457ed26730414f2a1f0931a258de2[m
+Merge: 54c36d2 718dfc8
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Oct 11 22:24:09 2025 +0800
+
+    Merge pull request #11 from sessatakuma/feedback
+    
+    feat: incorporate new transcript format
+
+[33mcommit 718dfc8534caf11d3c9a7f145219c09f6c03fe9f[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Oct 11 22:21:22 2025 +0800
+
+    fix: fix getCaptionData early return logic issue
+
+[33mcommit 4e604680a52de021951135e95cae48ee320ee869[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 30 19:30:31 2025 +0800
+
+    feat: incorporate new transcript format
+
+[33mcommit 54c36d2aa08f750f110be98cda8093479e26589a[m
+Merge: bc49c0a 96c5ddd
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Tue Sep 30 17:21:35 2025 +0800
+
+    Merge pull request #9 from sessatakuma/ai-feedback
+    
+    Ai feedback
+
+[33mcommit 96c5ddd2ce089bda1adff2cc4ac29a0bf969009a[m
+Merge: 045343a bc49c0a
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Tue Sep 30 17:21:24 2025 +0800
+
+    Merge branch 'main' into ai-feedback
+
+[33mcommit 045343a68dd26a6da7fecff56d478272cad75d0a[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 30 15:06:03 2025 +0800
+
+    feat: set note height to fit inside caption container
+
+[33mcommit bc49c0a0973b59d2e48151e4cbada6b95838fc54[m
+Merge: 21d1612 de8d73a
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Tue Sep 30 14:23:39 2025 +0800
+
+    Merge pull request #8 from sessatakuma/add_arrow
+    
+    Add note-closing button
+
+[33mcommit de8d73a9ca6e1e1d629c391ab2037f8ae21b6a18[m[33m ([m[1;31morigin/add_arrow[m[33m, [m[1;32madd_arrow[m[33m)[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 30 14:12:27 2025 +0800
+
+    fix: restore temporary changes that were for testing
+
+[33mcommit 244947de7dbac5c93cd54e5d7d1c956ffc4b3ee2[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 30 14:02:23 2025 +0800
+
+    fix: adjust css selector for note-closing button
+
+[33mcommit 30b2ce7f93efafa6fbb7060e8fa49c44a55bed45[m
+Author: minto <chrischris911226@gmail.com>
+Date:   Mon Sep 29 22:56:32 2025 +0800
+
+    [fix] add arrow
+
+[33mcommit 505c671f1393ef1aee6088d772f9e5cb5cb8f300[m[33m ([m[1;31morigin/ai-feedback[m[33m)[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Mon Sep 29 15:46:07 2025 +0800
+
+    feat: add feedback placeholder
+
+[33mcommit 21d16121f47106e00d1aa2abb232c78583e7d875[m
+Merge: 5845276 ced3429
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Tue Sep 16 14:20:53 2025 +0800
+
+    Merge pull request #7 from sessatakuma/transcript-onclick
+    
+    Transcript onclick
+
+[33mcommit ced34295046f4386a6fd297f98ecb15f12b7151f[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 16 14:20:08 2025 +0800
+
+    fix: make the seek funciton work, optimize related function
+
+[33mcommit 361252dcfaef130f16cfc10d3c8392712299bb3b[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Tue Sep 16 13:25:46 2025 +0800
+
+    feat: change expand from left to right click, make left click change time
+
+[33mcommit 5845276c6f67560e2c929eb7a22e25c2954e4153[m
+Merge: e13a18e 1fd0d92
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sun Sep 14 13:32:40 2025 +0800
+
+    Merge pull request #6 from sessatakuma/build
+    
+    build: replace js bundles
+
+[33mcommit 1fd0d92ef20cf3d9de3303fd5f2c2b7f88a97e74[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sun Sep 14 13:32:08 2025 +0800
+
+    build: replace js bundles
+
+[33mcommit e13a18ee04ff2e36c64677ce00bf637102cf78bc[m
+Merge: 3168012 a08830e
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sun Sep 14 13:17:05 2025 +0800
+
+    Merge pull request #5 from sessatakuma/timeshow
+    
+    Version 1
+
+[33mcommit a08830e347bbb96e9f88e955e17f8ebebd73bd89[m
+Author: 6uc <clingyattic8184@gmail.com>
+Date:   Sun Sep 14 01:01:59 2025 +0900
+
+    feat:add video progress bar
+
+[33mcommit d5aca5b1810d445dba2f89535feac4f68384a2a2[m
+Author: 6uc <clingyattic8184@gmail.com>
+Date:   Sat Sep 13 22:24:35 2025 +0900
+
+    字幕注目
+
+[33mcommit 6aa0236bae5eaaeccec1f5eddb918de3013b6c31[m
+Author: 6uc <clingyattic8184@gmail.com>
+Date:   Sat Sep 13 22:12:41 2025 +0900
+
+    gogogo
+
+[33mcommit 452cc9361f7633289fff93dce0ae3e4a72bf0144[m
+Author: 6uc <clingyattic8184@gmail.com>
+Date:   Sat Sep 13 21:23:24 2025 +0900
+
+    Co-authored-by: Kuan-Ting Wu <torrid-fish@users.noreply.github.com>
+    Co-authored-by: 陳曦 <Hsiii@users.noreply.github.com>
+
+[33mcommit b861ad3dc32472d5fdea636db9ff12fe410801d6[m
+Author: 6uc <clingyattic8184@gmail.com>
+Date:   Sat Sep 13 18:34:23 2025 +0900
+
+    time show
+
+[33mcommit 31680129495e81eaed843004cce3ac67d540c4b6[m
+Merge: affb466 f3e5c58
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Sep 13 16:56:55 2025 +0800
+
+    Merge pull request #4 from sessatakuma/hide-ai
+    
+    Hide ai
+
+[33mcommit f3e5c584ae6cf7ba8766d61bff2f71e19efa0944[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 13 16:56:36 2025 +0800
+
+    finish hide ai
+
+[33mcommit ba6052288404f51801cf0bf206080d49a75c18d9[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 13 16:16:55 2025 +0800
+
+    I broke something
+
+[33mcommit affb4668c9871ee99648e7e0f7516ff3424ae994[m
+Merge: a0a2761 3a3c8d5
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Sep 13 15:58:44 2025 +0800
+
+    Merge pull request #3 from sessatakuma/transcript-note
+    
+    Transcript note
+
+[33mcommit 3a3c8d515f6f7caac076f04fc6f8ddb9653ad424[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 13 15:58:02 2025 +0800
+
+    finish note function
+
+[33mcommit 8c99ced121bc305c80e8901c4b5a8ddcdfeee47d[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 13 15:26:18 2025 +0800
+
+    unlock working
+
+[33mcommit ca27996ab21f53b45ebfce2b5c3e3dc5a1534f8e[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Fri Sep 12 16:21:07 2025 +0800
+
+    fix html background
+
+[33mcommit 6da3dbe963adc70b7d36315be572cdde7f722c19[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Fri Sep 12 14:37:19 2025 +0800
+
+    refactor: VedioInfo
+
+[33mcommit e771464f059b4a17c1fe9d35266af8c67f95079f[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Fri Sep 12 14:31:58 2025 +0800
+
+    useRef
+
+[33mcommit 874b96f107cd414c7a9cef3bcac668d0d541430a[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Fri Sep 12 13:59:55 2025 +0800
+
+    first try
+
+[33mcommit a0a2761eb356d31d865583ad3316b003e852f733[m
+Merge: 7e435ba fdab04d
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Thu Sep 11 23:55:15 2025 +0800
+
+    Finish transcript and hint layout
+    
+    Finish transcript and hint layout
+
+[33mcommit fdab04dd3d95a6cef98e4771d8be550a063f8359[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Thu Sep 11 23:47:50 2025 +0800
+
+    Finish transcript and hint layout
+
+[33mcommit 7e435bad85aead522d19606872d487bb86270ec9[m
+Merge: 36ddf12 42f51ae
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Thu Sep 11 20:58:47 2025 +0800
+
+    Display and timestamp layout
+    
+    Display and timestamp layout
+
+[33mcommit 42f51aede586045b3019fdac824e079962e8adb9[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Thu Sep 11 20:57:21 2025 +0800
+
+    Finish timestamp layout
+
+[33mcommit 36ddf129de7a56b3f457afe2663314d0a9555c54[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Thu Sep 11 14:52:39 2025 +0800
+
+    Finish layout draft
+
+[33mcommit c09a56d8e7590d2feebe03008bffa86d876ac0b6[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Wed Sep 10 15:03:54 2025 +0800
+
+    Layout for display and transcript
+
+[33mcommit 41ba80cfb4d795524f64eb7d91bd402d11a552ee[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 6 03:03:09 2025 +0800
+
+    Layout
+
+[33mcommit 5c8c0697ba880d901837bd9173c2779c24e908d7[m
+Author: 陳曦 <eriksonchen@gmail.com>
+Date:   Sat Sep 6 02:27:52 2025 +0800
+
+    Install packages and import template
+
+[33mcommit 1d01d798f758cc003e1aae1ce586c2af2e0ae5ae[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Sep 6 02:15:19 2025 +0800
+
+    Update README.md
+
+[33mcommit 4abb20ec8471815061b7aa92c368232788b5277b[m
+Author: 陳曦 <94444077+Hsiii@users.noreply.github.com>
+Date:   Sat Sep 6 02:11:55 2025 +0800
+
+    Initial commit
