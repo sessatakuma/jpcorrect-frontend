@@ -18,6 +18,8 @@ export default function Transcript({ playerRef, currentTime }) {
     const headerRef = useRef(null);
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
+    const noteRefs = useRef([]);
+
 
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
@@ -69,6 +71,14 @@ export default function Transcript({ playerRef, currentTime }) {
             if (progress === 100 && expanded !== i) {
                 scrollToCaption(i);
                 setExpanded(i);
+
+                // 解鎖完成後自動focus
+                const note = noteRefs.current[i];
+                if (note) {
+                    setTimeout(() => {
+                    note.focus();
+                    }, 300);
+                }
             }
         });
     }, [unlockProgress, expanded]);
@@ -222,7 +232,10 @@ export default function Transcript({ playerRef, currentTime }) {
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
-                        <p className='note' contentEditable></p>
+                        <p className='note' 
+                           contentEditable
+                           ref={(el) => noteRefs.current[i] = el}
+                        />
                     </div>
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
