@@ -1,0 +1,26 @@
+[33m00f2224[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m chore: delete chinese and dark brtton
+[33mbc6cf0b[m Merge feat: implement feedback UI in unlocked caption (#18)
+[33m3654811[m style: add prettier as formatter (#15)
+[33m92c4ee7[m fix: fix scrollToCaption failing issue (#14)
+[33m64adcf6[m style: change import format in Transcript (#13)
+[33m6d0ff0f[m Merge pull request #12 from sessatakuma/feat-add-PR-template
+[33m8314e3d[m Create pull_request_template.md
+[33m56a852c[m Merge pull request #11 from sessatakuma/feedback
+[33m718dfc8[m fix: fix getCaptionData early return logic issue
+[33m4e60468[m feat: incorporate new transcript format
+[33m54c36d2[m Merge pull request #9 from sessatakuma/ai-feedback
+[33m96c5ddd[m Merge branch 'main' into ai-feedback
+[33m045343a[m feat: set note height to fit inside caption container
+[33mbc49c0a[m Merge pull request #8 from sessatakuma/add_arrow
+[33mde8d73a[m[33m ([m[1;31morigin/add_arrow[m[33m, [m[1;32madd_arrow[m[33m)[m fix: restore temporary changes that were for testing
+[33m244947d[m fix: adjust css selector for note-closing button
+[33m30b2ce7[m [fix] add arrow
+[33m505c671[m[33m ([m[1;31morigin/ai-feedback[m[33m)[m feat: add feedback placeholder
+[33m21d1612[m Merge pull request #7 from sessatakuma/transcript-onclick
+[33mced3429[m fix: make the seek funciton work, optimize related function
+[33m361252d[m feat: change expand from left to right click, make left click change time
+[33m5845276[m Merge pull request #6 from sessatakuma/build
+[33m1fd0d92[m build: replace js bundles
+[33me13a18e[m Merge pull request #5 from sessatakuma/timeshow
+[33ma08830e[m feat:add video progress bar
+[33md5aca5b[m 字幕注目

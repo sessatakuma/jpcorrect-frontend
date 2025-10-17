@@ -4,10 +4,14 @@ export default function getCaptionData() {
     if (!data) {
         return [];
     }
-    return data.transcripts.map((transcript) => {
+
+    const date = data.date || null;
+    const practice_type = data.practice_type || null;
+
+    const transcripts = data.transcripts.map((transcript) => {
         // Gather feedbacks for this transcript that have highlight_part
         const feedbacks = (transcript.feedback_ids || []).map((id) => data.feedbacks[id]);
-        // Prepare highlights: find all highlight_part substrings and their indices
+        // Prepare highlights: ficnd all highlight_part substrings and their indices
         let highlights = [];
         feedbacks.forEach((fb) => {
             if (fb && fb.highlight_part) {
@@ -71,4 +75,10 @@ export default function getCaptionData() {
             textSegments: segments,
         };
     });
+    //
+    return {
+        date, 
+        practice_type, 
+        transcripts
+    };
 }

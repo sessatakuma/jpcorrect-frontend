@@ -1,16 +1,18 @@
 import React from 'react';
 import 'components/VideoInfo.css';
+import useTranscript from '../hook/useTranscript.js';
 
 export default function VideoInfo() {
+    const { date = '----/--/--', practice_type = '未定', transcripts } = useTranscript();
 	const groupCount = 1;
 	return (
 		<div className='info'>
 			<div className='video-info'>
 				<h2 className='title'>テーマ</h2>
 				<span className='dot'>．</span>
-				<span className='event-type'>検討会</span>
+				<span className='event-type'>{practice_type}</span>
 				<span className='dot'>．</span>
-				<span className='date'>2024/06/02</span>
+				<span className='date'>{date}</span>
 			</div>
 			<div className='participant-info'>
 				{Array.from({ length: groupCount }, (_, i) => i + 1).map(
