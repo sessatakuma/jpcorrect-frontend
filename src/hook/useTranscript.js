@@ -11,7 +11,7 @@ export default function getCaptionData() {
     const transcripts = data.transcripts.map((transcript) => {
         // Gather feedbacks for this transcript that have highlight_part
         const feedbacks = (transcript.feedback_ids || []).map((id) => data.feedbacks[id]);
-        // Prepare highlights: ficnd all highlight_part substrings and their indices
+        // Prepare highlights: find all highlight_part substrings and their indices
         let highlights = [];
         feedbacks.forEach((fb) => {
             if (fb && fb.highlight_part) {
