@@ -4,7 +4,8 @@ import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
 
 export default function Transcript({ playerRef, currentTime }) {
-    const captions = useTranscript();
+    const { date, practice_type, transcripts: captions} = useTranscript();
+    // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
 
