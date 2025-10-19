@@ -5,7 +5,7 @@ export default function getCaptionData() {
         return [];
     }
 
-    const date = data.date || null;
+    const date = data.date.replace(/[^0-9]/g, '/') || null;
     const practice_type = data.practice_type || null;
 
     const transcripts = data.transcripts.map((transcript) => {

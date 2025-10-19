@@ -13,7 +13,7 @@ export default function VideoInfo() {
 				<span className='dot'>．</span>
 				<span className='event-type'>{practice_type}</span>
 				<span className='dot'>．</span>
-				<span className='date'>{date.replace(/[^0-9]/g, '/')}</span>
+				<span className='date'>{date}</span>
 			</div>
 			<div className='participant-info'>
 				{Array.from({ length: groupCount }, (_, i) => i + 1).map(
