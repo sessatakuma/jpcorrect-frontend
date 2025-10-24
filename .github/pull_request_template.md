@@ -1,3 +1,6 @@
+<!-- 請先閱讀我們手冊的 [How to PR](https://hackmd.io/@sessatakuma/pr_template#How-to-PR) 章節 -->
+<!-- 記得修改PR標題成 conventional commit 之標題格式  -->
+
 ### 目的
 {{請敘述這支 PR 的目的，例如解決了什麼問題、改善了什麼功能或新增了什麼特性}}
 
