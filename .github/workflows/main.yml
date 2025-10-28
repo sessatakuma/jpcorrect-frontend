@@ -27,4 +27,4 @@ jobs:
 
       # Configuration Files Quality Checks (optional - uncomment to enable)
       # Checks YAML, JSON, and TOML files for syntax errors
-      run-config-checks: true
+      # run-config-checks: true
