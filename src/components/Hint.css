@@ -1,28 +1,27 @@
 .hint {
     --padding: 1rem;
-    --input-height: 4rem;
-
+    --input-height: 4.5rem;
     width: 100%;
     height: 100%;
     background: var(--clr-primary-200);
     border-radius: 1rem;
     color: var(--clr-secondary);
-
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
     min-height: 0;
-    
 }
 
 .hint .header {
+    font-weight: bold;
+    position: sticky;
+    top: 0;
     height: 2rem;
+    box-shadow: 0 2px 4px #0001;
     display: grid;
     place-items: center;
     background-color: var(--clr-primary);
     border-radius: 1rem 1rem 0 0;
-    box-shadow: 0 2px 4px #0001;
-    font-weight: bold;
 }
 
 .hint .response {
@@ -32,6 +31,18 @@
     flex-direction: column;
     gap: 0rem;
     min-height: 0;
+    &::-webkit-scrollbar {
+    width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    }
+    &::-webkit-scrollbar-thumb {
+    background-color: var(--clr-accent);
+    border-radius: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    }
 }
 
 .hint .bubble {
@@ -41,12 +52,11 @@
     border-radius: 0.8rem;
     line-height: 1.2rem;
     word-break: break-word;
-    box-shadow: 0 1px 2px #0002;
 }
 
 .hint .bubble.ai {
     align-self: flex-start;
-    background: var(--clr-primary-light);
+    background: var(--clr-primary);
     color: var(--clr-secondary);
     border-top-left-radius: 0.3rem;
 }
@@ -60,27 +70,29 @@
 
 .hint .input-area {
     margin: 0 1rem 1rem 1rem;
-    height: var(--input-height);
+    height: var(--input-height, 5rem);
     padding: 1rem;
     background: var(--clr-primary);
-    border-radius: 1rem 1rem 1rem 1rem;
+    color: var(--clr-secondary);
+    border-radius: 1rem;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 -2px 4px #0001;
 }
 
 .hint .input {
     all: unset;
     width: 100%;
-    min-height: 2rem;
     max-height: 3rem;
     overflow-y: auto;
     color: var(--clr-secondary);
     background: var(--clr-primary-200);
     border-radius: .75rem;
     padding: .5rem .75rem;
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 }
 
 .hint .send {
@@ -94,9 +106,12 @@
     border-radius: 50%;
     background: var(--clr-accent);
     transition: 0.1s;
-}
-.hint .send:hover {
-    scale: 1.1;
+    &:hover {
+        scale: 1.1;
+    }
+    & i {
+        translate: -1px;
+    }
 }
 
 .hint .input[contenteditable]:empty::before {
