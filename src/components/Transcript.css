@@ -13,6 +13,9 @@
     &:has(.expanded) {
         grid-template-rows: 67% 1fr;
     }
+    &:has(.hint:focus-within) {
+        grid-template-rows: 1fr 67%;
+    }
     
     transition: .2s;
 }
