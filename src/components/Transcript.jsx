@@ -175,7 +175,7 @@ export default function Transcript({ playerRef, currentTime }) {
                 onWheel={lockAll}
                 onTouchMove={lockAll}
             >
-                <h3 ref={headerRef}>文字起こし</h3>
+                <h3 ref={headerRef}>{expanded !== -1 ? 'ノート' : '文字起こし'}</h3>
                 {captions.map((caption, i) => (
                     <div
                         className='caption-container'
