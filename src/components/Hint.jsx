@@ -1,7 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import 'components/Hint.css';
 
-export default function Hint() {
+export default function Hint({ hidden }) {
 	const [messages, setMessages] = useState([
 		{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' },
 	]);
@@ -35,7 +35,7 @@ export default function Hint() {
 	};
 
 	return (
-		<section className='hint'>
+		<section className='hint' hidden={hidden}>
 			<div className='header'>AI 添削</div>
 
 			<div className='response' ref={chatRef}>
