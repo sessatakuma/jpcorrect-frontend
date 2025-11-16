@@ -14,7 +14,6 @@ export default function Transcript({ playerRef, currentTime }) {
     const [unlockProgress, setUnlockProgress] = useState(Array(captions.length).fill(0));
     // TODO: change to single array [<unlockingIndex>, <progress>]
     const [currentCaption, setCurrentCaption] = useState(0);
-    const [showHint, setShowHint] = useState(0);
 
     const containerRef = useRef(null);
     const headerRef = useRef(null);
