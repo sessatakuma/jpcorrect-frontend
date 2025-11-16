@@ -4,7 +4,8 @@ import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
 
 export default function Transcript({ playerRef, currentTime }) {
-    const captions = useTranscript();
+    const { date, practice_type, transcripts: captions} = useTranscript();
+    // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
 
@@ -18,6 +19,8 @@ export default function Transcript({ playerRef, currentTime }) {
     const headerRef = useRef(null);
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
+    const noteRefs = useRef([]);
+
 
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
@@ -69,6 +72,14 @@ export default function Transcript({ playerRef, currentTime }) {
             if (progress === 100 && expanded !== i) {
                 scrollToCaption(i);
                 setExpanded(i);
+
+                // 解鎖完成後自動focus
+                const note = noteRefs.current[i];
+                if (note) {
+                    setTimeout(() => {
+                    note.focus();
+                    }, 300);
+                }
             }
         });
     }, [unlockProgress, expanded]);
@@ -164,7 +175,7 @@ export default function Transcript({ playerRef, currentTime }) {
                 onWheel={lockAll}
                 onTouchMove={lockAll}
             >
-                <h3 ref={headerRef}>文字起こし</h3>
+                <h3 ref={headerRef}>{expanded !== -1 ? 'ノート' : '文字起こし'}</h3>
                 {captions.map((caption, i) => (
                     <div
                         className='caption-container'
@@ -222,7 +233,10 @@ export default function Transcript({ playerRef, currentTime }) {
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
-                        <p className='note' contentEditable></p>
+                        <p className='note' 
+                           contentEditable
+                           ref={(el) => noteRefs.current[i] = el}
+                        />
                     </div>
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
