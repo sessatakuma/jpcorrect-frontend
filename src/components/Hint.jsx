@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import 'components/Hint.css';
 
-export default function Hint({ hidden }) {
+export default function Hint({ disabledTab }) {
 	const [messages, setMessages] = useState([
 		{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' },
 	]);
@@ -35,10 +35,10 @@ export default function Hint({ hidden }) {
 	};
 
 	return (
-		<section className='hint' hidden={hidden}>
+		<section className='hint'>
 			<div className='header'>AI 添削</div>
 
-			<div className='response' ref={chatRef}>
+			<div className='response' ref={chatRef} tabIndex={-1}>
 				{messages.map((msg) => (
 					<p key={msg.id} className={`bubble ${msg.sender}`}>
 						{msg.text}
@@ -52,8 +52,9 @@ export default function Hint({ hidden }) {
 					ref={inputRef}
 					onKeyDown={handleKeyDown}
 					placeholder='メッセージを入力...'
+					tabIndex={-1}
 				></p>
-				<button className='send' onClick={sendMessage}>
+				<button className='send' onClick={sendMessage} tabIndex={-1}>
 					<i className='fa-solid fa-paper-plane'></i>
 				</button>
 			</div>

@@ -8,6 +8,7 @@ export default function Transcript({ playerRef, currentTime }) {
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
+    const [showHint, setShowHint] = useState(false);
 
     const [expanded, setExpanded] = useState(-1);
     const [feedbackShown, setfeedbackShown] = useState(-1);
@@ -241,7 +242,9 @@ export default function Transcript({ playerRef, currentTime }) {
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
             </section>
-            <Hint hidden={expanded === -1} />
+            <div>
+                <Hint />
+            </div>
         </section>
     );
 }
