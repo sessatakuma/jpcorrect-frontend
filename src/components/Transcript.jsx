@@ -241,9 +241,7 @@ export default function Transcript({ playerRef, currentTime }) {
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
             </section>
-            <div>
-                <Hint />
-            </div>
+            <Hint />
         </section>
     );
 }
