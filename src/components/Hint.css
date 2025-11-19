@@ -31,17 +31,20 @@
     flex-direction: column;
     gap: 0rem;
     min-height: 0;
+
     &::-webkit-scrollbar {
-    width: 8px;
+        width: 8px;
     }
+
     &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
     }
+
     &::-webkit-scrollbar-thumb {
-    background-color: var(--clr-accent);
-    border-radius: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.08);
+        background-color: var(--clr-accent);
+        border-radius: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.08);
     }
 }
 
@@ -90,6 +93,7 @@
     background: var(--clr-primary-200);
     border-radius: .75rem;
     padding: .5rem .75rem;
+
     &::-webkit-scrollbar {
         width: 0;
     }
@@ -106,9 +110,11 @@
     border-radius: 50%;
     background: var(--clr-accent);
     transition: 0.1s;
+
     &:hover {
         scale: 1.1;
     }
+
     & i {
         translate: -1px;
     }
