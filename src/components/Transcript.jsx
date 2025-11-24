@@ -241,7 +241,7 @@ export default function Transcript({ playerRef, currentTime }) {
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
             </section>
-            <Hint />
+            <Hint disabledTab={expanded === -1} />
         </section>
     );
 }

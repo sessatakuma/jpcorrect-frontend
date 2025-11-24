@@ -38,7 +38,7 @@ export default function Hint({ disabledTab }) {
 		<section className='hint'>
 			<div className='header'>AI 添削</div>
 
-			<div className='response' ref={chatRef} tabIndex={-1}>
+			<div className='response' ref={chatRef} tabIndex={disabledTab ? -1 : 0}>
 				{messages.map((msg) => (
 					<p key={msg.id} className={`bubble ${msg.sender}`}>
 						{msg.text}
@@ -52,9 +52,9 @@ export default function Hint({ disabledTab }) {
 					ref={inputRef}
 					onKeyDown={handleKeyDown}
 					placeholder='メッセージを入力...'
-					tabIndex={-1}
+					tabIndex={disabledTab ? -1 : 0}
 				></p>
-				<button className='send' onClick={sendMessage} tabIndex={-1}>
+				<button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
 					<i className='fa-solid fa-paper-plane'></i>
 				</button>
 			</div>
