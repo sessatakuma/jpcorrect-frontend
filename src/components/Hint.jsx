@@ -38,7 +38,7 @@ export default function Hint({ disabledTab }) {
 		<section className='hint'>
 			<div className='header'>AI 添削</div>
 
-			<div className='response' ref={chatRef} tabIndex={disabledTab ? -1 : 0}>
+			<div className='response' ref={chatRef}>
 				{messages.map((msg) => (
 					<p key={msg.id} className={`bubble ${msg.sender}`}>
 						{msg.text}
