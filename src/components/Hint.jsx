@@ -1,7 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import 'components/Hint.css';
 
-export default function Hint() {
+export default function Hint({ disabledTab }) {
 	const [messages, setMessages] = useState([
 		{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' },
 	]);
@@ -52,8 +52,9 @@ export default function Hint() {
 					ref={inputRef}
 					onKeyDown={handleKeyDown}
 					placeholder='メッセージを入力...'
+					tabIndex={disabledTab ? -1 : 0}
 				></p>
-				<button className='send' onClick={sendMessage}>
+				<button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
 					<i className='fa-solid fa-paper-plane'></i>
 				</button>
 			</div>

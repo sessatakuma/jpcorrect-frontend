@@ -4,7 +4,7 @@ import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
 
 export default function Transcript({ playerRef, currentTime }) {
-    const { date, practice_type, transcripts: captions} = useTranscript();
+    const { date, practice_type, transcripts: captions } = useTranscript();
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
@@ -27,8 +27,8 @@ export default function Transcript({ playerRef, currentTime }) {
     useLayoutEffect(() => {
         setFillerHeight(
             containerRef.current.offsetHeight -
-                headerRef.current.offsetHeight -
-                captionRefs.current[captions.length - 1].offsetHeight,
+            headerRef.current.offsetHeight -
+            captionRefs.current[captions.length - 1].offsetHeight,
         );
         setContainerHeight((h) => {
             return Math.min(
@@ -77,7 +77,7 @@ export default function Transcript({ playerRef, currentTime }) {
                 const note = noteRefs.current[i];
                 if (note) {
                     setTimeout(() => {
-                    note.focus();
+                        note.focus();
                     }, 300);
                 }
             }
@@ -233,15 +233,15 @@ export default function Transcript({ playerRef, currentTime }) {
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
-                        <p className='note' 
-                           contentEditable
-                           ref={(el) => noteRefs.current[i] = el}
+                        <p className='note'
+                            contentEditable
+                            ref={(el) => noteRefs.current[i] = el}
                         />
                     </div>
                 ))}
                 <div className='filler' style={{ height: fillerHeight }}></div>
             </section>
-            <Hint />
+            <Hint disabledTab={expanded === -1} />
         </section>
     );
 }
