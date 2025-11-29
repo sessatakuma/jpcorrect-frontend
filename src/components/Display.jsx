@@ -1,9 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import YouTube from 'react-youtube';
-import 'components/Display.css';
-import VideoInfo from 'components/VideoInfo';
 
-export default function Display({ playerRef, currentTime, setCurrentTime }) {
+import VideoInfo from 'components/VideoInfo';
+import PropTypes from 'prop-types';
+import 'components/Display.css';
+
+Display.propTypes = {
+    playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
+    currentTime: PropTypes.number.isRequired,
+};
+
+export default function Display({ playerRef, currentTime }) {
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
         playerVars: {
