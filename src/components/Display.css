@@ -91,7 +91,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: .75rem;
+    gap: 1.25rem;
     padding-bottom: 1rem;
     border-radius: 0 0 1rem 1rem;
 }
@@ -99,16 +99,15 @@
 .video .control button {
     &:nth-child(2) {
         background: var(--clr-accent);
-        width: 2rem;
+        width: 2.5rem;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         display: grid;
         place-items: center;
         font-size: 1rem;;
-        & i {
+        & .icon {
             color: var(--clr-primary);
-            width: 1rem;
-            aspect-ratio: 1 / 1;
+            fill: var(--clr-primary);
         }    
     }
     background: transparent;
@@ -119,10 +118,9 @@
     place-items: center;
     font-size: 1.2rem;
     transition: .1s;
-    & i {
+    & .icon {
         color: var(--clr-accent);
-        width: 1rem;
-        aspect-ratio: 1 / 1;
+        fill: var(--clr-accent);
     }    
     &:hover {
         scale: 1.1;
