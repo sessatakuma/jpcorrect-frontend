@@ -1,10 +1,20 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import Hint from './Hint';
-import './Transcript.css';
+
+import PropTypes from 'prop-types';
+
 import useTranscript from '../hook/useTranscript.js';
 
+import Hint from './Hint';
+
+import './Transcript.css';
+
+Transcript.propTypes = {
+    playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
+    currentTime: PropTypes.number.isRequired,
+};
+
 export default function Transcript({ playerRef, currentTime }) {
-    const { date, practice_type, transcripts: captions } = useTranscript();
+    const { transcripts: captions } = useTranscript();
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
     const [fillerHeight, setFillerHeight] = useState(0);
@@ -21,16 +31,15 @@ export default function Transcript({ playerRef, currentTime }) {
     const animationRefs = useRef([]);
     const noteRefs = useRef([]);
 
-
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
     useLayoutEffect(() => {
         setFillerHeight(
             containerRef.current.offsetHeight -
-            headerRef.current.offsetHeight -
-            captionRefs.current[captions.length - 1].offsetHeight,
+                headerRef.current.offsetHeight -
+                captionRefs.current[captions.length - 1].offsetHeight,
         );
-        setContainerHeight((h) => {
+        setContainerHeight(() => {
             return Math.min(
                 containerHeight,
                 containerRef.current.offsetHeight - headerRef.current.offsetHeight,
@@ -233,9 +242,10 @@ export default function Transcript({ playerRef, currentTime }) {
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
-                        <p className='note'
+                        <p
+                            className='note'
                             contentEditable
-                            ref={(el) => noteRefs.current[i] = el}
+                            ref={(el) => (noteRefs.current[i] = el)}
                         />
                     </div>
                 ))}
