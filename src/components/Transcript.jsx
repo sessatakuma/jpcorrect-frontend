@@ -2,6 +2,7 @@ import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import Hint from './Hint';
 import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
+import { ChevronUp } from 'lucide-react';
 
 export default function Transcript({ playerRef, currentTime }) {
     const { date, practice_type, transcripts: captions } = useTranscript();
@@ -21,14 +22,13 @@ export default function Transcript({ playerRef, currentTime }) {
     const animationRefs = useRef([]);
     const noteRefs = useRef([]);
 
-
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
     useLayoutEffect(() => {
         setFillerHeight(
             containerRef.current.offsetHeight -
-            headerRef.current.offsetHeight -
-            captionRefs.current[captions.length - 1].offsetHeight,
+                headerRef.current.offsetHeight -
+                captionRefs.current[captions.length - 1].offsetHeight,
         );
         setContainerHeight((h) => {
             return Math.min(
@@ -230,12 +230,13 @@ export default function Transcript({ playerRef, currentTime }) {
                         })()}
                         {i === expanded && (
                             <button className='close-note' onClick={lockAll}>
-                                <i className='fa-solid fa-angle-up'></i>
+                                <ChevronUp />
                             </button>
                         )}
-                        <p className='note'
+                        <p
+                            className='note'
                             contentEditable
-                            ref={(el) => noteRefs.current[i] = el}
+                            ref={(el) => (noteRefs.current[i] = el)}
                         />
                     </div>
                 ))}

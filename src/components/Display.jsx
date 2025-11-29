@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import 'components/Display.css';
 import VideoInfo from 'components/VideoInfo';
+import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 
 export default function Display({ playerRef, currentTime, setCurrentTime }) {
     const videoID = 'W6_V19cf9hg';
@@ -129,13 +130,13 @@ export default function Display({ playerRef, currentTime, setCurrentTime }) {
                 </div>
                 <div className='control'>
                     <button className='previous' onClick={goPrevious}>
-                        <i className='fa-solid fa-backward-step'></i>
+                        <SkipBack className='icon' />
                     </button>
                     <button className='play-pause' onClick={handlePlayPause}>
-                        <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'}`}></i>
+                        {isPlaying ? <Pause className='icon' /> : <Play className='icon' />}
                     </button>
                     <button className='next' onClick={goNext}>
-                        <i className='fa-solid fa-forward-step'></i>
+                        <SkipForward className='icon' />
                     </button>
                 </div>
             </div>
