@@ -27,7 +27,7 @@ export default defineConfig([
             'import/order': [
                 'error',
                 {
-                    'groups': [
+                    groups: [
                         'builtin',
                         'external',
                         'internal',
@@ -37,7 +37,7 @@ export default defineConfig([
                         'object',
                         'type',
                     ],
-                    'pathGroups': [
+                    pathGroups: [
                         {
                             pattern: 'react{,-*}',
                             group: 'external',
@@ -54,8 +54,8 @@ export default defineConfig([
                             position: 'after',
                         },
                     ],
-                    'pathGroupsExcludedImportTypes': ['react'],
-                    'alphabetize': { order: 'asc', caseInsensitive: true },
+                    pathGroupsExcludedImportTypes: ['react'],
+                    alphabetize: { order: 'asc', caseInsensitive: true },
                     'newlines-between': 'always',
                 },
             ],
