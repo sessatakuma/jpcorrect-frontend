@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import 'components/Hint.css';
+
 import { Send } from 'lucide-react';
+import PropTypes from 'prop-types';
+import 'components/Hint.css';
+
+Hint.propTypes = {
+    disabledTab: PropTypes.bool.isRequired,
+};
+
 export default function Hint({ disabledTab }) {
     const [messages, setMessages] = useState([{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' }]);
     const inputRef = useRef(null);

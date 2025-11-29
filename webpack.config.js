@@ -1,4 +1,5 @@
 const path = require('path');
+
 const webpack = require('webpack');
 
 const srcPath = path.resolve(__dirname, 'src');
@@ -15,6 +16,7 @@ module.exports = {
             components: path.resolve(srcPath, 'components'),
             utilities: path.resolve(srcPath, 'utilities'),
             data: path.resolve(srcPath, 'data'),
+            hook: path.resolve(srcPath, 'hook'),
         },
     },
 
