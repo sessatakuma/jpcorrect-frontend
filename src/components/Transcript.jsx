@@ -3,7 +3,7 @@ import Hint from './Hint';
 import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
 
-export default function Transcript({ playerRef, currentTime }) {
+export default function Transcript({ playerRef, currentTime, mode }) {
     const { date, practice_type, transcripts: captions } = useTranscript();
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
@@ -21,14 +21,15 @@ export default function Transcript({ playerRef, currentTime }) {
     const animationRefs = useRef([]);
     const noteRefs = useRef([]);
 
+    const isReviewMode = mode === 'review';
 
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
     useLayoutEffect(() => {
         setFillerHeight(
             containerRef.current.offsetHeight -
-            headerRef.current.offsetHeight -
-            captionRefs.current[captions.length - 1].offsetHeight,
+                headerRef.current.offsetHeight -
+                captionRefs.current[captions.length - 1].offsetHeight,
         );
         setContainerHeight((h) => {
             return Math.min(
@@ -195,7 +196,8 @@ export default function Transcript({ playerRef, currentTime }) {
                                 {caption.textSegments.map((textSegment, j) => (
                                     <span
                                         className={
-                                            i === expanded && textSegment.highlight
+                                            (i === expanded || isReviewMode) &&
+                                            textSegment.highlight
                                                 ? 'highlight ' + textSegment.feedback.type
                                                 : ''
                                         }
@@ -233,9 +235,10 @@ export default function Transcript({ playerRef, currentTime }) {
                                 <i className='fa-solid fa-angle-up'></i>
                             </button>
                         )}
-                        <p className='note'
+                        <p
+                            className='note'
                             contentEditable
-                            ref={(el) => noteRefs.current[i] = el}
+                            ref={(el) => (noteRefs.current[i] = el)}
                         />
                     </div>
                 ))}
