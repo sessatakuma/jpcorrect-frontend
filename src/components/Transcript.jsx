@@ -12,6 +12,7 @@ import './Transcript.css';
 Transcript.propTypes = {
     playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
     currentTime: PropTypes.number.isRequired,
+    mode: PropTypes.oneOf(['discuss', 'review']).isRequired,
 };
 
 export default function Transcript({ playerRef, currentTime, mode }) {
