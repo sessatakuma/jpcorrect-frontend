@@ -2,6 +2,7 @@ import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import Hint from './Hint';
 import './Transcript.css';
 import useTranscript from '../hook/useTranscript.js';
+import { ChevronUp } from 'lucide-react';
 
 export default function Transcript({ playerRef, currentTime, mode }) {
     const { date, practice_type, transcripts: captions } = useTranscript();
@@ -232,7 +233,7 @@ export default function Transcript({ playerRef, currentTime, mode }) {
                         })()}
                         {i === expanded && (
                             <button className='close-note' onClick={lockAll}>
-                                <i className='fa-solid fa-angle-up'></i>
+                                <ChevronUp />
                             </button>
                         )}
                         <p

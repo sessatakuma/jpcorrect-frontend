@@ -115,8 +115,8 @@
         scale: 1.1;
     }
 
-    & i {
-        translate: -1px;
+    & .icon {
+        translate: -.075rem .075rem;
     }
 }
 

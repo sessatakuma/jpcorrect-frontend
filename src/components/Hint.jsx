@@ -1,63 +1,61 @@
 import React, { useState, useRef, useEffect } from 'react';
 import 'components/Hint.css';
-
+import { Send } from 'lucide-react';
 export default function Hint({ disabledTab }) {
-	const [messages, setMessages] = useState([
-		{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' },
-	]);
-	const inputRef = useRef(null);
-	const chatRef = useRef(null);
+    const [messages, setMessages] = useState([{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' }]);
+    const inputRef = useRef(null);
+    const chatRef = useRef(null);
 
-	useEffect(() => {
-		if (chatRef.current) {
-			chatRef.current.scrollTop = chatRef.current.scrollHeight;
-		}
-	}, [messages]);
+    useEffect(() => {
+        if (chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        }
+    }, [messages]);
 
-	const sendMessage = () => {
-		const text = inputRef.current.textContent.trim();
-		if (text === '') return;
+    const sendMessage = () => {
+        const text = inputRef.current.textContent.trim();
+        if (text === '') return;
 
-		const newMessage = {
-			id: Date.now(),
-			sender: 'user',
-			text,
-		};
-		setMessages((prev) => [...prev, newMessage]);
-		inputRef.current.textContent = '';
-	};
+        const newMessage = {
+            id: Date.now(),
+            sender: 'user',
+            text,
+        };
+        setMessages((prev) => [...prev, newMessage]);
+        inputRef.current.textContent = '';
+    };
 
-	const handleKeyDown = (e) => {
-		if (e.key === 'Enter' && !e.shiftKey) {
-			e.preventDefault();
-			sendMessage();
-		}
-	};
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    };
 
-	return (
-		<section className='hint'>
-			<div className='header'>AI 添削</div>
+    return (
+        <section className='hint'>
+            <div className='header'>AI 添削</div>
 
-			<div className='response' ref={chatRef}>
-				{messages.map((msg) => (
-					<p key={msg.id} className={`bubble ${msg.sender}`}>
-						{msg.text}
-					</p>
-				))}
-			</div>
-			<div className='input-area'>
-				<p
-					className='input'
-					contentEditable
-					ref={inputRef}
-					onKeyDown={handleKeyDown}
-					placeholder='メッセージを入力...'
-					tabIndex={disabledTab ? -1 : 0}
-				></p>
-				<button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
-					<i className='fa-solid fa-paper-plane'></i>
-				</button>
-			</div>
-		</section>
-	);
+            <div className='response' ref={chatRef}>
+                {messages.map((msg) => (
+                    <p key={msg.id} className={`bubble ${msg.sender}`}>
+                        {msg.text}
+                    </p>
+                ))}
+            </div>
+            <div className='input-area'>
+                <p
+                    className='input'
+                    contentEditable
+                    ref={inputRef}
+                    onKeyDown={handleKeyDown}
+                    placeholder='メッセージを入力...'
+                    tabIndex={disabledTab ? -1 : 0}
+                ></p>
+                <button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
+                    <Send className='icon' size={20} />
+                </button>
+            </div>
+        </section>
+    );
 }
