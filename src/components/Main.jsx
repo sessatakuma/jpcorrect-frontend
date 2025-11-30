@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import Nav from 'components/Nav';
 import Display from 'components/Display';
-import Transcript from 'components/Transcript';
 import Footer from 'components/Footer';
+import Nav from 'components/Nav';
+import Transcript from 'components/Transcript';
 
 import 'components/Main.css';
 
-export default function Main(props) {
+export default function Main() {
     const [currentTime, setCurrentTime] = useState(0);
     const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
     const playerRef = useRef(null);
