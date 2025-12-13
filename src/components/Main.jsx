@@ -2,23 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Display from 'components/Display';
 import Footer from 'components/Footer';
+import Hint from 'components/Hint';
 import Nav from 'components/Nav';
-import Transcript from 'components/Transcript';
 
 import 'components/Main.css';
 
 export default function Main() {
     const [currentTime, setCurrentTime] = useState(0);
-    const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
     const playerRef = useRef(null);
-
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const modeParam = urlParams.get('mode');
-        if (modeParam === 'review' || modeParam === 'discuss') {
-            setMode(modeParam);
-        }
-    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -33,7 +24,7 @@ export default function Main() {
             <Nav />
             <main>
                 <Display playerRef={playerRef} currentTime={currentTime} />
-                <Transcript playerRef={playerRef} currentTime={currentTime} mode={mode} />
+                <Hint></Hint>
             </main>
             <Footer />
         </>

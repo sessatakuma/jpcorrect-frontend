@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 
 import 'components/Display.css';
-import VideoInfo from 'components/VideoInfo';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 import PropTypes from 'prop-types';
+
+import Transcript from './Transcript';
 
 Display.propTypes = {
     playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
@@ -12,6 +13,16 @@ Display.propTypes = {
 };
 
 export default function Display({ playerRef, currentTime }) {
+    const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeParam = urlParams.get('mode');
+        if (modeParam === 'review' || modeParam === 'discuss') {
+            setMode(modeParam);
+        }
+    }, []);
+
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
         playerVars: {
@@ -137,17 +148,17 @@ export default function Display({ playerRef, currentTime }) {
                 </div>
                 <div className='control'>
                     <button className='previous' onClick={goPrevious}>
-                        <SkipBack className='icon' />
+                        <SkipBack className='icon' strokeWidth={3} />
                     </button>
                     <button className='play-pause' onClick={handlePlayPause}>
                         {isPlaying ? <Pause className='icon' /> : <Play className='icon' />}
                     </button>
                     <button className='next' onClick={goNext}>
-                        <SkipForward className='icon' />
+                        <SkipForward className='icon' strokeWidth={3} />
                     </button>
                 </div>
             </div>
-            <VideoInfo />
+            <Transcript playerRef={playerRef} currentTime={currentTime} mode={mode} />
         </section>
     );
 }

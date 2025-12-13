@@ -4,11 +4,12 @@ html {
 
 main {
     display: grid !important;
+    position: absolute;
+    height: calc(100vh - 3.5rem);
+    bottom: 0;
     gap: 1.5rem;
     grid-template-columns: 1fr 1fr;
-    height: 92.5vh;
-    height: 92.5dvh;
-    margin-top: 7.5vh;
     padding: 1.5rem;
+    padding-top: 0;
     background: var(--clr-primary-dark);
 }

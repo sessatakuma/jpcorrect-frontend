@@ -1,28 +1,5 @@
-.info {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-}
-
-.info .video-info {
-    color: var(--clr-primary);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.video-info .title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.video-info .dot {
-    font-weight: bold;
-}
-
-.info .participant-info {
-    color: var(--clr-primary);
+.participant-info {
+    color: var(--clr-neutral);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -30,14 +7,14 @@
 
 .participant-info .group {
     padding: 1rem;
-    border: 1px solid var(--clr-primary-200);
+    /* border: 1px solid var(--clr-primary); */
     border-radius: 1rem;
-    background: var(--clr-primary-100);
+    /* background: var(--clr-primary); */
 }
 
 .group .title {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .group .participants {

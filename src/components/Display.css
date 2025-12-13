@@ -4,17 +4,18 @@
     color: var(--clr-neutral);  
     border-radius: 1rem;
     display: grid;
-    grid-template-rows: 67% 33%;
-    gap: .5rem;
+    grid-template-rows: 2fr 1fr;
+    gap: 1rem;
 }
 
 .display .video {
     height: 100%;
     border-radius: 1rem;
+    overflow: hidden;
     /* border: 1px solid var(--clr-primaㄌry); */
     display: grid;
     grid-template-rows: 1fr auto auto;
-    background: var(--clr-primary-200);
+    background: var(--clr-primary);
 }
 
 .video .youtube {
@@ -22,9 +23,9 @@
     & iframe {
         width: 100%;
         height: 100%;
-        border-radius: 1rem 1rem 0 0;
     }
 }
+
 
 .video .timeline {
     position: relative;
@@ -35,6 +36,8 @@
 
 .timeline .time-left,
 .timeline .time-right {
+    font-size: .875rem;
+    width: 6ch;
     color: var(--clr-neutral);
     text-align: center;
     padding: 0 .5rem;
@@ -92,7 +95,6 @@
     align-items: center;
     gap: 1.25rem;
     padding-bottom: 1rem;
-    border-radius: 0 0 1rem 1rem;
 }
 
 .video .control button {
@@ -103,7 +105,6 @@
         border-radius: 50%;
         display: grid;
         place-items: center;
-        font-size: 1rem;;
         & .icon {
             color: var(--clr-neutral);
             fill: var(--clr-neutral);

@@ -20,7 +20,8 @@ export default function Hint({ disabledTab }) {
     }, [messages]);
 
     const sendMessage = () => {
-        const text = inputRef.current.textContent.trim();
+        const text = inputRef.current.value.trim();
+        inputRef.current.value = '';
         if (text === '') return;
 
         const newMessage = {
@@ -32,16 +33,9 @@ export default function Hint({ disabledTab }) {
         inputRef.current.textContent = '';
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    };
-
     return (
         <section className='hint'>
-            <div className='header'>AI 添削</div>
+            <div className='header'>AI 添削 (這裡做成筆記跟AI兩個分頁的hackMD式三種模式切換)</div>
 
             <div className='response' ref={chatRef}>
                 {messages.map((msg) => (
@@ -50,19 +44,22 @@ export default function Hint({ disabledTab }) {
                     </p>
                 ))}
             </div>
-            <div className='input-area'>
-                <p
+            <form
+                className='input-area'
+                onSubmit={(e) => {
+                    e.preventDefault();
+                }}
+            >
+                <input
                     className='input'
-                    contentEditable
                     ref={inputRef}
-                    onKeyDown={handleKeyDown}
                     placeholder='メッセージを入力...'
                     tabIndex={disabledTab ? -1 : 0}
-                ></p>
+                ></input>
                 <button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
-                    <Send className='icon' size={20} />
+                    <Send className='icon' size={20} fill />
                 </button>
-            </div>
+            </form>
         </section>
     );
 }

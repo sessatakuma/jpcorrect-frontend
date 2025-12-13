@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 import useTranscript from '../hook/useTranscript.js';
 
-import Hint from './Hint';
-
 import './Transcript.css';
 
 Transcript.propTypes = {
@@ -19,7 +17,6 @@ export default function Transcript({ playerRef, currentTime, mode }) {
     const { transcripts: captions } = useTranscript();
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
-    const [fillerHeight, setFillerHeight] = useState(0);
 
     const [expanded, setExpanded] = useState(-1);
     const [feedbackShown, setfeedbackShown] = useState(-1);
@@ -28,7 +25,6 @@ export default function Transcript({ playerRef, currentTime, mode }) {
     const [currentCaption, setCurrentCaption] = useState(0);
 
     const containerRef = useRef(null);
-    const headerRef = useRef(null);
     const captionRefs = useRef([]);
     const animationRefs = useRef([]);
     const noteRefs = useRef([]);
@@ -38,16 +34,8 @@ export default function Transcript({ playerRef, currentTime, mode }) {
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
     useLayoutEffect(() => {
-        setFillerHeight(
-            containerRef.current.offsetHeight -
-                headerRef.current.offsetHeight -
-                captionRefs.current[captions.length - 1].offsetHeight,
-        );
         setContainerHeight(() => {
-            return Math.min(
-                containerHeight,
-                containerRef.current.offsetHeight - headerRef.current.offsetHeight,
-            );
+            return Math.min(containerHeight, containerRef.current.offsetHeight);
         });
     }, []);
 
@@ -55,7 +43,7 @@ export default function Transcript({ playerRef, currentTime, mode }) {
         console.log('setting container height');
         setTimeout(() => {
             console.log('set container height');
-            setContainerHeight(containerRef.current.offsetHeight - headerRef.current.offsetHeight);
+            setContainerHeight(containerRef.current.offsetHeight);
         }, 250);
     }, [expanded]);
 
@@ -107,11 +95,10 @@ export default function Transcript({ playerRef, currentTime, mode }) {
                 rect.top -
                 containerRect.top +
                 containerRef.current.scrollTop -
-                headerRef.current.offsetHeight;
-            containerRef.current.scrollTo({
-                top: top,
-                behavior: 'smooth',
-            });
+                containerRef.current.scrollTo({
+                    top: top,
+                    behavior: 'smooth',
+                });
         }
     };
 
@@ -188,75 +175,74 @@ export default function Transcript({ playerRef, currentTime, mode }) {
                 onWheel={lockAll}
                 onTouchMove={lockAll}
             >
-                <h3 ref={headerRef}>{expanded !== -1 ? 'ノート' : '文字起こし'}</h3>
-                {captions.map((caption, i) => (
-                    <div
-                        className='caption-container'
-                        key={i}
-                        style={{ '--container-height': containerHeight + 'px' }}
-                    >
+                <div className='captions'>
+                    {captions.map((caption, i) => (
                         <div
-                            className={`caption ${getClasses(i)}`}
-                            ref={(el) => (captionRefs.current[i] = el)}
-                            style={{ '--progress': unlockProgress[i] + '%' }}
-                            onClick={() => i !== expanded && setTime(caption.time)}
-                            onContextMenu={(e) => handleUnlockStart(e, i)}
-                            onMouseUp={(e) => handleUnlockEnd(e, i)}
+                            className='caption-container'
+                            key={i}
+                            style={{ '--container-height': containerHeight + 'px' }}
                         >
-                            <img className='icon' src='images/icon.png' />
-                            <p className='text'>
-                                {caption.textSegments.map((textSegment, j) => (
-                                    <span
-                                        className={
-                                            (i === expanded || isReviewMode) &&
-                                            textSegment.highlight
-                                                ? 'highlight ' + textSegment.feedback.type
-                                                : ''
-                                        }
-                                        key={j}
-                                        onClick={(e) => {
-                                            if (!textSegment.highlight) {
-                                                return;
+                            <div
+                                className={`caption ${getClasses(i)}`}
+                                ref={(el) => (captionRefs.current[i] = el)}
+                                style={{ '--progress': unlockProgress[i] + '%' }}
+                                onClick={() => i !== expanded && setTime(caption.time)}
+                                onContextMenu={(e) => handleUnlockStart(e, i)}
+                                onMouseUp={(e) => handleUnlockEnd(e, i)}
+                            >
+                                <img className='icon' src='images/icon.png' />
+                                <p className='text'>
+                                    {caption.textSegments.map((textSegment, j) => (
+                                        <span
+                                            className={
+                                                (i === expanded || isReviewMode) &&
+                                                textSegment.highlight
+                                                    ? 'highlight ' + textSegment.feedback.type
+                                                    : ''
                                             }
-                                            e.stopPropagation;
-                                            setfeedbackShown(j);
-                                        }}
+                                            key={j}
+                                            onClick={(e) => {
+                                                if (!textSegment.highlight) {
+                                                    return;
+                                                }
+                                                e.stopPropagation;
+                                                setfeedbackShown(j);
+                                            }}
+                                        >
+                                            {textSegment.text}
+                                        </span>
+                                    ))}
+                                </p>
+                            </div>
+                            {(() => {
+                                let feedback = caption.textSegments[feedbackShown]?.feedback;
+                                return (
+                                    <div
+                                        className={
+                                            'feedback ' +
+                                            feedback?.type +
+                                            (feedbackShown !== -1 && feedback ? ' shown' : '')
+                                        }
                                     >
-                                        {textSegment.text}
-                                    </span>
-                                ))}
-                            </p>
+                                        <h4>{feedback && typeMap[feedback.type] + 'の問題'}</h4>
+                                        <p>{feedback?.comment}</p>
+                                    </div>
+                                );
+                            })()}
+                            {i === expanded && (
+                                <button className='close-note' onClick={lockAll}>
+                                    <ChevronUp />
+                                </button>
+                            )}
+                            <p
+                                className='note'
+                                contentEditable
+                                ref={(el) => (noteRefs.current[i] = el)}
+                            />
                         </div>
-                        {(() => {
-                            let feedback = caption.textSegments[feedbackShown]?.feedback;
-                            return (
-                                <div
-                                    className={
-                                        'feedback ' +
-                                        feedback?.type +
-                                        (feedbackShown !== -1 && feedback ? ' shown' : '')
-                                    }
-                                >
-                                    <h4>{feedback && typeMap[feedback.type] + 'の問題'}</h4>
-                                    <p>{feedback?.comment}</p>
-                                </div>
-                            );
-                        })()}
-                        {i === expanded && (
-                            <button className='close-note' onClick={lockAll}>
-                                <ChevronUp />
-                            </button>
-                        )}
-                        <p
-                            className='note'
-                            contentEditable
-                            ref={(el) => (noteRefs.current[i] = el)}
-                        />
-                    </div>
-                ))}
-                <div className='filler' style={{ height: fillerHeight }}></div>
+                    ))}
+                </div>
             </section>
-            <Hint disabledTab={expanded === -1} />
         </section>
     );
 }
