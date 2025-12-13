@@ -30,7 +30,7 @@ export default function Hint() {
 
     return (
         <section className='hint'>
-            <div className='header'>AI 添削 (這裡做成筆記跟AI兩個分頁的hackMD式三種模式切換)</div>
+            <div className='header'>AI 添削</div>
 
             <div className='response' ref={chatRef}>
                 {messages.map((msg) => (
