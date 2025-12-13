@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import Display from 'components/Display';
-import Footer from 'components/Footer';
 import Hint from 'components/Hint';
 import Nav from 'components/Nav';
 
@@ -26,7 +25,6 @@ export default function Main() {
                 <Display playerRef={playerRef} currentTime={currentTime} />
                 <Hint></Hint>
             </main>
-            <Footer />
         </>
     );
 }
