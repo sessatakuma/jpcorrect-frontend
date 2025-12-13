@@ -10,10 +10,9 @@ import './Transcript.css';
 Transcript.propTypes = {
     playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
     currentTime: PropTypes.number.isRequired,
-    mode: PropTypes.oneOf(['discuss', 'review']).isRequired,
 };
 
-export default function Transcript({ playerRef, currentTime, mode }) {
+export default function Transcript({ playerRef, currentTime }) {
     const { transcripts: captions } = useTranscript();
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
@@ -33,10 +32,14 @@ export default function Transcript({ playerRef, currentTime, mode }) {
 
     const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
-    useLayoutEffect(() => {
-        setContainerHeight(() => {
-            return Math.min(containerHeight, containerRef.current.offsetHeight);
-        });
+    const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeParam = urlParams.get('mode');
+        if (modeParam === 'review' || modeParam === 'discuss') {
+            setMode(modeParam);
+        }
     }, []);
 
     useLayoutEffect(() => {

@@ -17,15 +17,6 @@ export default function Display() {
         }, 100);
         return () => clearInterval(interval);
     }, []);
-    const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
-
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const modeParam = urlParams.get('mode');
-        if (modeParam === 'review' || modeParam === 'discuss') {
-            setMode(modeParam);
-        }
-    }, []);
 
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
@@ -162,7 +153,7 @@ export default function Display() {
                     </button>
                 </div>
             </div>
-            <Transcript playerRef={playerRef} currentTime={currentTime} mode={mode} />
+            <Transcript playerRef={playerRef} currentTime={currentTime} />
         </section>
     );
 }
