@@ -5,13 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--clr-primary);
-    color: var(--clr-secondary);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px #0001;
+    color: var(--clr-neutral);
+    background-color: var(--clr-primary-dark);
 }
 
 .nav .nav-title {

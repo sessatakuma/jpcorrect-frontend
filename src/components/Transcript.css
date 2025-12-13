@@ -25,6 +25,8 @@
     position: relative;
 
     border-radius: 1rem;
+    background: var(--clr-primary);
+    color: var(--clr-neutral);
     &::-webkit-scrollbar {
         width: 0;
     }
@@ -73,11 +75,11 @@
     & * {
         margin: 0;
     }
-    &.current {
-        background-color: var(--clr-primary);
+    &.current, &:hover {
+        background-color: var(--clr-primary-light);
     }
     &.expanded {
-        background: var(--clr-primary);
+        background: var(--clr-neutral);
         &::after {
             opacity: 0;
         }
@@ -137,14 +139,14 @@
 }
 
 .transcript .filler {
-    background: var(--clr-primary-200);
+    background: var(--clr-primary);
 }
 
 .transcript .note {
     all: unset;
     box-sizing: border-box;
     
-    background: var(--clr-primary-200);
+    background: var(--clr-primary);
     height: 0;
     padding: 0;
     width: 100%;
@@ -162,13 +164,13 @@
 
 .caption-container .close-note {
     font-size: 1.2rem;
-    color: var(--clr-secondary);
-    background: var(--clr-primary-200);
+    color: var(--clr-primary-dark);
+    background: var(--clr-primary);
 }
 
 .transcript .feedback {
     height: 0;
-    background-color: var(--clr-primary);
+    background-color: var(--clr-neutral);
     border-left: .5rem solid var(---clr-type);
     & p {
         margin: 0;

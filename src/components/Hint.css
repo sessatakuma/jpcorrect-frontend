@@ -3,9 +3,9 @@
     --input-height: 4.5rem;
     width: 100%;
     height: 100%;
-    background: var(--clr-primary-200);
+    background: var(--clr-primary);
     border-radius: 1rem;
-    color: var(--clr-secondary);
+    color: var(--clr-neutral);
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
@@ -21,6 +21,7 @@
     display: grid;
     place-items: center;
     background-color: var(--clr-primary);
+    border-bottom: 1px solid var(--clr-primary-dark);
     border-radius: 1rem 1rem 0 0;
 }
 
@@ -59,15 +60,13 @@
 
 .hint .bubble.ai {
     align-self: flex-start;
-    background: var(--clr-primary);
-    color: var(--clr-secondary);
+    background: var(--clr-primary-light);
     border-top-left-radius: 0.3rem;
 }
 
 .hint .bubble.user {
     align-self: flex-end;
-    background: var(--clr-accent);
-    color: var(--clr-primary);
+    background: var(--clr-primary-light);
     border-top-right-radius: 0.3rem;
 }
 
@@ -75,8 +74,7 @@
     margin: 0 1rem 1rem 1rem;
     height: var(--input-height, 5rem);
     padding: 1rem;
-    background: var(--clr-primary);
-    color: var(--clr-secondary);
+    background: var(--clr-primary-light);
     border-radius: 1rem;
     display: grid;
     grid-template-columns: 1fr auto;
@@ -89,26 +87,28 @@
     width: 100%;
     max-height: 3rem;
     overflow-y: auto;
-    color: var(--clr-secondary);
-    background: var(--clr-primary-200);
     border-radius: .75rem;
     padding: .5rem .75rem;
 
     &::-webkit-scrollbar {
         width: 0;
     }
+
+    &::placeholder {
+        color: var(--clr-neutral);
+    }
 }
 
 .hint .send {
     --size: 2rem;
     cursor: pointer;
-    color: var(--clr-primary);
+    color: var(--clr-neutral);
     width: var(--size);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--clr-accent);
+    background: transparent;
     transition: 0.1s;
 
     &:hover {
@@ -117,6 +117,7 @@
 
     & .icon {
         translate: -.075rem .075rem;
+        fill: var(--clr-neutral)
     }
 }
 
