@@ -3,16 +3,20 @@ import YouTube from 'react-youtube';
 
 import 'components/Display.css';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
-import PropTypes from 'prop-types';
 
 import Transcript from './Transcript';
 
-Display.propTypes = {
-    playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
-    currentTime: PropTypes.number.isRequired,
-};
+export default function Display() {
+    const [currentTime, setCurrentTime] = useState(0);
+    const playerRef = useRef(null);
 
-export default function Display({ playerRef, currentTime }) {
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (playerRef.current && playerRef.current.getCurrentTime)
+                setCurrentTime(playerRef.current.getCurrentTime());
+        }, 100);
+        return () => clearInterval(interval);
+    }, []);
     const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
 
     useEffect(() => {
