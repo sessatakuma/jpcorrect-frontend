@@ -1,14 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { Send } from 'lucide-react';
-import PropTypes from 'prop-types';
 import 'components/Hint.css';
 
-Hint.propTypes = {
-    disabledTab: PropTypes.bool.isRequired,
-};
-
-export default function Hint({ disabledTab }) {
+export default function Hint() {
     const [messages, setMessages] = useState([{ id: 0, sender: 'ai', text: 'AI はまだ寝ている…' }]);
     const inputRef = useRef(null);
     const chatRef = useRef(null);
@@ -20,7 +15,8 @@ export default function Hint({ disabledTab }) {
     }, [messages]);
 
     const sendMessage = () => {
-        const text = inputRef.current.textContent.trim();
+        const text = inputRef.current.value.trim();
+        inputRef.current.value = '';
         if (text === '') return;
 
         const newMessage = {
@@ -30,13 +26,6 @@ export default function Hint({ disabledTab }) {
         };
         setMessages((prev) => [...prev, newMessage]);
         inputRef.current.textContent = '';
-    };
-
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
     };
 
     return (
@@ -50,19 +39,17 @@ export default function Hint({ disabledTab }) {
                     </p>
                 ))}
             </div>
-            <div className='input-area'>
-                <p
-                    className='input'
-                    contentEditable
-                    ref={inputRef}
-                    onKeyDown={handleKeyDown}
-                    placeholder='メッセージを入力...'
-                    tabIndex={disabledTab ? -1 : 0}
-                ></p>
-                <button className='send' onClick={sendMessage} tabIndex={disabledTab ? -1 : 0}>
-                    <Send className='icon' size={20} />
+            <form
+                className='input-area'
+                onSubmit={(e) => {
+                    e.preventDefault();
+                }}
+            >
+                <input className='input' ref={inputRef} placeholder='メッセージを入力...'></input>
+                <button className='send' onClick={sendMessage}>
+                    <Send className='icon' size={20} fill />
                 </button>
-            </div>
+            </form>
         </section>
     );
 }

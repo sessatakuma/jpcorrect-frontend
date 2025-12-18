@@ -1,33 +1,29 @@
 .nav {
+    position: sticky;
+    top: 0;
     width: 100%;
-    padding: 0 4rem;
-    height: 7.5vh;
+    padding: .5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--clr-primary);
-    color: var(--clr-secondary);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px #0001;
+    color: var(--clr-neutral);
+    background-color: var(--clr-primary-dark);
 }
 
 .nav .nav-title {
     all: unset;
     box-sizing: border-box;
-    margin-left: 4rem;
+    margin-left: 2.5rem;
     display: flex;
     align-items: center;
     gap: .2rem;
     cursor: pointer;
     & .title {
-        font-weight: 800;
-        font-size: clamp(.5rem, .5rem + 2vh, 1.6rem);
+        font-weight: bold;
+        font-size: 1.2rem;
     }
     & .logo {
-        width: 5vh;
-        height: 5vh;
+        width: 2.5rem;
+        aspect-ratio: 1 / 1;
     }
 }

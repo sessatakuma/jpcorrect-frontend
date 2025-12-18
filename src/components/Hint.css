@@ -3,9 +3,9 @@
     --input-height: 4.5rem;
     width: 100%;
     height: 100%;
-    background: var(--clr-primary-200);
+    background: var(--clr-primary);
     border-radius: 1rem;
-    color: var(--clr-secondary);
+    color: var(--clr-neutral);
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
@@ -13,14 +13,11 @@
 }
 
 .hint .header {
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    height: 2rem;
-    box-shadow: 0 2px 4px #0001;
+    height: 3.25rem;
     display: grid;
     place-items: center;
     background-color: var(--clr-primary);
+    border-bottom: 1px solid var(--clr-primary-dark);
     border-radius: 1rem 1rem 0 0;
 }
 
@@ -37,12 +34,12 @@
     }
 
     &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.08);
+        background: transparent;
         border-radius: 1rem;
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--clr-accent);
+        background-color: var(--clr-neutral-alpha);
         border-radius: 1rem;
         border: 2px solid rgba(255, 255, 255, 0.08);
     }
@@ -59,15 +56,13 @@
 
 .hint .bubble.ai {
     align-self: flex-start;
-    background: var(--clr-primary);
-    color: var(--clr-secondary);
+    background: var(--clr-primary-light);
     border-top-left-radius: 0.3rem;
 }
 
 .hint .bubble.user {
     align-self: flex-end;
-    background: var(--clr-accent);
-    color: var(--clr-primary);
+    background: var(--clr-primary-light);
     border-top-right-radius: 0.3rem;
 }
 
@@ -75,8 +70,7 @@
     margin: 0 1rem 1rem 1rem;
     height: var(--input-height, 5rem);
     padding: 1rem;
-    background: var(--clr-primary);
-    color: var(--clr-secondary);
+    background: var(--clr-primary-light);
     border-radius: 1rem;
     display: grid;
     grid-template-columns: 1fr auto;
@@ -87,28 +81,24 @@
 .hint .input {
     all: unset;
     width: 100%;
-    max-height: 3rem;
-    overflow-y: auto;
-    color: var(--clr-secondary);
-    background: var(--clr-primary-200);
     border-radius: .75rem;
     padding: .5rem .75rem;
 
-    &::-webkit-scrollbar {
-        width: 0;
+    &::placeholder {
+        color: var(--clr-neutral);
     }
 }
 
 .hint .send {
     --size: 2rem;
     cursor: pointer;
-    color: var(--clr-primary);
+    color: var(--clr-neutral);
     width: var(--size);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--clr-accent);
+    background: transparent;
     transition: 0.1s;
 
     &:hover {
@@ -117,11 +107,6 @@
 
     & .icon {
         translate: -.075rem .075rem;
+        fill: var(--clr-neutral)
     }
-}
-
-.hint .input[contenteditable]:empty::before {
-    content: attr(placeholder);
-    color: #8888;
-    pointer-events: none;
 }

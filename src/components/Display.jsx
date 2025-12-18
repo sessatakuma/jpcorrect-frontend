@@ -1,17 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 
 import 'components/Display.css';
-import VideoInfo from 'components/VideoInfo';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
-import PropTypes from 'prop-types';
 
-Display.propTypes = {
-    playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
-    currentTime: PropTypes.number.isRequired,
-};
+import Transcript from './Transcript';
 
-export default function Display({ playerRef, currentTime }) {
+export default function Display() {
+    const [currentTime, setCurrentTime] = useState(0);
+    const playerRef = useRef(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (playerRef.current && playerRef.current.getCurrentTime)
+                setCurrentTime(playerRef.current.getCurrentTime());
+        }, 100);
+        return () => clearInterval(interval);
+    }, []);
+
     const videoID = 'W6_V19cf9hg';
     const youtubeOpts = {
         playerVars: {
@@ -137,17 +143,17 @@ export default function Display({ playerRef, currentTime }) {
                 </div>
                 <div className='control'>
                     <button className='previous' onClick={goPrevious}>
-                        <SkipBack className='icon' />
+                        <SkipBack className='icon' strokeWidth={3} />
                     </button>
                     <button className='play-pause' onClick={handlePlayPause}>
                         {isPlaying ? <Pause className='icon' /> : <Play className='icon' />}
                     </button>
                     <button className='next' onClick={goNext}>
-                        <SkipForward className='icon' />
+                        <SkipForward className='icon' strokeWidth={3} />
                     </button>
                 </div>
             </div>
-            <VideoInfo />
+            <Transcript playerRef={playerRef} currentTime={currentTime} />
         </section>
     );
 }
