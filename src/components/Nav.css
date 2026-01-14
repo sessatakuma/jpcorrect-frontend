@@ -27,3 +27,7 @@
         aspect-ratio: 1 / 1;
     }
 }
+
+.nav .nav-mode {
+    margin-right: 2.5rem;
+}
