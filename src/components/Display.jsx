@@ -5,8 +5,16 @@ import 'components/Display.css';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 
 import Transcript from './Transcript';
+import PropTypes from 'prop-types';
 
-export default function Display() {
+Display.propTypes = {
+    transcripts: PropTypes.array.isRequired,
+    selectedCaptionIndex: PropTypes.number.isRequired,
+    setSelectedCaptionIndex: PropTypes.func.isRequired,
+    setFeedback: PropTypes.func.isRequired,
+};
+
+export default function Display({ transcripts, selectedCaptionIndex, setSelectedCaptionIndex, setFeedback }) {
     const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
 
@@ -25,8 +33,6 @@ export default function Display() {
             autoplay: 0,
         },
     };
-
-    const timestamps = [50, 150, 200, 325];
 
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -56,6 +62,7 @@ export default function Display() {
     const goPrevious = () => {
         if (!playerRef.current) return;
 
+        const timestamps = transcripts.map(t => t.time);
         let prevTimestamp = -1;
         for (let i = 0; i < timestamps.length; i++) {
             if (currentTime > timestamps[i]) prevTimestamp = i;
@@ -67,6 +74,7 @@ export default function Display() {
     const goNext = () => {
         if (!playerRef.current) return;
 
+        const timestamps = transcripts.map(t => t.time);
         const nextTime = timestamps.find((time) => time > currentTime);
         setTime(nextTime !== undefined ? nextTime : duration);
     };
@@ -130,14 +138,6 @@ export default function Display() {
                                 }}
                             ></div>
                         </div>
-                        {timestamps.map((time, i) => (
-                            <div
-                                className='dot'
-                                key={i}
-                                style={{ left: (time / duration) * 100 + '%' }}
-                                onClick={() => setTime(time)}
-                            />
-                        ))}
                     </div>
                     <span className='time-right'>{formatTime(duration)}</span>
                 </div>
@@ -153,7 +153,14 @@ export default function Display() {
                     </button>
                 </div>
             </div>
-            <Transcript playerRef={playerRef} currentTime={currentTime} />
+            <Transcript 
+                playerRef={playerRef} 
+                currentTime={currentTime}
+                transcripts={transcripts}
+                selectedCaptionIndex={selectedCaptionIndex}
+                setSelectedCaptionIndex={setSelectedCaptionIndex}
+                setFeedback={setFeedback}
+            />
         </section>
     );
 }

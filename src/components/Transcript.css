@@ -169,35 +169,3 @@
     color: var(--clr-primary-dark);
     background: var(--clr-primary);
 }
-
-.transcript .feedback {
-    height: 0;
-    background-color: var(--clr-neutral);
-    border-left: .5rem solid var(---clr-type);
-    & p {
-        margin: 0;
-    }
-
-    & h4 {
-        font-size: 1rem;
-        color: var(---clr-type);
-    }
-
-    &.vocab  {
-        ---clr-type: var(--clr-vocab);
-    }
-    &.grammar {
-        ---clr-type: var(--clr-grammar);
-    }
-    &.voice {
-        ---clr-type: var(--clr-voice);
-    }
-    &.advance {
-        ---clr-type: var(--clr-advance);
-    }
-
-    .caption-container:has(.caption.expanded) &.shown {
-        padding: 1rem;
-        height: auto;
-    }
-}
