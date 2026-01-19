@@ -18,10 +18,10 @@ export default function Notes({ note, onNoteChange, feedback, setFeedback, selec
 
     return (
         <section className='notes'>
-            <div className='header'>Notes</div>
+            <div className='header'>ノート</div>
             {selectedCaptionIndex === -1 ? (
                 <div className='placeholder'>
-                    <p>右鍵點擊字幕以開啟對應筆記</p>
+                    <p>サブタイトルを右クリックすると、対応するメモが開きます。</p>
                 </div>
             ) : (
                 <div className='notes-content'>

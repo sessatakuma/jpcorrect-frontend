@@ -23,7 +23,14 @@ Transcript.propTypes = {
     setFeedback: PropTypes.func.isRequired,
 };
 
-export default function Transcript({ playerRef, currentTime, transcripts, selectedCaptionIndex, setSelectedCaptionIndex, setFeedback }) {
+export default function Transcript({
+    playerRef,
+    currentTime,
+    transcripts,
+    selectedCaptionIndex,
+    setSelectedCaptionIndex,
+    setFeedback,
+}) {
     const [containerHeight, setContainerHeight] = useState(0);
     const [unlockProgress, setUnlockProgress] = useState(Array(transcripts.length).fill(0));
     const [currentCaption, setCurrentCaption] = useState(0);
@@ -48,8 +55,7 @@ export default function Transcript({ playerRef, currentTime, transcripts, select
 
     useLayoutEffect(() => {
         setTimeout(() => {
-            if(containerRef.current)
-                setContainerHeight(containerRef.current.offsetHeight);
+            if (containerRef.current) setContainerHeight(containerRef.current.offsetHeight);
         }, 250);
     }, [selectedCaptionIndex]);
 
@@ -89,10 +95,7 @@ export default function Transcript({ playerRef, currentTime, transcripts, select
         } else {
             const rect = captionRefs.current[i].getBoundingClientRect();
             const containerRect = containerRef.current.getBoundingClientRect();
-            const top =
-                rect.top -
-                containerRect.top +
-                containerRef.current.scrollTop;
+            const top = rect.top - containerRect.top + containerRef.current.scrollTop;
             containerRef.current.scrollTo({
                 top: top,
                 behavior: 'smooth',
@@ -135,7 +138,7 @@ export default function Transcript({ playerRef, currentTime, transcripts, select
     };
 
     const handleUnlockEnd = (e, i) => {
-        if (e.button !== 2 && e.type !== 'touchend') return; 
+        if (e.button !== 2 && e.type !== 'touchend') return;
 
         if (unlockProgress[i] >= 95) {
             setUnlockProgress((prev) => {
@@ -154,7 +157,7 @@ export default function Transcript({ playerRef, currentTime, transcripts, select
             animationRefs.current[i] = null;
         }
     };
-    
+
     const lockAll = () => {
         setUnlockProgress(Array(transcripts.length).fill(0));
         setSelectedCaptionIndex(-1);
@@ -220,7 +223,10 @@ export default function Transcript({ playerRef, currentTime, transcripts, select
                                 </p>
                             </div>
                             {i === selectedCaptionIndex && (
-                                <button className='close-note' onClick={() => setSelectedCaptionIndex(-1)}>
+                                <button
+                                    className='close-note'
+                                    onClick={() => setSelectedCaptionIndex(-1)}
+                                >
                                     <ChevronUp />
                                 </button>
                             )}

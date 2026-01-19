@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Display from 'components/Display';
 import Hint from 'components/Hint';
-import Notes from 'components/Notes';
 import Nav from 'components/Nav';
+import Notes from 'components/Notes';
 import useTranscriptData from 'hook/useTranscriptData';
 
 import 'components/Main.css';
@@ -23,29 +23,35 @@ export default function Main() {
     const handleSetFeedback = (feedback) => {
         setFeedback(feedback);
         setRightPanel('notes');
-    }
+    };
 
     return (
         <>
             <Nav />
             <main>
-                <Display 
+                <Display
                     transcripts={transcripts}
                     selectedCaptionIndex={selectedCaptionIndex}
                     setSelectedCaptionIndex={setSelectedCaptionIndex}
                     setFeedback={handleSetFeedback}
                 />
-                <div className="right-panel">
-                    <div className="panel-switcher">
-                        <button onClick={() => setRightPanel('notes')} className={rightPanel === 'notes' ? 'active' : ''}>
-                            Notes
+                <div className='right-panel'>
+                    <div className='panel-switcher'>
+                        <button
+                            onClick={() => setRightPanel('notes')}
+                            className={rightPanel === 'notes' ? 'active' : ''}
+                        >
+                            ノート
                         </button>
-                        <button onClick={() => setRightPanel('ai')} className={rightPanel === 'ai' ? 'active' : ''}>
-                            AI
+                        <button
+                            onClick={() => setRightPanel('ai')}
+                            className={rightPanel === 'ai' ? 'active' : ''}
+                        >
+                            AI 添削
                         </button>
                     </div>
                     {rightPanel === 'notes' ? (
-                        <Notes 
+                        <Notes
                             note={selectedCaptionIndex !== -1 ? notes[selectedCaptionIndex] : ''}
                             onNoteChange={handleNoteChange}
                             feedback={feedback}
