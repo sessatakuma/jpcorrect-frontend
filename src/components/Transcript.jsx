@@ -41,7 +41,7 @@ export default function Transcript({
 
     const isReviewMode = mode === 'review';
 
-    const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
+    //const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
 
     const [mode, setMode] = useState('discuss'); // 'discuss' or 'review'
 

@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 
-import 'components/Display.css';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
+import PropTypes from 'prop-types';
+
+import 'components/Display.css';
 
 import Transcript from './Transcript';
-import PropTypes from 'prop-types';
 
 Display.propTypes = {
     transcripts: PropTypes.array.isRequired,
@@ -14,7 +15,12 @@ Display.propTypes = {
     setFeedback: PropTypes.func.isRequired,
 };
 
-export default function Display({ transcripts, selectedCaptionIndex, setSelectedCaptionIndex, setFeedback }) {
+export default function Display({
+    transcripts,
+    selectedCaptionIndex,
+    setSelectedCaptionIndex,
+    setFeedback,
+}) {
     const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
 
@@ -62,7 +68,7 @@ export default function Display({ transcripts, selectedCaptionIndex, setSelected
     const goPrevious = () => {
         if (!playerRef.current) return;
 
-        const timestamps = transcripts.map(t => t.time);
+        const timestamps = transcripts.map((t) => t.time);
         let prevTimestamp = -1;
         for (let i = 0; i < timestamps.length; i++) {
             if (currentTime > timestamps[i]) prevTimestamp = i;
@@ -74,7 +80,7 @@ export default function Display({ transcripts, selectedCaptionIndex, setSelected
     const goNext = () => {
         if (!playerRef.current) return;
 
-        const timestamps = transcripts.map(t => t.time);
+        const timestamps = transcripts.map((t) => t.time);
         const nextTime = timestamps.find((time) => time > currentTime);
         setTime(nextTime !== undefined ? nextTime : duration);
     };
@@ -153,8 +159,8 @@ export default function Display({ transcripts, selectedCaptionIndex, setSelected
                     </button>
                 </div>
             </div>
-            <Transcript 
-                playerRef={playerRef} 
+            <Transcript
+                playerRef={playerRef}
                 currentTime={currentTime}
                 transcripts={transcripts}
                 selectedCaptionIndex={selectedCaptionIndex}

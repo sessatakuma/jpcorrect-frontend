@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 const data = require('data/transcript.json');
 
 function processTranscriptData() {
