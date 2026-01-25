@@ -14,6 +14,7 @@ Transcript.propTypes = {
 
 export default function Transcript({ playerRef, currentTime }) {
     const { transcripts: captions } = useTranscript();
+    console.log('Current Captions:', captions);
     // const captions = useTranscript();
     const [containerHeight, setContainerHeight] = useState(0);
 
@@ -195,26 +196,69 @@ export default function Transcript({ playerRef, currentTime }) {
                             >
                                 <img className='icon' src='images/icon.png' />
                                 <p className='text'>
-                                    {caption.textSegments.map((textSegment, j) => (
-                                        <span
-                                            className={
-                                                (i === expanded || isReviewMode) &&
-                                                textSegment.highlight
-                                                    ? 'highlight ' + textSegment.feedback.type
-                                                    : ''
-                                            }
-                                            key={j}
-                                            onClick={(e) => {
-                                                if (!textSegment.highlight) {
-                                                    return;
-                                                }
-                                                e.stopPropagation;
-                                                setfeedbackShown(j);
-                                            }}
-                                        >
-                                            {textSegment.text}
-                                        </span>
-                                    ))}
+                                    {caption.accent &&
+                                        caption.accent.map((word, j) => {
+                                            const segment = caption.textSegments.find((s) =>
+                                                s.text.includes(word.surface),
+                                            );
+                                            const isHighlighted =
+                                                segment &&
+                                                segment.highlight &&
+                                                (i === expanded || isReviewMode);
+                                            const showFurigana = word.surface !== word.furigana;
+
+                                            return (
+                                                <span
+                                                    key={j}
+                                                    className={
+                                                        isHighlighted
+                                                            ? `highlight ${segment.feedback.type}`
+                                                            : ''
+                                                    }
+                                                    onClick={(e) => {
+                                                        if (!segment || !segment.highlight) return;
+                                                        e.stopPropagation();
+                                                        const segmentIndex =
+                                                            caption.textSegments.indexOf(segment);
+                                                        setfeedbackShown(segmentIndex);
+                                                    }}
+                                                >
+                                                    <ruby>
+                                                        {word.surface}
+                                                        <rt
+                                                            className={
+                                                                !showFurigana ? 'hidden-furi' : ''
+                                                            }
+                                                        >
+                                                            {word.accent
+                                                                ? word.accent.map((part, k) => {
+                                                                      let partClass = '';
+                                                                      if (
+                                                                          part.accent_marking_type ===
+                                                                          1
+                                                                      )
+                                                                          partClass = 'accent-top';
+                                                                      else if (
+                                                                          part.accent_marking_type ===
+                                                                          2
+                                                                      )
+                                                                          partClass = 'accent-drop';
+
+                                                                      return (
+                                                                          <span
+                                                                              key={k}
+                                                                              className={partClass}
+                                                                          >
+                                                                              {part.furigana}
+                                                                          </span>
+                                                                      );
+                                                                  })
+                                                                : word.furigana}
+                                                        </rt>
+                                                    </ruby>
+                                                </span>
+                                            );
+                                        })}
                                 </p>
                             </div>
                             {(() => {

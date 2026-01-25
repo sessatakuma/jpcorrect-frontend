@@ -1,6 +1,6 @@
 const data = require('data/transcript.json');
 
-export default function getCaptionData() {
+export default function () {
     if (!data) {
         return [];
     }
@@ -73,12 +73,13 @@ export default function getCaptionData() {
         return {
             time: transcript.start,
             textSegments: segments,
+            accent: transcript.accent || [],
         };
     });
     //
     return {
-        date, 
-        practice_type, 
-        transcripts
+        date,
+        practice_type,
+        transcripts,
     };
 }

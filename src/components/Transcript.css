@@ -4,7 +4,7 @@
     min-height: 100%;
 
     border-radius: 1rem;
-    
+
     overflow: hidden;
 
     display: grid;
@@ -16,7 +16,7 @@
     &:has(.hint:focus-within) {
         grid-template-rows: 1fr 67%;
     }
-    
+
     transition: .2s;
 }
 
@@ -111,11 +111,77 @@
     aspect-ratio: 1 / 1;
 }
 
+ruby {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    overflow: hidden;
+    vertical-align: bottom;
+    margin: 0 1px;
+    text-align: center;
+}
+
+rt {
+    display: ruby-text;
+    font-size: 0.55em;
+    line-height: 1.5;
+    text-align: center;
+    user-select: none;
+    padding-top: 3px;
+}
+
+rt.hidden-furi {
+    color: transparent !important;
+}
+
+rt > span {
+    display: inline-block;
+    position: relative;
+}
+
+rt .accent-top::before,
+rt .accent-drop::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -1px;
+    height: 1px;
+    background-color: var(--clr-neutral);
+    opacity: 1 !important;
+    transform: translateY(-1px);
+}
+
+rt .accent-drop::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 1px;
+    height: 1em;
+    background-color: var(--clr-neutral);
+    opacity: 1 !important;
+}
+
+rt > span:first-child.accent-top::before,
+rt > span:first-child.accent-drop::before {
+    left: -300%;
+}
+
+rt > span:last-child.accent-top::before {
+    right: -300%;
+}
+
+
+.expanded .text rt {
+    font-size: 0.6em;
+}
+
 .transcript .text {
     line-height: 1.5em;
     line-break: auto;
     height: min-content;
-    word-break: normal;     
+    word-break: normal;
     overflow-wrap: break-word;
 
     & .highlight:hover {
@@ -147,14 +213,14 @@
 .transcript .note {
     all: unset;
     box-sizing: border-box;
-    
+
     background: var(--clr-primary);
     height: 0;
     padding: 0;
     width: 100%;
     transition: .2s;
     margin: 0;
-    
+
     .caption-container:has(.caption.expanded) & {
         height: auto;
         padding: 1rem;
