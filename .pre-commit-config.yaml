@@ -1,0 +1,60 @@
+repos:
+    # ==========================================================
+    # 1. Basic
+    # ==========================================================
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.6.0
+      hooks:
+          - id: trailing-whitespace # 移除行尾多餘空白
+          - id: end-of-file-fixer # 確保檔案結尾有換行
+          - id: check-yaml # 檢查 YAML 語法
+          - id: check-json # 檢查 JSON 語法
+          - id: check-toml # 檢查 TOML 語法 (例如 pyproject.toml)
+          - id: check-merge-conflict # 檢查是否有未解完的合併衝突 (<<<<<, >>>>>)
+
+    # ==========================================================
+    # 2. Prettier
+    # ==========================================================
+    - repo: local
+      hooks:
+          - id: prettier
+            name: prettier (node)
+            # 執行 npx prettier --write
+            # npx 會自動找到 node_modules/ 中的 prettier
+            # --write 會自動格式化並儲存檔案
+            entry: npx prettier --write
+            language: system # 使用系統上安裝的 node/npx
+            # 告訴 pre-commit 這個 hook 應該在哪些類型的檔案上執行
+            types_or:
+                - javascript
+                # - typescript
+                - jsx
+                - tsx
+                - css
+                - scss
+                - html
+                - json
+                - markdown
+                - yaml
+            # 排除 package-lock.json，避免它被 Prettier 格式化
+            exclude: ^package-lock\.json$
+
+    # ==========================================================
+    # 3. ESLint
+    # ==========================================================
+    - repo: local
+      hooks:
+          - id: eslint
+            name: eslint (node)
+            # 執行 npx eslint --fix
+            # --fix 會自動修復所有 ESLint 能修復的問題
+            entry: npx eslint --fix
+            language: system # 使用系統上安裝的 node/npx
+            # 只在 JS/TS 相關檔案上執行
+            types_or:
+                - javascript
+                # - typescript
+                - jsx
+                - tsx
+            # 排除 node_modules 和 dist 產出資料夾
+            exclude: ^(node_modules/|dist/|build/)$
