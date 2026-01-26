@@ -80,3 +80,64 @@
     padding: var(--padding);
     text-align: center;
 }
+
+.notes .selected-caption {
+    background-color: var(--clr-primary-light);
+    border-radius: 0.75rem;
+    padding: 0.25rem 1rem;
+    cursor: default;
+    line-height: 1.8;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 4rem;
+}
+
+.notes .selected-caption .text {
+    margin: 0;
+    width: 100%;
+}
+
+.notes .selected-caption .text .highlight {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.notes .selected-caption .text .highlight:hover {
+    text-decoration: underline;
+}
+
+.notes .selected-caption .text .vocab {
+    color: var(--clr-vocab);
+}
+.notes .selected-caption .text .grammar {
+    color: var(--clr-grammar);
+}
+.notes .selected-caption .text .voice {
+    color: var(--clr-voice);
+}
+.notes .selected-caption .text .advance {
+    color: var(--clr-advance);
+}
+
+.notes .feedback {
+    background-color: var(--clr-primary);
+    border-left: 0.5rem solid var(---clr-type);
+}
+
+.notes .feedback .feedback-header h4 {
+    color: var(---clr-type);
+}
+
+.notes .feedback.vocab {
+    ---clr-type: var(--clr-vocab);
+}
+.notes .feedback.grammar {
+    ---clr-type: var(--clr-grammar);
+}
+.notes .feedback.voice {
+    ---clr-type: var(--clr-voice);
+}
+.notes .feedback.advance {
+    ---clr-type: var(--clr-advance);
+}

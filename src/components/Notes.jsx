@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react'; // 1. 引入 useEffect 和 useRef
 
 import { X } from 'lucide-react';
 import PropTypes from 'prop-types';
@@ -11,10 +11,28 @@ Notes.propTypes = {
     feedback: PropTypes.object,
     setFeedback: PropTypes.func.isRequired,
     selectedCaptionIndex: PropTypes.number.isRequired,
+    selectedCaption: PropTypes.object,
 };
 
-export default function Notes({ note, onNoteChange, feedback, setFeedback, selectedCaptionIndex }) {
-    const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
+export default function Notes({
+    note,
+    onNoteChange,
+    feedback,
+    setFeedback,
+    selectedCaptionIndex,
+    selectedCaption,
+}) {
+    const typeMap = { vocab: '単語', grammar: '文法', voice: '發音', advance: '上級' };
+
+    // 2. 建立一個 Ref 用於 textarea
+    const textareaRef = useRef(null);
+
+    // 3. 監聽 selectedCaptionIndex，當它變動且不為 -1 時自動聚焦
+    useEffect(() => {
+        if (selectedCaptionIndex !== -1 && textareaRef.current) {
+            textareaRef.current.focus();
+        }
+    }, [selectedCaptionIndex]);
 
     return (
         <section className='notes'>
@@ -25,6 +43,31 @@ export default function Notes({ note, onNoteChange, feedback, setFeedback, selec
                 </div>
             ) : (
                 <div className='notes-content'>
+                    {selectedCaption && (
+                        <div className='selected-caption'>
+                            <p className='text'>
+                                {selectedCaption.textSegments.map((textSegment, j) => (
+                                    <span
+                                        className={
+                                            textSegment.highlight
+                                                ? 'highlight ' + textSegment.feedback.type
+                                                : ''
+                                        }
+                                        key={j}
+                                        onClick={(e) => {
+                                            if (!textSegment.highlight) {
+                                                return;
+                                            }
+                                            e.stopPropagation();
+                                            setFeedback(textSegment.feedback);
+                                        }}
+                                    >
+                                        {textSegment.text}
+                                    </span>
+                                ))}
+                            </p>
+                        </div>
+                    )}
                     {feedback && (
                         <div className={'feedback ' + feedback.type}>
                             <div className='feedback-header'>
@@ -40,10 +83,11 @@ export default function Notes({ note, onNoteChange, feedback, setFeedback, selec
                         </div>
                     )}
                     <textarea
+                        ref={textareaRef} // 4. 將 Ref 綁定到 DOM
                         className='notes-textarea'
                         value={note}
                         onChange={(e) => onNoteChange(e.target.value)}
-                        placeholder='Take a note...'
+                        placeholder='メモを取りましょう'
                     />
                 </div>
             )}

@@ -1,0 +1,32 @@
+.right-panel {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.panel-switcher {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.panel-switcher button {
+    all: unset;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--clr-primary);
+    color: var(--clr-neutral-muted);
+    transition: all 0.2s ease-in-out;
+}
+
+.panel-switcher button:hover {
+    background-color: var(--clr-primary-light);
+    color: var(--clr-neutral);
+}
+
+.panel-switcher button.active {
+    background-color: var(--clr-primary-light);
+    color: var(--clr-neutral);
+    font-weight: bold;
+}

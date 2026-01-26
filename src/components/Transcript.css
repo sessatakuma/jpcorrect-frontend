@@ -10,9 +10,6 @@
     display: grid;
     gap: .5rem;
     grid-template-rows: 100% 0%;
-    &:has(.expanded) {
-        grid-template-rows: 67% 1fr;
-    }
     &:has(.hint:focus-within) {
         grid-template-rows: 1fr 67%;
     }
@@ -59,9 +56,6 @@
     position: relative;
     display: grid;
     grid-template-rows: min-content min-content min-content auto;
-    &:has(.expanded) {
-        height: var(--container-height, 0);
-    }
 }
 
 .transcript .caption {
@@ -81,28 +75,9 @@
     &.current, &:hover {
         background-color: var(--clr-primary-light);
     }
-    &.expanded {
-        background: var(--clr-neutral);
-        &::after {
-            opacity: 0;
-        }
-        font-weight: 400;
-        border-bottom: 1px solid #0001;
-    }
 }
 
-.caption::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: .5rem;
-    width: var(--progress, 0);
-    background: var(--clr-accent);
-    z-index: 0;
-    opacity: 1;
-    transition: opacity .2s;
-}
+
 
 .transcript .icon {
     background-color: var(--clr-neutral);
