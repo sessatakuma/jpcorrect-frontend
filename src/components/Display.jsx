@@ -24,6 +24,9 @@ export default function Display({
     const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
 
+    // 1. 固定時間點資料
+    const timestamps = [50, 150, 200, 325];
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (playerRef.current && playerRef.current.getCurrentTime)
@@ -65,10 +68,10 @@ export default function Display({
 
     const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
 
+    // 2. 根據固定數字跳轉的「上一個」功能
     const goPrevious = () => {
         if (!playerRef.current) return;
 
-        const timestamps = transcripts.map((t) => t.time);
         let prevTimestamp = -1;
         for (let i = 0; i < timestamps.length; i++) {
             if (currentTime > timestamps[i]) prevTimestamp = i;
@@ -77,10 +80,10 @@ export default function Display({
         setTime(prevTimestamp !== -1 ? timestamps[prevTimestamp] : 0);
     };
 
+    // 3. 根據固定數字跳轉的「下一個」功能
     const goNext = () => {
         if (!playerRef.current) return;
 
-        const timestamps = transcripts.map((t) => t.time);
         const nextTime = timestamps.find((time) => time > currentTime);
         setTime(nextTime !== undefined ? nextTime : duration);
     };
@@ -144,6 +147,15 @@ export default function Display({
                                 }}
                             ></div>
                         </div>
+                        {/* 修正點：改為 map 遍歷固定點 timestamps 而非 transcripts */}
+                        {timestamps.map((time, i) => (
+                            <div
+                                className='dot'
+                                key={i}
+                                style={{ left: `${(time / duration) * 100}%` }}
+                                onClick={() => setTime(time)}
+                            />
+                        ))}
                     </div>
                     <span className='time-right'>{formatTime(duration)}</span>
                 </div>
