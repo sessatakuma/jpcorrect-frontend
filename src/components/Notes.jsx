@@ -36,7 +36,6 @@ export default function Notes({
 
     return (
         <section className='notes'>
-            <div className='header'>ノート</div>
             {selectedCaptionIndex === -1 ? (
                 <div className='placeholder'>
                     <p>サブタイトルを右クリックすると、対応するメモが開きます。</p>

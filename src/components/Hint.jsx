@@ -30,8 +30,6 @@ export default function Hint() {
 
     return (
         <section className='hint'>
-            <div className='header'>AI 添削</div>
-
             <div className='response' ref={chatRef}>
                 {messages.map((msg) => (
                     <p key={msg.id} className={`bubble ${msg.sender}`}>

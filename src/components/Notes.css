@@ -2,22 +2,12 @@
     --padding: 1rem;
     width: 100%;
     height: 100%;
-    background: var(--clr-primary);
-    border-radius: 1rem;
+    background: transparent;
     color: var(--clr-neutral);
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr;
     overflow: hidden;
     min-height: 0;
-}
-
-.notes .header {
-    height: 3.25rem;
-    display: grid;
-    place-items: center;
-    background-color: var(--clr-primary);
-    border-bottom: 1px solid var(--clr-primary-dark);
-    border-radius: 1rem 1rem 0 0;
 }
 
 .notes .notes-content {
@@ -35,19 +25,19 @@
     width: 100%;
     border-radius: .75rem;
     padding: .5rem .75rem;
-    background: var(--clr-primary-light);
+    background: var(--clr-primary);
     resize: none;
     flex-grow: 1;
 
     &::placeholder {
-        color: var(--clr-neutral);
+        color: var(--clr-neutral-muted);
     }
 }
 
 .notes .feedback {
-    background-color: var(--clr-primary-light);
     border-radius: 0.75rem;
     padding: 0.75rem 1rem;
+    border-left: 0.5rem solid var(---clr-type);
 }
 
 .notes .feedback-header {
@@ -60,6 +50,7 @@
 .notes .feedback-header h4 {
     margin: 0;
     font-size: 1rem;
+    color: var(---clr-type);
 }
 
 .notes .close-feedback {
@@ -82,7 +73,7 @@
 }
 
 .notes .selected-caption {
-    background-color: var(--clr-primary-light);
+    background-color: var(--clr-primary);
     border-radius: 0.75rem;
     padding: 0.25rem 1rem;
     cursor: default;
@@ -118,15 +109,6 @@
 }
 .notes .selected-caption .text .advance {
     color: var(--clr-advance);
-}
-
-.notes .feedback {
-    background-color: var(--clr-primary);
-    border-left: 0.5rem solid var(---clr-type);
-}
-
-.notes .feedback .feedback-header h4 {
-    color: var(---clr-type);
 }
 
 .notes .feedback.vocab {
