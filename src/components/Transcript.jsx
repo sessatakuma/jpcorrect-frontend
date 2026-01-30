@@ -7,6 +7,15 @@ import useTranscript from '../hook/useTranscript.js';
 
 import './Transcript.css';
 
+const speakerIcons = {
+    "宇昕_id": "images/yuxin_icon.png",
+    "致越_id": "images/chie_icon.png",
+    "牢大_id": "images/man_icon.png",
+    "愛音_id": "images/anon_icon.png",
+    "燈_id": "images/tomori_icon.png",
+    "default": "images/icon.png" 
+};
+
 Transcript.propTypes = {
     playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
     currentTime: PropTypes.number.isRequired,
@@ -193,7 +202,7 @@ export default function Transcript({ playerRef, currentTime }) {
                                 onContextMenu={(e) => handleUnlockStart(e, i)}
                                 onMouseUp={(e) => handleUnlockEnd(e, i)}
                             >
-                                <img className='icon' src='images/icon.png' />
+                                <img className='icon' src={speakerIcons[caption.speaker_id] || speakerIcons.default} alt={caption.speaker_id || 'unknowspeaker'}/>
                                 <p className='text'>
                                     {caption.textSegments.map((textSegment, j) => (
                                         <span
