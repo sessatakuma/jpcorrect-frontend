@@ -25,7 +25,7 @@
             "start": 15.0,
             "end": 20.0,
             "text": "先週紹介したのはこのゲームの本来の遊び方ですが、",
-            "speaker_id": "宇昕_id",
+            "speaker_id": "致越_id",
             "feedbacks": [
                 3,
                 4
@@ -40,7 +40,7 @@
             "start": 20.0,
             "end": 31.0,
             "text": "ループは本当に強すぎて、本来の遊び方を使うと2000位以降にしかなりません。",
-            "speaker_id": "宇昕_id",
+            "speaker_id": "愛音_id",
             "feedbacks": [
                 5,
                 6,
@@ -57,7 +57,7 @@
             "start": 31.0,
             "end": 35.0,
             "text": "じゃあ、ループとは一体何ですか?",
-            "speaker_id": "宇昕_id",
+            "speaker_id": "牢大_id",
             "feedback_ids": []
         },
         {
@@ -65,7 +65,7 @@
             "start": 35.0,
             "end": 44.0,
             "text": "縄帯を表す、順番で特定のカードを繰り返し使用する遊び方です。",
-            "speaker_id": "宇昕_id",
+            "speaker_id": "燈_id",
             "feedback_ids": [
                 6,
                 7,
@@ -77,7 +77,7 @@
             "start": 44.0,
             "end": 50.0,
             "text": "例えば、6へ巡る、5へ巡る、というループで使います。",
-            "speaker_id": "宇昕_id",
+            "speaker_id": "未紀錄的使用者_id",
             "feedback_ids": [
                 9
             ]

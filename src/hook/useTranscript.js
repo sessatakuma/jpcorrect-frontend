@@ -73,6 +73,7 @@ export default function getCaptionData() {
         return {
             time: transcript.start,
             textSegments: segments,
+            speaker_id: transcript.speaker_id,
         };
     });
     //
