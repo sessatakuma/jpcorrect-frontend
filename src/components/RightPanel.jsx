@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Hint from 'components/Hint';
 import Notes from 'components/Notes';
@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import 'components/RightPanel.css';
 
 RightPanel.propTypes = {
-    rightPanel: PropTypes.string.isRequired,
-    setRightPanel: PropTypes.func.isRequired,
     notes: PropTypes.array.isRequired,
     selectedCaptionIndex: PropTypes.number.isRequired,
+    setSelectedCaptionIndex: PropTypes.func.isRequired,
     onNoteChange: PropTypes.func.isRequired,
     feedback: PropTypes.object,
     setFeedback: PropTypes.func.isRequired,
@@ -17,8 +16,6 @@ RightPanel.propTypes = {
 };
 
 export default function RightPanel({
-    rightPanel,
-    setRightPanel,
     notes,
     selectedCaptionIndex,
     onNoteChange,
@@ -26,6 +23,14 @@ export default function RightPanel({
     setFeedback,
     transcripts,
 }) {
+    const [rightPanel, setRightPanel] = useState('notes');
+
+    useEffect(() => {
+        if (selectedCaptionIndex !== -1) {
+            setRightPanel('notes');
+        }
+    }, [selectedCaptionIndex]);
+
     const panels = {
         notes: (
             <Notes
@@ -39,24 +44,26 @@ export default function RightPanel({
                 }
             />
         ),
-        ai: <Hint />,
+        hint: <Hint />,
+    };
+
+    const panelLabels = {
+        notes: 'ノート',
+        hint: 'AI 添削',
     };
 
     return (
         <div className='right-panel'>
             <div className='panel-switcher'>
-                <button
-                    onClick={() => setRightPanel('notes')}
-                    className={rightPanel === 'notes' ? 'active' : ''}
-                >
-                    ノート
-                </button>
-                <button
-                    onClick={() => setRightPanel('ai')}
-                    className={rightPanel === 'ai' ? 'active' : ''}
-                >
-                    AI 添削
-                </button>
+                {Object.keys(panels).map((key) => (
+                    <button
+                        key={key}
+                        onClick={() => setRightPanel(key)}
+                        className={rightPanel === key ? 'active' : ''}
+                    >
+                        {panelLabels[key]}
+                    </button>
+                ))}
             </div>
             <div className='content'>{panels[rightPanel]}</div>
         </div>

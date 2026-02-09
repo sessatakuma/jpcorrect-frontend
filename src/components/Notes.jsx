@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'; // 1. 引入 useEffect 和 useRef
+import React, { useEffect, useRef } from 'react';
 
 import { X } from 'lucide-react';
 import PropTypes from 'prop-types';
@@ -23,11 +23,8 @@ export default function Notes({
     selectedCaption,
 }) {
     const typeMap = { vocab: '単語', grammar: '文法', voice: '發音', advance: '上級' };
-
-    // 2. 建立一個 Ref 用於 textarea
     const textareaRef = useRef(null);
 
-    // 3. 監聽 selectedCaptionIndex，當它變動且不為 -1 時自動聚焦
     useEffect(() => {
         if (selectedCaptionIndex !== -1 && textareaRef.current) {
             textareaRef.current.focus();
@@ -38,7 +35,7 @@ export default function Notes({
         <section className='notes'>
             {selectedCaptionIndex === -1 ? (
                 <div className='placeholder'>
-                    <p>サブタイトルを右クリックすると、対応するメモが開きます。</p>
+                    <p>サブタイトルをクリックすると、対応するメモが開きます。</p>
                 </div>
             ) : (
                 <div className='notes-content'>
@@ -82,7 +79,7 @@ export default function Notes({
                         </div>
                     )}
                     <textarea
-                        ref={textareaRef} // 4. 將 Ref 綁定到 DOM
+                        ref={textareaRef}
                         className='notes-textarea'
                         value={note}
                         onChange={(e) => onNoteChange(e.target.value)}

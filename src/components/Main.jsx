@@ -3,25 +3,22 @@ import React, { useState } from 'react';
 import Display from 'components/Display';
 import Nav from 'components/Nav';
 import RightPanel from 'components/RightPanel';
-import useTranscriptData from 'hook/useTranscriptData';
+import useTranscript from 'hook/useTranscript';
 
 import 'components/Main.css';
 
 export default function Main() {
-    const [rightPanel, setRightPanel] = useState('notes'); // 'notes' or 'ai'
-    const { transcripts, notes, updateNote } = useTranscriptData();
-    const [selectedCaptionIndex, setSelectedCaptionIndex] = useState(-1);
+    const [currentTime, setCurrentTime] = useState(0);
+
+    const { transcripts, notes, updateNote, selectedCaptionIndex, setSelectedCaptionIndex } =
+        useTranscript(currentTime);
+
     const [feedback, setFeedback] = useState(null);
 
     const handleNoteChange = (newNote) => {
         if (selectedCaptionIndex !== -1) {
             updateNote(selectedCaptionIndex, newNote);
         }
-    };
-
-    const handleSetFeedback = (feedback) => {
-        setFeedback(feedback);
-        setRightPanel('notes');
     };
 
     return (
@@ -32,13 +29,13 @@ export default function Main() {
                     transcripts={transcripts}
                     selectedCaptionIndex={selectedCaptionIndex}
                     setSelectedCaptionIndex={setSelectedCaptionIndex}
-                    setFeedback={handleSetFeedback}
+                    setFeedback={setFeedback}
+                    setCurrentTime={setCurrentTime}
                 />
                 <RightPanel
-                    rightPanel={rightPanel}
-                    setRightPanel={setRightPanel}
                     notes={notes}
                     selectedCaptionIndex={selectedCaptionIndex}
+                    setSelectedCaptionIndex={setSelectedCaptionIndex}
                     onNoteChange={handleNoteChange}
                     feedback={feedback}
                     setFeedback={setFeedback}

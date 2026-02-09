@@ -29,14 +29,12 @@ export default function Transcript({
     setSelectedCaptionIndex,
     setFeedback,
 }) {
-    // 移除 containerHeight 相關 useState
     const [currentCaption, setCurrentCaption] = useState(0);
     const [mode, setMode] = useState('discuss');
 
     const containerRef = useRef(null);
     const captionRefs = useRef([]);
 
-    // 修正順序：確保在 useState 之後定義
     const isReviewMode = mode === 'review';
 
     useEffect(() => {
@@ -46,9 +44,6 @@ export default function Transcript({
             setMode(modeParam);
         }
     }, []);
-
-    // 移除原本計算 containerHeight 的 useLayoutEffect，
-    // 因為現在右鍵點擊不再需要左側外觀產生高度變化
 
     useEffect(() => {
         let captionIndex = -1;
@@ -93,12 +88,6 @@ export default function Transcript({
 
     const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
 
-    const handleContextMenu = (e, i) => {
-        e.preventDefault();
-        lockAll();
-        setSelectedCaptionIndex(i);
-    };
-
     const lockAll = () => {
         setSelectedCaptionIndex(-1);
         setFeedback(null);
@@ -108,6 +97,8 @@ export default function Transcript({
         if (index !== selectedCaptionIndex) {
             setTime(transcripts[index].time);
         }
+        lockAll();
+        setSelectedCaptionIndex(index);
     };
 
     const getClasses = (i) => `${i === currentCaption ? 'current' : ''}`;
@@ -122,16 +113,11 @@ export default function Transcript({
             >
                 <div className='captions'>
                     {transcripts.map((caption, i) => (
-                        <div
-                            className='caption-container'
-                            key={i}
-                            // 移除 style={{ '--container-height': ... }}
-                        >
+                        <div className='caption-container' key={i}>
                             <div
                                 className={`caption ${getClasses(i)}`}
                                 ref={(el) => (captionRefs.current[i] = el)}
                                 onClick={() => handleCaptionClick(i)}
-                                onContextMenu={(e) => handleContextMenu(e, i)}
                             >
                                 <img
                                     className='icon'
@@ -147,11 +133,6 @@ export default function Transcript({
                                                     : ''
                                             }
                                             key={j}
-                                            onClick={(e) => {
-                                                if (!textSegment.highlight) return;
-                                                e.stopPropagation();
-                                                setFeedback(textSegment.feedback);
-                                            }}
                                         >
                                             {textSegment.text}
                                         </span>
