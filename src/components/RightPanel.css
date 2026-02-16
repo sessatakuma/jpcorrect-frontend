@@ -23,6 +23,12 @@
     position: relative;
 }
 
+.panel-switcher button:focus-visible {  
+    outline: 2px solid var(--clr-neutral);  
+    outline-offset: 2px;  
+    border-bottom: 3px solid var(--clr-neutral);
+}  
+
 .panel-switcher button:hover {
     background-color: var(--clr-primary-light);
     color: var(--clr-neutral);
