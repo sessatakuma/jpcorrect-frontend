@@ -13,6 +13,8 @@ Display.propTypes = {
     selectedCaptionIndex: PropTypes.number.isRequired,
     setSelectedCaptionIndex: PropTypes.func.isRequired,
     setFeedback: PropTypes.func.isRequired,
+    currentTime: PropTypes.number.isRequired,
+    setCurrentTime: PropTypes.func.isRequired,
 };
 
 export default function Display({
@@ -20,8 +22,10 @@ export default function Display({
     selectedCaptionIndex,
     setSelectedCaptionIndex,
     setFeedback,
+    currentTime,
+    setCurrentTime,
 }) {
-    const [currentTime, setCurrentTime] = useState(0);
+    // const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
 
     const timestamps = [50, 150, 200, 325];

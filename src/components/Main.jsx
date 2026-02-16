@@ -30,6 +30,7 @@ export default function Main() {
                     selectedCaptionIndex={selectedCaptionIndex}
                     setSelectedCaptionIndex={setSelectedCaptionIndex}
                     setFeedback={setFeedback}
+                    currentTime={currentTime}
                     setCurrentTime={setCurrentTime}
                 />
                 <RightPanel

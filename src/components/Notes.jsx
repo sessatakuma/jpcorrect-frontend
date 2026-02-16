@@ -22,7 +22,7 @@ export default function Notes({
     selectedCaptionIndex,
     selectedCaption,
 }) {
-    const typeMap = { vocab: '単語', grammar: '文法', voice: '發音', advance: '上級' };
+    const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
     const textareaRef = useRef(null);
 
     useEffect(() => {

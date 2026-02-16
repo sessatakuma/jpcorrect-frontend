@@ -105,13 +105,8 @@ export default function Transcript({
 
     return (
         <section className='transcript-container'>
-            <section
-                className='transcript'
-                ref={containerRef}
-                onWheel={lockAll}
-                onTouchMove={lockAll}
-            >
-                <div className='captions'>
+            <section className='transcript'>
+                <div className='captions' ref={containerRef}>
                     {transcripts.map((caption, i) => (
                         <div className='caption-container' key={i}>
                             <div
