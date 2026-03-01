@@ -77,7 +77,7 @@
     overflow-wrap: break-word;
 
     & .highlight:hover {
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     & .highlight {

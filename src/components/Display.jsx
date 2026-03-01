@@ -15,6 +15,7 @@ Display.propTypes = {
     setFeedback: PropTypes.func.isRequired,
     currentTime: PropTypes.number.isRequired,
     setCurrentTime: PropTypes.func.isRequired,
+    isReviewMode: PropTypes.bool.isRequired,
 };
 
 export default function Display({
@@ -24,6 +25,7 @@ export default function Display({
     setFeedback,
     currentTime,
     setCurrentTime,
+    isReviewMode,
 }) {
     // const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
@@ -178,6 +180,7 @@ export default function Display({
                 selectedCaptionIndex={selectedCaptionIndex}
                 setSelectedCaptionIndex={setSelectedCaptionIndex}
                 setFeedback={setFeedback}
+                isReviewMode={isReviewMode}
             />
         </section>
     );

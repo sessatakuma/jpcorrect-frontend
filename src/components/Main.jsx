@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Display from 'components/Display';
 import Nav from 'components/Nav';
@@ -10,10 +10,21 @@ import 'components/Main.css';
 export default function Main() {
     const [currentTime, setCurrentTime] = useState(0);
 
+    const [mode, setMode] = useState('discuss');
+    const isReviewMode = mode === 'review';
+
     const { transcripts, notes, updateNote, selectedCaptionIndex, setSelectedCaptionIndex } =
         useTranscript(currentTime);
 
     const [feedback, setFeedback] = useState(null);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeParam = urlParams.get('mode');
+        if (modeParam === 'review' || modeParam === 'discuss') {
+            setMode(modeParam);
+        }
+    }, []);
 
     const handleNoteChange = (newNote) => {
         if (selectedCaptionIndex !== -1) {
@@ -21,9 +32,16 @@ export default function Main() {
         }
     };
 
+    const handleBackgroundClick = (e) => {
+        if (e.target.tagName === 'MAIN' || e.currentTarget === e.target) {
+            setSelectedCaptionIndex(-1);
+            setFeedback(null);
+        }
+    };
+
     return (
-        <>
-            <Nav />
+        <div className='main-wrapper' onClick={handleBackgroundClick}>
+            <Nav isReviewMode={isReviewMode} />
             <main>
                 <Display
                     transcripts={transcripts}
@@ -32,6 +50,7 @@ export default function Main() {
                     setFeedback={setFeedback}
                     currentTime={currentTime}
                     setCurrentTime={setCurrentTime}
+                    isReviewMode={isReviewMode}
                 />
                 <RightPanel
                     notes={notes}
@@ -43,6 +62,6 @@ export default function Main() {
                     transcripts={transcripts}
                 />
             </main>
-        </>
+        </div>
     );
 }

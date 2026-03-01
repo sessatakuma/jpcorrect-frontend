@@ -19,6 +19,7 @@ Transcript.propTypes = {
     selectedCaptionIndex: PropTypes.number.isRequired,
     setSelectedCaptionIndex: PropTypes.func.isRequired,
     setFeedback: PropTypes.func.isRequired,
+    isReviewMode: PropTypes.bool.isRequired,
 };
 
 export default function Transcript({
@@ -28,22 +29,12 @@ export default function Transcript({
     selectedCaptionIndex,
     setSelectedCaptionIndex,
     setFeedback,
+    isReviewMode,
 }) {
     const [currentCaption, setCurrentCaption] = useState(0);
-    const [mode, setMode] = useState('discuss');
 
     const containerRef = useRef(null);
     const captionRefs = useRef([]);
-
-    const isReviewMode = mode === 'review';
-
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const modeParam = urlParams.get('mode');
-        if (modeParam === 'review' || modeParam === 'discuss') {
-            setMode(modeParam);
-        }
-    }, []);
 
     useEffect(() => {
         let captionIndex = -1;
@@ -61,9 +52,7 @@ export default function Transcript({
 
         setCurrentCaption(captionIndex);
 
-        if (selectedCaptionIndex === -1) {
-            scrollToCaption(captionIndex);
-        }
+        scrollToCaption(captionIndex);
     }, [currentTime]);
 
     useEffect(() => {
