@@ -15,13 +15,13 @@ Tech stack: React + TypeScript + Vite + Bun.
 ```bash
 git clone https://github.com/sessatakuma/jpcorrect-frontend.git
 cd jpcorrect-frontend
-bun install
+bun i
 ```
 
 ### Run
 
 ```bash
-bun run dev
+bun dev
 ```
 
 ### Build
