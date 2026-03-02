@@ -145,9 +145,11 @@ export default function Display({
                         >
                             <div
                                 className='progress-indicator'
-                                style={{
-                                    '--progress': `${(currentTime / duration) * 100}%`,
-                                } as CSSProperties}
+                                style={
+                                    {
+                                        '--progress': `${(currentTime / duration) * 100}%`,
+                                    } as CSSProperties
+                                }
                             ></div>
                         </div>
                         {timestamps.map((time, i) => (

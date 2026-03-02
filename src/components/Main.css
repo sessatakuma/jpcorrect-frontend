@@ -12,6 +12,6 @@ main {
     display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    
+
     background: var(--clr-primary-dark);
 }

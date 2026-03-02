@@ -23,8 +23,8 @@
     all: unset;
     box-sizing: border-box;
     width: 100%;
-    border-radius: .75rem;
-    padding: .75rem 1rem;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
     background: var(--clr-primary);
     resize: none;
     flex-grow: 1;

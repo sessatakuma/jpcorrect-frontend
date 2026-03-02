@@ -72,8 +72,8 @@
 .hint .input {
     all: unset;
     width: 100%;
-    border-radius: .75rem;
-    padding: .5rem .75rem;
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
 
     &::placeholder {
         color: var(--clr-neutral);
@@ -97,7 +97,7 @@
     }
 
     & .icon {
-        translate: -.075rem .075rem;
-        fill: var(--clr-neutral)
+        translate: -0.075rem 0.075rem;
+        fill: var(--clr-neutral);
     }
 }
