@@ -3,22 +3,12 @@
     --input-height: 4.5rem;
     width: 100%;
     height: 100%;
-    background: var(--clr-primary);
-    border-radius: 1rem;
+    background: transparent;
     color: var(--clr-neutral);
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto;
     overflow: hidden;
     min-height: 0;
-}
-
-.hint .header {
-    height: 3.25rem;
-    display: grid;
-    place-items: center;
-    background-color: var(--clr-primary);
-    border-bottom: 1px solid var(--clr-primary-dark);
-    border-radius: 1rem 1rem 0 0;
 }
 
 .hint .response {
@@ -26,7 +16,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0rem;
+    gap: 1rem;
     min-height: 0;
 
     &::-webkit-scrollbar {
@@ -52,25 +42,26 @@
     border-radius: 0.8rem;
     line-height: 1.2rem;
     word-break: break-word;
+    position: relative;
 }
 
 .hint .bubble.ai {
     align-self: flex-start;
-    background: var(--clr-primary-light);
-    border-top-left-radius: 0.3rem;
+    background: var(--clr-primary);
+    border-top-left-radius: 0.2rem;
 }
 
 .hint .bubble.user {
     align-self: flex-end;
-    background: var(--clr-primary-light);
-    border-top-right-radius: 0.3rem;
+    background: var(--clr-primary);
+    border-top-right-radius: 0.2rem;
 }
 
 .hint .input-area {
     margin: 0 1rem 1rem 1rem;
     height: var(--input-height, 5rem);
     padding: 1rem;
-    background: var(--clr-primary-light);
+    background: var(--clr-primary);
     border-radius: 1rem;
     display: grid;
     grid-template-columns: 1fr auto;

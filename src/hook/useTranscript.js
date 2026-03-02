@@ -1,27 +1,32 @@
+import { useState, useEffect, useMemo } from 'react';
+
 const data = require('data/transcript.json');
 
-export default function getCaptionData() {
+function processTranscriptData() {
     if (!data) {
-        return [];
+        return {
+            date: null,
+            practice_type: null,
+            transcripts: [],
+            notes: [],
+        };
     }
 
     const date = data.date.replace(/[^0-9]/g, '/') || null;
     const practice_type = data.practice_type || null;
 
-    const transcripts = data.transcripts.map((transcript) => {
-        // Gather feedbacks for this transcript that have highlight_part
+    const notes = data.transcripts.map(() => '');
+
+    const transcripts = data.transcripts.map((transcript, index) => {
         const feedbacks = (transcript.feedback_ids || []).map((id) => data.feedbacks[id]);
-        // Prepare highlights: find all highlight_part substrings and their indices
         let highlights = [];
+
         feedbacks.forEach((fb) => {
             if (fb && fb.highlight_part) {
                 const part = fb.highlight_part;
                 let fromIndex = 0;
-                // To avoid overlapping highlights, only mark the first occurrence of each highlight_part
-                // If multiple feedbacks highlight the same part, allow all (but mark their feedbackId)
                 let idx = transcript.text.indexOf(part, fromIndex);
                 while (idx !== -1) {
-                    // Check if this range already overlaps any previous highlight
                     const overlap = highlights.some(
                         (h) => idx < h.end && idx + part.length > h.start,
                     );
@@ -31,17 +36,16 @@ export default function getCaptionData() {
                             end: idx + part.length,
                             feedbackId: fb.id,
                         });
-                        break; // Only highlight first occurrence for this feedback
+                        break;
                     }
                     fromIndex = idx + 1;
                     idx = transcript.text.indexOf(part, fromIndex);
                 }
             }
         });
-        // Sort highlights by start index
+
         highlights.sort((a, b) => a.start - b.start);
 
-        // Build segments
         let segments = [];
         let lastIdx = 0;
         for (let i = 0; i < highlights.length; ++i) {
@@ -53,7 +57,6 @@ export default function getCaptionData() {
                     feedback: null,
                 });
             }
-            // Find the feedback matching this highlight
             const matchingFeedback = feedbacks.find((fb) => fb.id === h.feedbackId);
             segments.push({
                 text: transcript.text.slice(h.start, h.end),
@@ -71,15 +74,59 @@ export default function getCaptionData() {
         }
 
         return {
+            id: index,
             time: transcript.start,
             textSegments: segments,
             speaker_id: transcript.speaker_id,
         };
     });
-    //
+
+    return { date, practice_type, transcripts, notes };
+}
+
+/**
+ * @param {number} currentTime
+ */
+export default function useTranscript(currentTime) {
+    const initialData = useMemo(() => processTranscriptData(), []);
+
+    const [transcriptData, setTranscriptData] = useState(initialData);
+    const [selectedCaptionIndex, setSelectedCaptionIndex] = useState(-1);
+    const [currentCaptionIndex, setCurrentCaptionIndex] = useState(0);
+
+    useEffect(() => {
+        let index = -1;
+        const list = transcriptData.transcripts;
+
+        for (let i = 0; i < list.length; i++) {
+            if (currentTime >= list[i].time) {
+                index = i;
+            } else {
+                break;
+            }
+        }
+
+        if (index !== -1 && index !== currentCaptionIndex) {
+            setCurrentCaptionIndex(index);
+        }
+    }, [currentTime, transcriptData.transcripts, currentCaptionIndex]);
+
+    const updateNote = (index, newText) => {
+        setTranscriptData((prevData) => {
+            const newNotes = [...prevData.notes];
+            newNotes[index] = newText;
+            return {
+                ...prevData,
+                notes: newNotes,
+            };
+        });
+    };
+
     return {
-        date, 
-        practice_type, 
-        transcripts
+        ...transcriptData,
+        currentCaptionIndex,
+        selectedCaptionIndex,
+        setSelectedCaptionIndex,
+        updateNote,
     };
 }

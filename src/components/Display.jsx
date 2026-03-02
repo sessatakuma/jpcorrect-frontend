@@ -1,14 +1,36 @@
 import React, { useRef, useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 
-import 'components/Display.css';
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
+import PropTypes from 'prop-types';
+
+import 'components/Display.css';
 
 import Transcript from './Transcript';
 
-export default function Display() {
-    const [currentTime, setCurrentTime] = useState(0);
+Display.propTypes = {
+    transcripts: PropTypes.array.isRequired,
+    selectedCaptionIndex: PropTypes.number.isRequired,
+    setSelectedCaptionIndex: PropTypes.func.isRequired,
+    setFeedback: PropTypes.func.isRequired,
+    currentTime: PropTypes.number.isRequired,
+    setCurrentTime: PropTypes.func.isRequired,
+    isReviewMode: PropTypes.bool.isRequired,
+};
+
+export default function Display({
+    transcripts,
+    selectedCaptionIndex,
+    setSelectedCaptionIndex,
+    setFeedback,
+    currentTime,
+    setCurrentTime,
+    isReviewMode,
+}) {
+    // const [currentTime, setCurrentTime] = useState(0);
     const playerRef = useRef(null);
+
+    const timestamps = [50, 150, 200, 325];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -25,8 +47,6 @@ export default function Display() {
             autoplay: 0,
         },
     };
-
-    const timestamps = [50, 150, 200, 325];
 
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -134,7 +154,7 @@ export default function Display() {
                             <div
                                 className='dot'
                                 key={i}
-                                style={{ left: (time / duration) * 100 + '%' }}
+                                style={{ left: `${(time / duration) * 100}%` }}
                                 onClick={() => setTime(time)}
                             />
                         ))}
@@ -153,7 +173,15 @@ export default function Display() {
                     </button>
                 </div>
             </div>
-            <Transcript playerRef={playerRef} currentTime={currentTime} />
+            <Transcript
+                playerRef={playerRef}
+                currentTime={currentTime}
+                transcripts={transcripts}
+                selectedCaptionIndex={selectedCaptionIndex}
+                setSelectedCaptionIndex={setSelectedCaptionIndex}
+                setFeedback={setFeedback}
+                isReviewMode={isReviewMode}
+            />
         </section>
     );
 }
