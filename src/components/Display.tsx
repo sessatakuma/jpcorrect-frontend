@@ -2,21 +2,31 @@ import React, { useRef, useEffect, useState, type CSSProperties } from 'react';
 import YouTube from 'react-youtube';
 
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
-import PropTypes from 'prop-types';
 
 import 'components/Display.css';
 
 import Transcript from './Transcript';
 
-Display.propTypes = {
-    transcripts: PropTypes.array.isRequired,
-    selectedCaptionIndex: PropTypes.number.isRequired,
-    setSelectedCaptionIndex: PropTypes.func.isRequired,
-    setFeedback: PropTypes.func.isRequired,
-    currentTime: PropTypes.number.isRequired,
-    setCurrentTime: PropTypes.func.isRequired,
-    isReviewMode: PropTypes.bool.isRequired,
-};
+import type { Feedback, TranscriptItem } from 'src/types/transcript';
+
+interface PlayerApi {
+    getCurrentTime: () => number;
+    getDuration: () => number;
+    getPlayerState: () => number;
+    pauseVideo: () => void;
+    playVideo: () => void;
+    seekTo: (time: number, allowSeekAhead: boolean) => void;
+}
+
+interface DisplayProps {
+    transcripts: TranscriptItem[];
+    selectedCaptionIndex: number;
+    setSelectedCaptionIndex: React.Dispatch<React.SetStateAction<number>>;
+    setFeedback: React.Dispatch<React.SetStateAction<Feedback | null>>;
+    currentTime: number;
+    setCurrentTime: React.Dispatch<React.SetStateAction<number>>;
+    isReviewMode: boolean;
+}
 
 export default function Display({
     transcripts,
@@ -26,9 +36,9 @@ export default function Display({
     currentTime,
     setCurrentTime,
     isReviewMode,
-}) {
+}: DisplayProps) {
     // const [currentTime, setCurrentTime] = useState(0);
-    const playerRef = useRef(null);
+    const playerRef = useRef<PlayerApi | null>(null);
 
     const timestamps = [50, 150, 200, 325];
 
@@ -51,9 +61,9 @@ export default function Display({
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const progressRef = useRef(null);
+    const progressRef = useRef<HTMLDivElement | null>(null);
 
-    const onReady = (e) => {
+    const onReady = (e: { target: PlayerApi }) => {
         playerRef.current = e.target;
         setDuration(playerRef.current.getDuration());
     };
@@ -71,7 +81,7 @@ export default function Display({
         }
     };
 
-    const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
+    const setTime = (time: number) => playerRef.current && playerRef.current.seekTo(time, true);
 
     const goPrevious = () => {
         if (!playerRef.current) return;
@@ -91,7 +101,7 @@ export default function Display({
         setTime(nextTime !== undefined ? nextTime : duration);
     };
 
-    const changeTime = (e) => {
+    const changeTime = (e: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
         if (!playerRef.current) return;
 
         const progressContainer = progressRef.current;

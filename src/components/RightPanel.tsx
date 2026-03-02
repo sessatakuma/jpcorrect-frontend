@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import Hint from 'components/Hint';
 import Notes from 'components/Notes';
-import PropTypes from 'prop-types';
+
+import type { Feedback, TranscriptItem } from 'src/types/transcript';
+
 import 'components/RightPanel.css';
 
-RightPanel.propTypes = {
-    notes: PropTypes.array.isRequired,
-    selectedCaptionIndex: PropTypes.number.isRequired,
-    setSelectedCaptionIndex: PropTypes.func.isRequired,
-    onNoteChange: PropTypes.func.isRequired,
-    feedback: PropTypes.object,
-    setFeedback: PropTypes.func.isRequired,
-    transcripts: PropTypes.array.isRequired,
-};
+interface RightPanelProps {
+    notes: string[];
+    selectedCaptionIndex: number;
+    onNoteChange: (newNote: string) => void;
+    feedback: Feedback | null;
+    setFeedback: React.Dispatch<React.SetStateAction<Feedback | null>>;
+    transcripts: TranscriptItem[];
+}
 
 export default function RightPanel({
     notes,
@@ -22,7 +23,7 @@ export default function RightPanel({
     feedback,
     setFeedback,
     transcripts,
-}) {
+}: RightPanelProps) {
     const [rightPanel, setRightPanel] = useState('notes');
 
     useEffect(() => {

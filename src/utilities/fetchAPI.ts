@@ -1,4 +1,8 @@
-export async function fetchFurigana(text) {
+interface ParseResponse {
+    result: string;
+}
+
+export async function fetchFurigana(text: string): Promise<string> {
     const res = await fetch('/api/parse', {
         method: 'POST',
         headers: {
@@ -11,6 +15,6 @@ export async function fetchFurigana(text) {
         throw new Error('API request failed');
     }
 
-    const json = await res.json();
+    const json = (await res.json()) as ParseResponse;
     return json.result;
 }

@@ -2,8 +2,30 @@ import { useState, useEffect, useMemo } from 'react';
 
 import data from 'data/transcript.json';
 
-function processTranscriptData() {
-    if (!data) {
+import type { Feedback, TranscriptData, TranscriptItem, TextSegment } from 'src/types/transcript';
+
+interface RawTranscript {
+    start: number;
+    text: string;
+    speaker_id: string;
+    feedback_ids?: number[];
+}
+
+interface RawTranscriptData {
+    date: string;
+    practice_type: string;
+    transcripts: RawTranscript[];
+    feedbacks: Feedback[];
+}
+
+interface HighlightMatch {
+    start: number;
+    end: number;
+    feedbackId: number;
+}
+
+function processTranscriptData(rawData: RawTranscriptData): TranscriptData {
+    if (!rawData) {
         return {
             date: null,
             practice_type: null,
@@ -12,14 +34,14 @@ function processTranscriptData() {
         };
     }
 
-    const date = data.date.replace(/[^0-9]/g, '/') || null;
-    const practice_type = data.practice_type || null;
+    const date = rawData.date.replace(/[^0-9]/g, '/') || null;
+    const practice_type = rawData.practice_type || null;
 
-    const notes = data.transcripts.map(() => '');
+    const notes = rawData.transcripts.map(() => '');
 
-    const transcripts = data.transcripts.map((transcript, index) => {
-        const feedbacks = (transcript.feedback_ids || []).map((id) => data.feedbacks[id]);
-        let highlights = [];
+    const transcripts: TranscriptItem[] = rawData.transcripts.map((transcript, index) => {
+        const feedbacks = (transcript.feedback_ids || []).map((id) => rawData.feedbacks[id]);
+        const highlights: HighlightMatch[] = [];
 
         feedbacks.forEach((fb) => {
             if (fb && fb.highlight_part) {
@@ -46,7 +68,7 @@ function processTranscriptData() {
 
         highlights.sort((a, b) => a.start - b.start);
 
-        let segments = [];
+        const segments: TextSegment[] = [];
         let lastIdx = 0;
         for (let i = 0; i < highlights.length; ++i) {
             const h = highlights[i];
@@ -57,7 +79,7 @@ function processTranscriptData() {
                     feedback: null,
                 });
             }
-            const matchingFeedback = feedbacks.find((fb) => fb.id === h.feedbackId);
+            const matchingFeedback = feedbacks.find((fb) => fb?.id === h.feedbackId);
             segments.push({
                 text: transcript.text.slice(h.start, h.end),
                 highlight: true,
@@ -84,11 +106,8 @@ function processTranscriptData() {
     return { date, practice_type, transcripts, notes };
 }
 
-/**
- * @param {number} currentTime
- */
-export default function useTranscript(currentTime) {
-    const initialData = useMemo(() => processTranscriptData(), []);
+export default function useTranscript(currentTime: number) {
+    const initialData = useMemo(() => processTranscriptData(data as RawTranscriptData), []);
 
     const [transcriptData, setTranscriptData] = useState(initialData);
     const [selectedCaptionIndex, setSelectedCaptionIndex] = useState(-1);
@@ -111,7 +130,7 @@ export default function useTranscript(currentTime) {
         }
     }, [currentTime, transcriptData.transcripts, currentCaptionIndex]);
 
-    const updateNote = (index, newText) => {
+    const updateNote = (index: number, newText: string) => {
         setTranscriptData((prevData) => {
             const newNotes = [...prevData.notes];
             newNotes[index] = newText;

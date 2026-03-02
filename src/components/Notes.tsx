@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
 import { X } from 'lucide-react';
-import PropTypes from 'prop-types';
+
+import type { Feedback, FeedbackType, TranscriptItem } from 'src/types/transcript';
 
 import 'components/Notes.css';
 
-Notes.propTypes = {
-    note: PropTypes.string.isRequired,
-    onNoteChange: PropTypes.func.isRequired,
-    feedback: PropTypes.object,
-    setFeedback: PropTypes.func.isRequired,
-    selectedCaptionIndex: PropTypes.number.isRequired,
-    selectedCaption: PropTypes.object,
-};
+interface NotesProps {
+    note: string;
+    onNoteChange: (note: string) => void;
+    feedback: Feedback | null;
+    setFeedback: React.Dispatch<React.SetStateAction<Feedback | null>>;
+    selectedCaptionIndex: number;
+    selectedCaption: TranscriptItem | null;
+}
 
 export default function Notes({
     note,
@@ -21,9 +22,14 @@ export default function Notes({
     setFeedback,
     selectedCaptionIndex,
     selectedCaption,
-}) {
-    const typeMap = { vocab: '単語', grammar: '文法', voice: '発音', advance: '上級' };
-    const textareaRef = useRef(null);
+}: NotesProps) {
+    const typeMap: Record<FeedbackType, string> = {
+        vocab: '単語',
+        grammar: '文法',
+        voice: '発音',
+        advance: '上級',
+    };
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
         if (selectedCaptionIndex !== -1 && textareaRef.current) {
@@ -45,7 +51,7 @@ export default function Notes({
                                 {selectedCaption.textSegments.map((textSegment, j) => (
                                     <span
                                         className={
-                                            textSegment.highlight
+                                            textSegment.highlight && textSegment.feedback
                                                 ? 'highlight ' + textSegment.feedback.type
                                                 : ''
                                         }
