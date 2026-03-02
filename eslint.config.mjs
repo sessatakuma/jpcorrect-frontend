@@ -3,6 +3,7 @@ import { defineConfig } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
 import pluginReact from 'eslint-plugin-react';
 import sortKeys from 'eslint-plugin-sort-keys';
+import tseslint from 'typescript-eslint';
 import globals from 'globals';
 
 export default defineConfig([
@@ -20,7 +21,28 @@ export default defineConfig([
         },
     },
     {
-        files: ['**/*.{js,jsx,mjs,cjs}'],
+        files: ['**/*.{ts,tsx}'],
+        languageOptions: {
+            parser: tseslint.parser,
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            },
+        },
+        plugins: {
+            '@typescript-eslint': tseslint.plugin,
+        },
+        rules: {
+            ...tseslint.configs.recommended.rules,
+        },
+    },
+    {
+        files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
         plugins: { import: importPlugin },
         rules: {
             'import/no-duplicates': ['error', { considerQueryString: true }],
