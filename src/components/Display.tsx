@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, type CSSProperties } from 'react';
 import YouTube from 'react-youtube';
 
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 import PropTypes from 'prop-types';
-import type { CSSProperties } from 'react';
 
 import 'components/Display.css';
 

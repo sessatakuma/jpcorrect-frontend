@@ -3,8 +3,8 @@ import { defineConfig } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
 import pluginReact from 'eslint-plugin-react';
 import sortKeys from 'eslint-plugin-sort-keys';
-import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
     {
@@ -52,7 +52,7 @@ export default defineConfig([
             'import/order': [
                 'error',
                 {
-                    groups: [
+                    'groups': [
                         'builtin',
                         'external',
                         'internal',
@@ -62,7 +62,7 @@ export default defineConfig([
                         'object',
                         'type',
                     ],
-                    pathGroups: [
+                    'pathGroups': [
                         {
                             pattern: 'react{,-*}',
                             group: 'external',
@@ -79,8 +79,8 @@ export default defineConfig([
                             position: 'after',
                         },
                     ],
-                    pathGroupsExcludedImportTypes: ['react'],
-                    alphabetize: { order: 'asc', caseInsensitive: true },
+                    'pathGroupsExcludedImportTypes': ['react'],
+                    'alphabetize': { order: 'asc', caseInsensitive: true },
                     'newlines-between': 'always',
                 },
             ],
