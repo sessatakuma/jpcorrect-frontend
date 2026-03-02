@@ -7,6 +7,9 @@ import tseslint from 'typescript-eslint';
 import globals from 'globals';
 
 export default defineConfig([
+    {
+        ignores: ['dist/**'],
+    },
     pluginReact.configs.flat.recommended,
     {
         files: ['**/*.{js,mjs,cjs,jsx}'],
