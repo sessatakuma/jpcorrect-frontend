@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from 'components/Main.jsx';
+import Main from 'components/Main';
 import { createRoot } from 'react-dom/client';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 const container = document.getElementById('root');
-const root = createRoot(container);
-
-root.render(<Main />);
+if (container) {
+	const root = createRoot(container);
+	root.render(<Main />);
+}

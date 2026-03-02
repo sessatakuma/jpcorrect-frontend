@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const data = require('data/transcript.json');
+import data from 'data/transcript.json';
 
 function processTranscriptData() {
     if (!data) {

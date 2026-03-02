@@ -100,7 +100,9 @@ export default function Transcript({
                         <div className='caption-container' key={i}>
                             <div
                                 className={`caption ${getClasses(i)}`}
-                                ref={(el) => (captionRefs.current[i] = el)}
+                                ref={(el) => {
+                                    captionRefs.current[i] = el;
+                                }}
                                 onClick={() => handleCaptionClick(i)}
                             >
                                 <img

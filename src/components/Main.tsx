@@ -55,7 +55,6 @@ export default function Main() {
                 <RightPanel
                     notes={notes}
                     selectedCaptionIndex={selectedCaptionIndex}
-                    setSelectedCaptionIndex={setSelectedCaptionIndex}
                     onNoteChange={handleNoteChange}
                     feedback={feedback}
                     setFeedback={setFeedback}

@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 
 import { SkipBack, SkipForward, Play, Pause } from 'lucide-react';
 import PropTypes from 'prop-types';
+import type { CSSProperties } from 'react';
 
 import 'components/Display.css';
 
@@ -61,7 +62,7 @@ export default function Display({
     const handlePlayPause = () => {
         if (playerRef.current) {
             const state = playerRef.current.getPlayerState();
-            if (state === window.YT.PlayerState.PLAYING) {
+            if (state === (window as any).YT.PlayerState.PLAYING) {
                 playerRef.current.pauseVideo();
                 setIsPlaying(false);
             } else {
@@ -147,7 +148,7 @@ export default function Display({
                                 className='progress-indicator'
                                 style={{
                                     '--progress': `${(currentTime / duration) * 100}%`,
-                                }}
+                                } as CSSProperties}
                             ></div>
                         </div>
                         {timestamps.map((time, i) => (

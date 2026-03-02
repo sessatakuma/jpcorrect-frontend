@@ -45,7 +45,7 @@ export default function Hint() {
             >
                 <input className='input' ref={inputRef} placeholder='メッセージを入力...'></input>
                 <button className='send' onClick={sendMessage}>
-                    <Send className='icon' size={20} fill />
+                    <Send className='icon' size={20} fill='currentColor' />
                 </button>
             </form>
         </section>
