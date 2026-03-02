@@ -12,6 +12,13 @@ export default defineConfig([
     },
     pluginReact.configs.flat.recommended,
     {
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
+    },
+    {
         files: ['**/*.{js,mjs,cjs,jsx}'],
         plugins: { js },
         extends: ['js/recommended'],
