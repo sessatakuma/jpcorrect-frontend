@@ -1,18 +1,30 @@
 # jpcorrect-frontend
 This repository contains the front-end for the jpcorrect system, a Japanese language correction platform.
 
+Tech stack: React + TypeScript + Vite + Bun.
+
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v16+ recommended)
+- Bun (v1.2+ recommended)
 
 ### Installation
 ```bash
 git clone https://github.com/sessatakuma/jpcorrect-frontend.git
 cd jpcorrect-frontend
-npm install
+bun install
 ```
 ### Run
 ```bash
-npm run dev
+bun run dev
+```
+
+### Build
+```bash
+bun run build
+```
+
+### Type Check
+```bash
+bun run typecheck
 ```
