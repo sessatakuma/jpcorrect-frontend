@@ -1,7 +1,7 @@
 .display {
     width: 100%;
     height: 100%;
-    color: var(--clr-neutral);  
+    color: var(--clr-neutral);
     border-radius: 1rem;
     display: grid;
     grid-template-rows: 2fr 1fr;
@@ -25,7 +25,6 @@
     }
 }
 
-
 .video .timeline {
     position: relative;
     padding: 1rem;
@@ -35,11 +34,11 @@
 
 .timeline .time-left,
 .timeline .time-right {
-    font-size: .875rem;
+    font-size: 0.875rem;
     width: 6ch;
     color: var(--clr-neutral);
     text-align: center;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
 }
 
 .timeline .progress-container {
@@ -56,7 +55,7 @@
     cursor: pointer;
 }
 
-.progress-container .progress-indicator{
+.progress-container .progress-indicator {
     background-color: var(--clr-accent);
     width: var(--progress);
     height: 100%;
@@ -67,7 +66,7 @@
 .progress:hover .progress-indicator::after {
     content: '';
     background-color: var(--clr-accent);
-    width: .5rem;
+    width: 0.5rem;
     aspect-ratio: 1 / 1;
     top: 50%;
     border-radius: 50%;
@@ -79,7 +78,7 @@
 .progress-container .dot {
     position: absolute;
     top: 50%;
-    width: .75rem;
+    width: 0.75rem;
     aspect-ratio: 1 / 1;
     background: var(--clr-accent);
     border-radius: 50%;
@@ -107,7 +106,7 @@
         & .icon {
             color: var(--clr-neutral);
             fill: var(--clr-neutral);
-        }    
+        }
     }
     background: transparent;
     width: 2rem;
@@ -116,11 +115,11 @@
     display: grid;
     place-items: center;
     font-size: 1.2rem;
-    transition: .1s;
+    transition: 0.1s;
     & .icon {
         color: var(--clr-accent);
         fill: var(--clr-accent);
-    }    
+    }
     &:hover {
         scale: 1.1;
     }

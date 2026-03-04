@@ -4,9 +4,20 @@ import importPlugin from 'eslint-plugin-import';
 import pluginReact from 'eslint-plugin-react';
 import sortKeys from 'eslint-plugin-sort-keys';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
+    {
+        ignores: ['dist/**'],
+    },
     pluginReact.configs.flat.recommended,
+    {
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
+    },
     {
         files: ['**/*.{js,mjs,cjs,jsx}'],
         plugins: { js },
@@ -15,19 +26,39 @@ export default defineConfig([
             globals: {
                 ...globals.browser,
                 ...globals.node,
-                webpack: 'readonly',
             },
         },
     },
     {
-        files: ['**/*.{js,jsx,mjs,cjs}'],
+        files: ['**/*.{ts,tsx}'],
+        languageOptions: {
+            parser: tseslint.parser,
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            },
+        },
+        plugins: {
+            '@typescript-eslint': tseslint.plugin,
+        },
+        rules: {
+            ...tseslint.configs.recommended.rules,
+        },
+    },
+    {
+        files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
         plugins: { import: importPlugin },
         rules: {
             'import/no-duplicates': ['error', { considerQueryString: true }],
             'import/order': [
                 'error',
                 {
-                    groups: [
+                    'groups': [
                         'builtin',
                         'external',
                         'internal',
@@ -37,7 +68,7 @@ export default defineConfig([
                         'object',
                         'type',
                     ],
-                    pathGroups: [
+                    'pathGroups': [
                         {
                             pattern: 'react{,-*}',
                             group: 'external',
@@ -54,8 +85,8 @@ export default defineConfig([
                             position: 'after',
                         },
                     ],
-                    pathGroupsExcludedImportTypes: ['react'],
-                    alphabetize: { order: 'asc', caseInsensitive: true },
+                    'pathGroupsExcludedImportTypes': ['react'],
+                    'alphabetize': { order: 'asc', caseInsensitive: true },
                     'newlines-between': 'always',
                 },
             ],

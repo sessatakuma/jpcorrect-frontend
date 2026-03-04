@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import PropTypes from 'prop-types';
+import type { Feedback, TranscriptItem } from 'src/types/transcript';
+
 import './Transcript.css';
 
 const speakerIcons = {
@@ -12,15 +13,19 @@ const speakerIcons = {
     default: 'images/icon.png',
 };
 
-Transcript.propTypes = {
-    playerRef: PropTypes.shape({ current: PropTypes.any }).isRequired,
-    currentTime: PropTypes.number.isRequired,
-    transcripts: PropTypes.array.isRequired,
-    selectedCaptionIndex: PropTypes.number.isRequired,
-    setSelectedCaptionIndex: PropTypes.func.isRequired,
-    setFeedback: PropTypes.func.isRequired,
-    isReviewMode: PropTypes.bool.isRequired,
-};
+interface PlayerApi {
+    seekTo: (time: number, allowSeekAhead: boolean) => void;
+}
+
+interface TranscriptProps {
+    playerRef: React.MutableRefObject<PlayerApi | null>;
+    currentTime: number;
+    transcripts: TranscriptItem[];
+    selectedCaptionIndex: number;
+    setSelectedCaptionIndex: React.Dispatch<React.SetStateAction<number>>;
+    setFeedback: React.Dispatch<React.SetStateAction<Feedback | null>>;
+    isReviewMode: boolean;
+}
 
 export default function Transcript({
     playerRef,
@@ -30,11 +35,11 @@ export default function Transcript({
     setSelectedCaptionIndex,
     setFeedback,
     isReviewMode,
-}) {
+}: TranscriptProps) {
     const [currentCaption, setCurrentCaption] = useState(0);
 
-    const containerRef = useRef(null);
-    const captionRefs = useRef([]);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const captionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
     useEffect(() => {
         let captionIndex = -1;
@@ -61,7 +66,7 @@ export default function Transcript({
         }
     }, [selectedCaptionIndex]);
 
-    const scrollToCaption = (i) => {
+    const scrollToCaption = (i: number) => {
         if (!containerRef.current || !captionRefs.current[i]) {
             console.warn('caption not found');
         } else {
@@ -75,14 +80,14 @@ export default function Transcript({
         }
     };
 
-    const setTime = (time) => playerRef.current && playerRef.current.seekTo(time, true);
+    const setTime = (time: number) => playerRef.current && playerRef.current.seekTo(time, true);
 
     const lockAll = () => {
         setSelectedCaptionIndex(-1);
         setFeedback(null);
     };
 
-    const handleCaptionClick = (index) => {
+    const handleCaptionClick = (index: number) => {
         if (index !== selectedCaptionIndex) {
             setTime(transcripts[index].time);
         }
@@ -90,7 +95,7 @@ export default function Transcript({
         setSelectedCaptionIndex(index);
     };
 
-    const getClasses = (i) => `${i === currentCaption ? 'current' : ''}`;
+    const getClasses = (i: number) => `${i === currentCaption ? 'current' : ''}`;
 
     return (
         <section className='transcript-container'>
@@ -100,7 +105,9 @@ export default function Transcript({
                         <div className='caption-container' key={i}>
                             <div
                                 className={`caption ${getClasses(i)}`}
-                                ref={(el) => (captionRefs.current[i] = el)}
+                                ref={(el) => {
+                                    captionRefs.current[i] = el;
+                                }}
                                 onClick={() => handleCaptionClick(i)}
                             >
                                 <img
@@ -112,7 +119,7 @@ export default function Transcript({
                                     {caption.textSegments.map((textSegment, j) => (
                                         <span
                                             className={
-                                                isReviewMode && textSegment.highlight
+                                                isReviewMode && textSegment.highlight && textSegment.feedback
                                                     ? 'highlight ' + textSegment.feedback.type
                                                     : ''
                                             }

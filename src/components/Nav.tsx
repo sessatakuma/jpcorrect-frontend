@@ -1,9 +1,12 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import 'components/Nav.css';
 
-export default function Nav({ isReviewMode }) {
+interface NavProps {
+    isReviewMode?: boolean;
+}
+
+export default function Nav({ isReviewMode = false }: NavProps) {
     return (
         <header className='nav'>
             <a className='nav-title' href='#main'>
@@ -17,11 +20,3 @@ export default function Nav({ isReviewMode }) {
         </header>
     );
 }
-
-Nav.propTypes = {
-    isReviewMode: PropTypes.bool.isRequired,
-};
-
-Nav.defaultProps = {
-    isReviewMode: false,
-};

@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, type MouseEvent } from 'react';
 
 import Display from 'components/Display';
 import Nav from 'components/Nav';
 import RightPanel from 'components/RightPanel';
 import useTranscript from 'hook/useTranscript';
 
+import type { Feedback } from 'src/types/transcript';
+
 import 'components/Main.css';
 
 export default function Main() {
     const [currentTime, setCurrentTime] = useState(0);
 
-    const [mode, setMode] = useState('discuss');
+    const [mode, setMode] = useState<'discuss' | 'review'>('discuss');
     const isReviewMode = mode === 'review';
 
     const { transcripts, notes, updateNote, selectedCaptionIndex, setSelectedCaptionIndex } =
         useTranscript(currentTime);
 
-    const [feedback, setFeedback] = useState(null);
+    const [feedback, setFeedback] = useState<Feedback | null>(null);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -26,14 +28,15 @@ export default function Main() {
         }
     }, []);
 
-    const handleNoteChange = (newNote) => {
+    const handleNoteChange = (newNote: string) => {
         if (selectedCaptionIndex !== -1) {
             updateNote(selectedCaptionIndex, newNote);
         }
     };
 
-    const handleBackgroundClick = (e) => {
-        if (e.target.tagName === 'MAIN' || e.currentTarget === e.target) {
+    const handleBackgroundClick = (e: MouseEvent<HTMLDivElement>) => {
+        const targetElement = e.target as HTMLElement;
+        if (targetElement.tagName === 'MAIN' || e.currentTarget === e.target) {
             setSelectedCaptionIndex(-1);
             setFeedback(null);
         }
@@ -55,7 +58,6 @@ export default function Main() {
                 <RightPanel
                     notes={notes}
                     selectedCaptionIndex={selectedCaptionIndex}
-                    setSelectedCaptionIndex={setSelectedCaptionIndex}
                     onNoteChange={handleNoteChange}
                     feedback={feedback}
                     setFeedback={setFeedback}
